@@ -1,6 +1,6 @@
-import type { Metadata } from "@reown/appkit/react";
-import { chains, transports } from "./chains";
-import { domain_url, project_id } from "./constants";
+import type { Metadata } from '@reown/appkit/react'
+import { chains, transports } from './chains'
+import { domain_url, project_id } from './constants'
 import { createAppKit } from '@reown/appkit/react'
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 
@@ -12,24 +12,24 @@ const metadata: Metadata = {
 }
 
 export const adapter = new WagmiAdapter({
-    networks: chains,
-    transports,
-    projectId: 'concero',
+	networks: chains,
+	transports,
+	projectId: 'concero',
 })
 
 createAppKit({
-    adapters: [adapter],
-    networks: chains,
-    metadata,
-    projectId: project_id,
-    enableWalletGuide: true,
-    features: {
-      send: false,
-      socials: false,
-      analytics: true,
-      email: false,
-      onramp: false,
-      swaps: false,
-      legalCheckbox: true
-    },
+	adapters: [adapter],
+	networks: chains,
+	metadata,
+	projectId: project_id,
+	enableWalletGuide: true,
+	features: {
+		send: false,
+		socials: false,
+		analytics: true,
+		email: false,
+		onramp: false,
+		swaps: false,
+		legalCheckbox: true,
+	},
 })

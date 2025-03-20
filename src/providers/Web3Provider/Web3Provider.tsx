@@ -6,10 +6,8 @@ import { adapter } from '@/configuration/wagmi'
 
 export const Web3Provider: FC<PropsWithChildren<{}>> = ({ children }) => {
 	return (
-        <WagmiProvider config={adapter.wagmiConfig} reconnectOnMount={false}>
-            <QueryClientProvider client={QueryConfiguration}>
-                {children}
-            </QueryClientProvider>
-        </WagmiProvider>
+		<WagmiProvider config={adapter.wagmiConfig} reconnectOnMount={false}>
+			<QueryClientProvider client={QueryConfiguration}>{children}</QueryClientProvider>
+		</WagmiProvider>
 	)
 }
