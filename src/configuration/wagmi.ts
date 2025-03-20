@@ -14,7 +14,7 @@ const metadata: Metadata = {
 export const adapter = new WagmiAdapter({
 	networks: chains,
 	transports,
-	projectId: 'concero',
+	projectId: project_id,
 })
 
 createAppKit({

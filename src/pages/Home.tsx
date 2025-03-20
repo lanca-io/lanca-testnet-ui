@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 
-export const Swap: FC = (): JSX.Element => {
+export const Home: FC = (): JSX.Element => {
 	return (
 		<main className="main">
 
