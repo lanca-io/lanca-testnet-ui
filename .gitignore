@@ -1,3 +1,51 @@
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+pnpm-lock.yaml
+
+# testing
+/coverage
+
+# production
+/build
+/dist
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+### macOS.gitignore
+# General
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
 # Logs
 logs
 *.log
@@ -13,12 +61,19 @@ dist-ssr
 *.local
 
 # Editor directories and files
+.idea
+.idea/*
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+.stylelintcache
+.env
+.vercel
+storybook-static
+*storybook.log
+stories_examples

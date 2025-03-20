@@ -5,13 +5,17 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
-	{ ignores: ['dist'] },
+	{ ignores: ['dist', 'node_modules', 'public', '.storybook', 'storybook-static'] },
 	{
+		ignores: ['stories_examples'],
 		extends: [js.configs.recommended, ...tseslint.configs.recommended],
-		files: ['**/*.{ts,tsx}'],
+		files: ['src/**/*.{ts,tsx}'],
 		languageOptions: {
 			ecmaVersion: 2020,
 			globals: globals.browser,
+			parserOptions: {
+				project: ['./tsconfig.node.json', './tsconfig.app.json'],
+			},
 		},
 		plugins: {
 			'react-hooks': reactHooks,
@@ -20,6 +24,14 @@ export default tseslint.config(
 		rules: {
 			...reactHooks.configs.recommended.rules,
 			'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+			'@typescript-eslint/ban-ts-comment': 'off',
+			'@typescript-eslint/no-unnecessary-type-constraint': 'off',
+			'@typescript-eslint/no-deprecated': 'error',
+			'no-debugger': 'warn',
+			'no-unreachable': 'warn',
+			'no-duplicate-imports': 'warn',
+			'no-empty': 'warn',
+			'@typescript-eslint/no-unused-vars': 'off',
 		},
 	},
 )

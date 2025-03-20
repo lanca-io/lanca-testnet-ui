@@ -1,24 +1,32 @@
 {
-  "compilerOptions": {
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "target": "ES2022",
-    "lib": ["ES2023"],
-    "module": "ESNext",
-    "skipLibCheck": true,
-
-    /* Bundler mode */
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
-
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
-  },
-  "include": ["vite.config.ts"]
+	"compilerOptions": {
+		"target": "ES2020",
+		"useDefineForClassFields": true,
+		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"types": ["vite/client", "node"],
+		"paths": {
+			"@/*": ["./src/*"]
+		},
+		// "composite": true,
+		"skipLibCheck": true,
+		"checkJs": false,
+		"module": "ESNext",
+		"allowSyntheticDefaultImports": true,
+		// bundler
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"isolatedModules": true,
+		"moduleDetection": "force",
+		"noEmit": true,
+		"jsx": "react-jsx"
+	},
+	"include": [
+		"vite.config.ts",
+		"./.storybook/*",
+		"**/*.stories.tsx",
+		"src/storybook/decorators/**/*",
+		"*/*.test.ts",
+		"*/*.test.tsx"
+	],
+	"exclude": ["node_modules/*", "dist"]
 }
