@@ -19,18 +19,17 @@ ol[role='list'] {
 }
 
 body {
-	min-height: 100vh;
 	padding: 0;
 	margin: 0;
+	height: calc(100vh - var(--header-height) - var(--footer-height));
 }
 
 main {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	height: calc(100vh - var(--header-height));
-	background: linear-gradient(180deg, var(--color-gray-25) 0%, var(--color-gray-50) 70.12%);
 	overflow: hidden;
+	flex-grow: 1;
 }
 
 h1,
@@ -44,6 +43,7 @@ h1,
 h2,
 h3,
 h4,
+h5,
 p {
 	margin: 0;
 }

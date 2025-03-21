@@ -1,7 +1,6 @@
 import type { FC } from 'react'
 import { Button } from '@concero/ui-kit'
 import { useMemo } from 'react'
-import { useIsMobile, useIsTablet } from '@/hooks/useMediaQuery'
 import './Hero.pcss'
 
 
@@ -19,24 +18,10 @@ const Subheading: FC = (): JSX.Element => {
 	)
 }
 
-const HeroIllustrations: FC = (): JSX.Element | null => {
-	const isMobile = useIsMobile();
-  
-	if (isMobile) return null;
-  
-	return (
-	  <>
-		<img src="/Hero/Illustration-One.svg" alt="Illustration" className="illustration-one" />
-		<img src="/Hero/Illustration-Two.svg" alt="Illustration" className="illustration-two" />
-	  </>
-	);
-  };
-
 
 export const Hero: FC = () => {
 	const heading = useMemo(() => <Heading />, [])
 	const subheading = useMemo(() => <Subheading />, [])
-	const illustrations = useMemo(() => <HeroIllustrations />, [])
 
 	return (
 		<div className="hero">
@@ -47,7 +32,6 @@ export const Hero: FC = () => {
 			<Button size="l" variant="primary" className="action-button">
 				Connect wallet
 			</Button>
-			{illustrations}
 		</div>
 	)
 }

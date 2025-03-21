@@ -1,9 +1,9 @@
-import { Hero } from '@/components/hero/Hero'
 import type { FC } from 'react'
+import { Hero } from '@/components/hero/Hero'
 
 export const Home: FC = (): JSX.Element => {
 	return (
-		<main className="main">
+		<main>
 			<Hero />
 		</main>
 	)
