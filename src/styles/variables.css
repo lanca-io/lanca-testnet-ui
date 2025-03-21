@@ -1,4 +1,5 @@
 :root {
+	--font-family-primary: 'DM_Sans', sans-serif;
 	--header-height: 48px;
 
 	--space-1: 4px; /* space-0.25 */

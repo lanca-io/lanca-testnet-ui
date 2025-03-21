@@ -1,7 +1,7 @@
 import '@concero/ui-kit/styles/concero/index.css'
 import './styles/App.css'
 import { AppProviders } from './providers/AppProviders'
-import { BrowserRouter, Routes, Route } from 'react-router-dom' 
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Home } from './pages/Home'
 import { Swap } from './pages/Swap'
 import { routes } from './configuration/routes'

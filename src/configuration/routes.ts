@@ -1,4 +1,4 @@
 export const routes = {
-    home: '/',
-    swap: '/swap',
+	home: '/',
+	swap: '/swap',
 }
