@@ -20,14 +20,9 @@ const Subheading: FC = (): JSX.Element => {
 }
 
 const HeroIllustrations: FC = (): JSX.Element | null => {
-	const isTablet = useIsTablet();
 	const isMobile = useIsMobile();
   
 	if (isMobile) return null;
-  
-	if (isTablet) {
-	  return <img src="/Hero/Illustration-Three.svg" alt="Illustration" className="illustration-three" />;
-	}
   
 	return (
 	  <>
@@ -36,6 +31,7 @@ const HeroIllustrations: FC = (): JSX.Element | null => {
 	  </>
 	);
   };
+
 
 export const Hero: FC = () => {
 	const heading = useMemo(() => <Heading />, [])
