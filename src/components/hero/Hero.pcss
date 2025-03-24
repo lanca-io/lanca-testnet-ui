@@ -1,7 +1,7 @@
 .hero {
 	display: flex;
 	max-width: 702px;
-	margin: 100px auto;
+	margin: 90px auto;
 	flex-direction: column;
 	align-items: center;
 	gap: var(--space-3);
@@ -12,9 +12,11 @@
 	flex-direction: column;
 	align-items: center;
 	gap: var(--space-2);
+	align-self: stretch;
 }
 
 .heading {
+	text-align: center;
 	font-size: 3rem;
 	font-weight: 500;
 	font-style: normal;
@@ -31,7 +33,7 @@
 	font-style: normal;
 	line-height: 1.25rem;
 	text-align: center;
-	max-width: 600px;
+	max-width: 498px;
 }
 
 .hero-action {
@@ -46,12 +48,28 @@
 	justify-content: center;
 }
 
-@media (max-width: 744px) and (min-width: 376px) {
+.illustration-one {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+.illustration-two {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+@media only screen and (max-width: 768px) {
 	.hero {
 		max-width: 680px;
-		margin: 25% auto;
+		margin: 172px auto;
+	}
+
+	.subheading {
+		width: 448px;
 	}
 }
 
-@media (max-width: 375px) {
+@media only screen and (max-width: 576px) {
 }

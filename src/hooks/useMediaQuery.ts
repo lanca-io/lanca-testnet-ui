@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 
 export const breakpoints = {
-	mobile: '(max-width: 375px)',
-	tablet: '(max-width: 744px) and (min-width: 376px)',
-	desktop: '(min-width: 745px)',
+	mobile: '(max-width: 576px)',
+	tablet: '(max-width: 768px) and (min-width: 577px)',
+	desktop: '(min-width: 769px)',
 }
 
 type BreakpointKey = keyof typeof breakpoints

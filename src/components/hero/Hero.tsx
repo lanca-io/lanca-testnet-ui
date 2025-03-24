@@ -3,7 +3,6 @@ import { Button } from '@concero/ui-kit'
 import { useMemo } from 'react'
 import './Hero.pcss'
 
-
 const Heading: FC = (): JSX.Element => {
 	return <h1 className="heading">Welcome to Concero Testnet</h1>
 }
@@ -17,7 +16,6 @@ const Subheading: FC = (): JSX.Element => {
 		</p>
 	)
 }
-
 
 export const Hero: FC = () => {
 	const heading = useMemo(() => <Heading />, [])

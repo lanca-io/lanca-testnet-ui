@@ -10,6 +10,7 @@
 	flex-direction: column;
 	align-items: center;
 	gap: var(--space-3);
+	min-width: 137px;
 }
 
 .footer-item__heading {
@@ -24,4 +25,65 @@
 	display: flex;
 	align-items: center;
 	gap: var(--space-2);
+}
+
+.x-icon-button:hover,
+.medium-icon-button:hover {
+	background-color: var(--color-gray-600) !important;
+}
+
+.x-icon-button:active,
+.medium-icon-button:active {
+	background-color: var(--color-gray-700) !important;
+}
+
+.x-icon-button:hover .social-icon path,
+.x-icon-button:active .social-icon path,
+.medium-icon-button:hover .social-icon path,
+.medium-icon-button:active .social-icon path,
+.discord-icon-button:hover .social-icon path,
+.discord-icon-button:active .social-icon path {
+	fill: var(--color-gray-25);
+}
+
+.discord-icon-button:hover {
+	background-color: var(--color-discord) !important;
+}
+
+.discord-icon-button:active {
+	background-color: var(--color-discord-dark) !important;
+}
+
+.youtube-icon-button:hover {
+	background-color: var(--color-gray-100) !important;
+}
+
+.youtube-icon-button:active {
+	background-color: var(--color-gray-200) !important;
+}
+
+.youtube-icon-button:hover .social-icon path {
+	fill: var(--color-danger-600);
+}
+
+.youtube-icon-button:active .social-icon path {
+	fill: var(--color-danger-700);
+}
+
+@media only screen and (max-width: 576px) {
+	.swap-footer {
+		flex-direction: column;
+		align-items: center;
+		gap: var(--space-6);
+	}
+
+	.swap-footer .footer-item {
+		width: 100%;
+		max-width: 280px;
+		min-width: unset;
+	}
+
+	.swap-footer .footer-item__actions {
+		justify-content: center;
+	}
 }

@@ -1,5 +1,10 @@
 import type { FC } from 'react'
+import { Swap } from '@/components/swap/Swap'
 
-export const Swap: FC = (): JSX.Element => {
-	return <main></main>
+export const SwapPage: FC = (): JSX.Element => {
+	return (
+		<main>
+			<Swap />
+		</main>
+	)
 }
