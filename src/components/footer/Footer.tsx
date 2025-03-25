@@ -59,7 +59,7 @@ export const Footer: FC = () => {
 				icons: [icons.x, icons.discord, icons.medium],
 			},
 			connect: {
-				heading: 'Connect',
+				heading: 'Socials',
 				icons: [icons.x, icons.discord, icons.medium],
 			},
 			howToUse: {
