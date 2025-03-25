@@ -1,0 +1,15 @@
+import type { UseBoundStoreWithEqualityFn } from 'zustand/traditional'
+import type { StoreApi } from 'zustand/vanilla'
+
+export type Chain = {
+	id: string
+	name: string
+	logoURL: string
+	explorerURL: string
+}
+
+export type ChainsState = {
+	chains: Record<string, Chain>
+}
+
+export type ChainsStore = UseBoundStoreWithEqualityFn<StoreApi<ChainsState>>

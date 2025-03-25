@@ -1,0 +1,26 @@
+.card-switcher {
+	position: absolute;
+	top: 34.5%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+	max-width: 360px;
+	z-index: 2;
+}
+
+.card-switcher__separator {
+	width: 200px;
+	height: 1px;
+	background-color: var(--color-gray-100);
+}
+
+.card-switcher__button {
+	background-color: var(--color-gray-100);
+	padding: var(--sp-sm);
+	box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+	pointer-events: auto;
+}

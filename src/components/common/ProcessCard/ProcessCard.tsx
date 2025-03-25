@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { useTxExecutionStore } from '@/hooks/useTxExecutionStore'
+import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 import { ProcessHeading } from './ProcessHeading/ProcessHeading'
 import { TxProgress } from '../TxProgress/TxProgress'
 import './ProcessCard.pcss'
@@ -11,7 +11,7 @@ export const ProcessCard: FC = (): JSX.Element => {
 	return (
 		<div className="process-card">
 			<ProcessHeading txStatus={txStatus} activeStep={activeStep} />
-            <ProcessContent/>
+			<ProcessContent />
 			<TxProgress approvalStatus={approval} bridgeStatus={bridge} />
 		</div>
 	)

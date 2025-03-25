@@ -1,9 +1,9 @@
 import type { FC } from 'react'
 import { NotWhitelisted } from '../common/NotWhitelisted/NotWhitelisted'
 import { GetTokens } from '../common/GetTokens/GetTokens'
-import { ProcessCard } from '../common/ProcessCard/ProcessCard'
 
 import './Swap.pcss'
+import { SwapWidget } from '../common/SwapWidget/SwapWidget'
 
 export const Swap: FC = () => {
 	const isWhitelisted = true
@@ -11,7 +11,7 @@ export const Swap: FC = () => {
 
 	return (
 		<div className="swap">
-			<ProcessCard />
+			<SwapWidget />
 			{!isWhitelisted && <NotWhitelisted />}
 			{!hasTokens && <GetTokens />}
 		</div>

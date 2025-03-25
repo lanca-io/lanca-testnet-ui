@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { TxExecutionContext } from '../stores/tx-execution/TxExecutionContext'
+import { TxExecutionContext } from './TxExecutionContext'
 
 export const useTxExecutionStore = () => {
 	const useStore = useContext(TxExecutionContext)
