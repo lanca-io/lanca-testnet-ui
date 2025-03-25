@@ -14,9 +14,6 @@ export enum StepStatus {
 	Rejected = 'rejected',
 }
 
-
-
-
 export enum TxStatus {
 	Idle = 'idle',
 	Loading = 'loading',
