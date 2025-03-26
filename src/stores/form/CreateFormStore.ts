@@ -8,7 +8,9 @@ const defaultSourceChain: Chain = {
     name: 'Sepolia',
     logoURL: '/Chains/11155111.svg',
     explorerURL: 'https://sepolia.etherscan.io',
-    isCCIP: true
+    isCCIP: true,
+    nativeToken: 'ETH',
+    decimals: 18,
 }
 
 const defaultDestinationChain: Chain = {
@@ -16,7 +18,9 @@ const defaultDestinationChain: Chain = {
     name: 'OP Sepolia',
     logoURL: '/Chains/11155420.svg',
     explorerURL: 'https://sepolia-optimism.etherscan.io',
-    isCCIP: true
+    isCCIP: true,
+    nativeToken: 'ETH',
+    decimals: 18,
 }
 
 const initialState: FormState = {

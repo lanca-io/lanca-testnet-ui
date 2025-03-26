@@ -2,6 +2,7 @@ import type { FC } from "react";
 import type { Chain } from "@/stores/chains/types";
 import { SkeletonLoader } from "../../SkeletonLoader/SkeletonLoader";
 import { Badge } from "../../Badge/Badge";
+import { Tag } from "@concero/ui-kit";
 import { format } from "@/utils/format";
 import "./ChainItem.pcss";
 
@@ -19,6 +20,7 @@ export const ChainItem: FC<ChainProps> = ({ chain, balance, onSelectChain, isLoa
                 <Badge logoURL={chain.logoURL} size="l"/>
                 <div className="chain-details">
                     <p className="chain-name">{chain.name}</p>
+                    {chain.isCCIP && <Tag variant="neutral" size="s">CCIP</Tag>}
                 </div>
             </div>
             <div className="chain-balance">

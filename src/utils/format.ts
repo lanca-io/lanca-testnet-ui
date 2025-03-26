@@ -32,3 +32,13 @@ export function format(value: number, decimalPlaces: number = 2, symbol?: string
 
 	return value < 0 ? `-${formattedValue}` : formattedValue
 }
+
+/**
+ * Truncates a text to a specified length and adds an ellipsis if it exceeds that length.
+ * @param text - The text to truncate.
+ * @param maxLength - The maximum length of the text before truncation.
+ * @returns The truncated text with an ellipsis if it exceeds the specified length.
+ */
+export const truncateText = (text: string, maxLength: number): string => {
+    return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
+};

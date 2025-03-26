@@ -2,37 +2,63 @@ import { FC, useMemo } from 'react'
 import { IconButton } from '@concero/ui-kit'
 import { GasIcon } from '@/assets/icons/gas'
 import { AddIcon } from '@/assets/icons/add'
+import { useBalancesStore } from '@/stores/balances/useBalancesStore'
+import { useFormStore } from '@/stores/form/useFormStore'
+import { useAccount } from 'wagmi'
+import { formatTokenAmount } from '@/utils/tokens'
+import { SkeletonLoader } from '../SkeletonLoader/SkeletonLoader'
+import { format } from '@/utils/format'
 import './GasWidget.pcss'
 
 const COLORS = {
-	PURPLE: 'var(--color-accent-600)',
-	GRAY: 'var(--color-gray-600)',
+    PURPLE: 'var(--color-accent-600)',
+    GRAY: 'var(--color-gray-600)',
 }
 
 export const GasWidget: FC = () => {
-	const gas = 100
+    const { isConnected } = useAccount()
+    const { sourceChain }  = useFormStore()
+    const { nativeBalances, isLoading } = useBalancesStore()
 
-	const uiProps = useMemo<{
-		gasColor: string
-		addColor: string
-		buttonVariant: 'secondary' | 'secondary_color'
-	}>(() => {
-		const hasGas = gas > 0
+    const rawAmount = useMemo(() => {
+        if (!sourceChain || !nativeBalances[Number(sourceChain.id)]) {
+            return '0'
+        }
+        return nativeBalances[Number(sourceChain.id)].balance
+    }, [sourceChain, nativeBalances])
 
-		return {
-			gasColor: hasGas ? COLORS.PURPLE : COLORS.GRAY,
-			addColor: hasGas ? COLORS.GRAY : COLORS.PURPLE,
-			buttonVariant: hasGas ? 'secondary' : ('secondary_color' as const),
-		}
-	}, [gas])
+    const gas = useMemo(() => formatTokenAmount(rawAmount, sourceChain?.decimals || 18), [rawAmount, sourceChain?.decimals])
 
-	return (
-		<div className="gas-widget">
-			<GasIcon color={uiProps.gasColor} />
-			<h5 className="gas-value">{gas}</h5>
-			<IconButton size="s" onClick={() => {}} variant={uiProps.buttonVariant}>
-				<AddIcon color={uiProps.addColor} />
-			</IconButton>
-		</div>
-	)
+    const uiProps = useMemo<{
+        gasColor: string
+        addColor: string
+        buttonVariant: 'secondary' | 'secondary_color'
+    }>(() => {
+        const hasGas = !isLoading && Number(gas) > 0
+
+        return {
+            gasColor: hasGas || isLoading ? COLORS.PURPLE : COLORS.GRAY,
+            addColor: hasGas || isLoading  ? COLORS.GRAY : COLORS.PURPLE,
+            buttonVariant: hasGas ? 'secondary' : ('secondary_color' as const),
+        }
+    }, [gas, isLoading])
+
+    if (!isConnected) {
+        return null
+    }
+
+    return (
+        <div className="gas-widget">
+            <GasIcon color={uiProps.gasColor} />
+			{isLoading ? (
+				<SkeletonLoader width={28} height={22} />
+			) : (
+				<h5 className="gas-value">{format(Number(gas), 2)}</h5>
+			)}
+
+            <IconButton size="s" onClick={() => {}} variant={uiProps.buttonVariant}>
+                <AddIcon color={uiProps.addColor} />
+            </IconButton>
+        </div>
+    )
 }

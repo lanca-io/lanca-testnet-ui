@@ -1,4 +1,4 @@
-export const tokenAddresses: Record<string, string> = {
+export const TokenAddresses: Record<string, string> = {
     "11155111": '0xAebaE199236FDaDF2987DC9ae9a9563dd90Da58a',
     "421614": '0x2cEAF3Dc8F19FE2addb5461258a2F6bf3Ab35A28',
     "84532": '0x8f71b09A17e870b256E95aF13c6751384e8Cec30',

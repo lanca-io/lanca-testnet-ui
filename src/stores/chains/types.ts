@@ -7,6 +7,8 @@ export type Chain = {
 	logoURL: string
 	explorerURL: string
 	isCCIP: boolean
+	nativeToken: string
+	decimals: number
 }
 
 export type ChainsState = {

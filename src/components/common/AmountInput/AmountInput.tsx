@@ -8,7 +8,6 @@ export const AmountInput: FC = () => {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value
-        // Allow only numbers and a single dot, and prevent dot before a number
         if (/^\d*\.?\d*$/.test(newValue) && !/^\.|.*\..*\./.test(newValue)) {
             setFromAmount(newValue)
         }
