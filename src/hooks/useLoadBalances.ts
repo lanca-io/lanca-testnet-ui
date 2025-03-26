@@ -1,0 +1,79 @@
+import { useEffect, useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useBalancesStore } from "@/stores/balances/useBalancesStore";
+import { useAccount } from "wagmi";
+import { useChainsStore } from "@/stores/chains/useChainsStore";
+import { Address, erc20Abi } from "viem";
+import { getPublicClient } from "@/utils/client";
+import { tokenAddresses } from "@/configuration/addresses";
+
+interface Balance {
+    balance: string;
+}
+
+export const useLoadBalances = () => {
+    const { address } = useAccount();
+    const { chains } = useChainsStore();
+    const { setBalances, setLoading } = useBalancesStore();
+
+    const handleFetchBalances = useCallback(async () => {
+        if (!address) return [];
+
+        const chainArray = Object.values(chains);
+
+        const balances = await Promise.all(
+            chainArray.map(async (chain) => {
+                const client = getPublicClient(Number(chain.id));
+                const tokenAddress = tokenAddresses[Number(chain.id)];
+                if (!tokenAddress) {
+                    console.warn(`No token address found for chain ${chain.id}`);
+                    return {
+                        chainId: Number(chain.id),
+                        balance: "0",
+                    };
+                }
+                try {
+                    const balance = await client.readContract({
+                        address: tokenAddress as Address,
+                        abi: erc20Abi,
+                        functionName: "balanceOf",
+                        args: [address],
+                    });
+                    return {
+                        chainId: Number(chain.id),
+                        balance: balance.toString(),
+                    };
+                } catch (error) {
+                    console.error(`Error fetching balance for chain ${chain.id}:`, error);
+                    return {
+                        chainId: Number(chain.id),
+                        balance: "0",
+                    };
+                }
+            })
+        );
+
+        return balances;
+    }, [address, chains]);
+
+    const { data: balances, isLoading } = useQuery({
+        queryKey: ["balances", address],
+        queryFn: handleFetchBalances,
+        enabled: !!address,
+        refetchInterval: 300_000, // 5 minutes
+    });
+
+    useEffect(() => {
+        setLoading(isLoading);
+    }, [isLoading, setLoading]);
+
+    useEffect(() => {
+        if (balances) {
+            const balancesRecord = balances.reduce((acc, { chainId, balance }) => {
+                acc[chainId] = { balance };
+                return acc;
+            }, {} as Record<number, Balance>);
+            setBalances(balancesRecord);
+        }
+    }, [balances, setBalances]);
+};

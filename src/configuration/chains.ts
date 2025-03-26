@@ -32,6 +32,44 @@ import {
 	bscTestnet,
 } from '@reown/appkit/networks'
 
+const shibuya = defineChain({
+	id: 81,
+	name: 'Shibuya',
+	nativeCurrency: {
+		decimals: 18,
+		name: 'Shibuya',
+		symbol: 'SBY',
+	},
+	rpcUrls: {
+		default: {
+			http: ['https://evm.shibuya.astar.network'],
+		},
+	},
+	blockExplorers: {
+		default: { name: 'Subscan', url: 'https://shibuya.subscan.io' },
+	},
+	testnet: true,
+})
+
+const coreTestnet = defineChain({
+	id: 1114,
+	name: 'Core Blockchain TestNet',
+	nativeCurrency: {
+		decimals: 18,
+		name: 'CORE',
+		symbol: 'tCORE2',
+	},
+	rpcUrls: {
+		default: {
+			http: ['https://rpc.test2.btcs.network'],
+		},
+	},
+	blockExplorers: {
+		default: { name: 'Core Scan', url: 'https://scan.test2.btcs.network' },
+	},
+	testnet: true,
+})
+
 export const chains: [AppKitNetwork, ...AppKitNetwork[]] = [
 	sepolia,
 	curtis,
@@ -61,45 +99,9 @@ export const chains: [AppKitNetwork, ...AppKitNetwork[]] = [
 	xLayerTestnet,
 	zircuitTestnet,
 	sonicBlazeTestnet,
+	shibuya,
+	coreTestnet
 ]
-
-export const shibuya = defineChain({
-	id: 81,
-	name: 'Shibuya',
-	nativeCurrency: {
-		decimals: 18,
-		name: 'Shibuya',
-		symbol: 'SBY',
-	},
-	rpcUrls: {
-		default: {
-			http: ['https://evm.shibuya.astar.network'],
-		},
-	},
-	blockExplorers: {
-		default: { name: 'Subscan', url: 'https://shibuya.subscan.io' },
-	},
-	testnet: true,
-})
-
-export const coreTestnet = defineChain({
-	id: 1114,
-	name: 'Core Blockchain TestNet',
-	nativeCurrency: {
-		decimals: 18,
-		name: 'CORE',
-		symbol: 'tCORE2',
-	},
-	rpcUrls: {
-		default: {
-			http: ['https://rpc.test2.btcs.network'],
-		},
-	},
-	blockExplorers: {
-		default: { name: 'Core Scan', url: 'https://scan.test2.btcs.network' },
-	},
-	testnet: true,
-})
 
 export const transports = {
 	[sepolia.id]: fallback([
@@ -221,3 +223,5 @@ export const transports = {
 	[shibuya.id]: fallback([http()]),
 	[coreTestnet.id]: fallback([http()]),
 }
+
+

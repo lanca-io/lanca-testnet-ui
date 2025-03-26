@@ -1,7 +1,6 @@
 import type { ChainsState, ChainsStore } from './types'
 import { createWithEqualityFn } from 'zustand/traditional'
 import { chains } from '@/configuration/chains'
-import { shibuya, coreTestnet } from '@/configuration/chains'
 
 const chainLogos: Record<number, string> = {
 	81: '/Chains/81.svg',
@@ -40,9 +39,7 @@ const initialState: ChainsState = {
 	chains: {},
 }
 
-const allChains = [...chains, shibuya, coreTestnet]
-
-allChains.forEach(chain => {
+chains.forEach(chain => {
 	const chainId = chain.id
 	const explorerURL = chain.blockExplorers?.default?.url || ''
 
