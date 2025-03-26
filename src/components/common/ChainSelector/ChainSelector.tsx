@@ -7,8 +7,8 @@ import './ChainSelector.pcss'
 const TokenDisplay: FC = (): JSX.Element => {
 	return (
 		<div className="chain-selector__token">
-			<Badge logoURL="/Token/tLNC.svg" size="m" />
-			<p className="chain-selector__token-name">tLNC</p>
+			<Badge logoURL="/Token/tCERO.svg" size="m" />
+			<p className="chain-selector__token-name">tCERO</p>
 		</div>
 	)
 }

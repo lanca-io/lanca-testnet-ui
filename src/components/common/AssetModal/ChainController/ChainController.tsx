@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { Button } from "@concero/ui-kit";
 import { useGetChains } from "@/hooks/useGetChains";
-import { ActiveTab } from "../AssetModal";
+import { ActiveTab } from "../types";
 import "./ChainController.pcss";
 
 type ChainControllerProps = {

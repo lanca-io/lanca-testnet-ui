@@ -5,10 +5,10 @@ import { useFormStore } from "@/stores/form/useFormStore";
 import "./CardSwitcher.pcss"
 
 export const CardSwitcher: FC = (): JSX.Element => {
-    const { swapChains } = useFormStore()
+    const { swapTokensAndChains } = useFormStore()
     return (
         <div className="card-switcher">
-                <IconButton size="s" variant="secondary" className="card-switcher__button" onClick={swapChains}>
+                <IconButton size="s" variant="secondary" className="card-switcher__button" onClick={swapTokensAndChains}>
                     <SwapIcon/>
                 </IconButton>
         </div>
