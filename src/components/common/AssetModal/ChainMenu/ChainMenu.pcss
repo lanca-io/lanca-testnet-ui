@@ -1,0 +1,22 @@
+.scroll-content {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+	gap: var(--space-4);
+	overflow-y: auto;
+	position: relative;
+	::-webkit-scrollbar {
+		display: none;
+	}
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.chain-menu {
+	display: flex;
+	flex-direction: column;
+	align-item: flex-start;
+	gap: var(--space-2);
+	align-self: stretch;
+}

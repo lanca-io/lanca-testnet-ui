@@ -60,7 +60,7 @@ export const useLoadBalances = () => {
         queryKey: ["balances", address],
         queryFn: handleFetchBalances,
         enabled: !!address,
-        refetchInterval: 300_000, // 5 minutes
+        refetchInterval: 300_000,
     });
 
     useEffect(() => {

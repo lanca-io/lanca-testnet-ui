@@ -6,6 +6,7 @@ export type Chain = {
 	name: string
 	logoURL: string
 	explorerURL: string
+	isCCIP: boolean
 }
 
 export type ChainsState = {
