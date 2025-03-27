@@ -13,6 +13,7 @@ export const chainLogos: Record<number, string> = {
     2021: '/Chains/2021.svg',
     3636: '/Chains/3636.svg',
     5003: '/Chains/5003.svg',
+    6342: '/Chains/6342.svg',
     10143: '/Chains/10143.svg',
     10200: '/Chains/10200.svg',
     33111: '/Chains/33111.svg',
