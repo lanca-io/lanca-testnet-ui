@@ -8,11 +8,12 @@ import { AmountInput } from '../../AmountInput/AmountInput'
 import { AssetModal } from '../../AssetModal/AssetModal'
 import { TokenAddresses } from '@/configuration/addresses'
 import { BalanceDisplay } from '../../BalanceDisplay/BalanceDisplay'
+import { ErrorDisplay } from '../../ErrorDisplay/ErrorDisplay'
 import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 import './SourceCard.pcss'
 
 export const SourceCard: FC = (): JSX.Element => {
-    const { sourceChain, setSourceChain, setFromTokenAddress, setFromAmount } = useFormStore()
+    const { sourceChain, setSourceChain, setFromTokenAddress, error } = useFormStore()
     const { balances, isLoading } = useBalancesStore()
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
@@ -43,11 +44,15 @@ export const SourceCard: FC = (): JSX.Element => {
             <div className="source-card">
                 <ChainSelector chain={sourceChain} openModal={openModal} />
                 <AmountInput />
-                <BalanceDisplay 
-                    balance={token.balance} 
-                    isLoading={isLoading} 
-                    showMax 
-                />
+                {error ? (
+                    <ErrorDisplay error={error} />
+                ) : (
+                    <BalanceDisplay 
+                        balance={token.balance} 
+                        isLoading={isLoading} 
+                        showMax 
+                    />
+                )}
                 <AssetModal
                     isOpen={isModalOpen}
                     title="Select Chain"

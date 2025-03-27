@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useFormStore } from "@/stores/form/useFormStore";
 import { getPublicClient } from "@/utils/client";
 import { formatEther } from "viem";
-import { format } from "@/utils/format";
 
 const ESTIMATED_GAS_COST = 510_000n;
 
@@ -11,8 +10,7 @@ const fetchGasEstimate = async (sourceChainId: number) => {
     const client = getPublicClient(sourceChainId);
     const price = await client.getGasPrice();
     const cost = BigInt(price) * ESTIMATED_GAS_COST;
-    const formattedCost = formatEther(cost);
-    return format(Number(formattedCost), 4);
+    return cost;
 };
 
 export const useEstimateGas = () => {
@@ -32,11 +30,13 @@ export const useEstimateGas = () => {
         refetchInterval: 60000,
     });
 
+    const formattedGas = typeof gas === 'bigint' ? formatEther(gas) : '0';
+
     useEffect(() => {
         if (sourceChain) {
             refetch();
         }
     }, [sourceChain, refetch]);
 
-    return { gas, isLoading };
+    return { gas, formattedGas, isLoading };
 };

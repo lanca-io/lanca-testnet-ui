@@ -4,9 +4,12 @@ import { SkeletonLoader } from '../SkeletonLoader/SkeletonLoader'
 import './AmountDisplay.pcss'
 
 export const AmountDisplay: FC = () => {
-    const { fromAmount, isLoading } = useFormStore()
+    const { fromAmount, isLoading, error } = useFormStore()
 
     const calculateToAmount = (amount: string): string => {
+        if (error) {
+            return '0'
+        }
         const fees = 0.01
         const toAmount = (parseFloat(amount) - fees).toFixed(2)
         return isNaN(parseFloat(toAmount)) || parseFloat(toAmount) < 0 ? '0' : toAmount

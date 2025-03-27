@@ -1,7 +1,7 @@
-import type { FormState, FormStore, FormActions } from './types'
-import type { Chain } from '../chains/types'
-import type { Address } from 'viem'
-import { createWithEqualityFn } from 'zustand/traditional'
+import type { FormState, FormStore, FormActions } from './types';
+import type { Chain } from '../chains/types';
+import type { Address } from 'viem';
+import { createWithEqualityFn } from 'zustand/traditional';
 
 const defaultSourceChain: Chain = {
     id: '11155111',
@@ -11,7 +11,7 @@ const defaultSourceChain: Chain = {
     isCCIP: true,
     nativeToken: 'ETH',
     decimals: 18,
-}
+};
 
 const defaultDestinationChain: Chain = {
     id: '11155420',
@@ -21,7 +21,7 @@ const defaultDestinationChain: Chain = {
     isCCIP: true,
     nativeToken: 'ETH',
     decimals: 18,
-}
+};
 
 const initialState: FormState = {
     sourceChain: defaultSourceChain,
@@ -30,7 +30,8 @@ const initialState: FormState = {
     fromTokenAddress: '0xAebaE199236FDaDF2987DC9ae9a9563dd90Da58a',
     toTokenAddress: '0xB33742cb308bB1663Dbe8dD73F80612D1dfC1365',
     isLoading: false,
-}
+    error: null,
+};
 
 export const CreateFormStore = (): FormStore => {
     return createWithEqualityFn<FormState & FormActions>(
@@ -39,27 +40,30 @@ export const CreateFormStore = (): FormStore => {
             setSourceChain: (chain: Chain) => set({ sourceChain: chain }),
             setDestinationChain: (chain: Chain) => set({ destinationChain: chain }),
             setFromAmount: (amount: string) => {
-                set({ fromAmount: amount })
+                set({ fromAmount: amount });
             },
             setLoading: (isLoading: boolean) => {
-                set({ isLoading })
+                set({ isLoading });
             },
             setFromTokenAddress: (address: Address) => {
-                set({ fromTokenAddress: address })
+                set({ fromTokenAddress: address });
             },
             setToTokenAddress: (address: Address) => {
-                set({ toTokenAddress: address })
+                set({ toTokenAddress: address });
+            },
+            setError: (error: string | null) => {
+                set({ error }); 
             },
             swapTokensAndChains: () => {
-                const { sourceChain, destinationChain, fromTokenAddress, toTokenAddress } = get()
+                const { sourceChain, destinationChain, fromTokenAddress, toTokenAddress } = get();
                 set({
                     sourceChain: destinationChain,
                     destinationChain: sourceChain,
                     fromTokenAddress: toTokenAddress,
-                    toTokenAddress: fromTokenAddress
-                })
+                    toTokenAddress: fromTokenAddress,
+                });
             },
         }),
         Object.is,
-    )
-}
+    );
+};

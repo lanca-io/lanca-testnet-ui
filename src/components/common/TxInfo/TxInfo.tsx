@@ -3,10 +3,11 @@ import { GasIcon } from "@/assets/icons/gas";
 import { TimeIcon } from "@/assets/icons/time";
 import { useEstimateGas } from "@/hooks/useEstimateGas";
 import { SkeletonLoader } from "../SkeletonLoader/SkeletonLoader";
+import { format } from "@/utils/format";
 import "./TxInfo.pcss"
 
 export const TxInfo: FC = (): JSX.Element => {
-    const { gas, isLoading } = useEstimateGas()
+    const { formattedGas, isLoading } = useEstimateGas()
 
     return (
         <div className="tx-info">
@@ -19,7 +20,7 @@ export const TxInfo: FC = (): JSX.Element => {
                     {isLoading ? (
                         <SkeletonLoader width={55} height={20} />
                     ) : (
-                        <p className="tx-info__item__text__value">{gas}</p>
+                        <p className="tx-info__item__text__value">{format(Number(formattedGas), 4)}</p>
                     )}
                 </div>
 
