@@ -4,6 +4,7 @@ import { GasWidget } from '../common/GasWidget/GasWidget'
 import { WalletButton } from '../common/WalletButton/WalletButton'
 import { routes } from '../../configuration/routes'
 import { useIsMobile } from '@/hooks/useMediaQuery'
+import Concero_logo_short from '@/assets/icons/concero_logo_short.svg'
 import './Header.pcss'
 import { isAdminAddress } from '@/utils/tests/isAdminAddress'
 import { useAccount } from 'wagmi'
@@ -13,7 +14,8 @@ type LogoProps = {
 }
 
 const Logo: FC<LogoProps> = memo(({ isMobile }) => {
-	const logoSrc = isMobile ? '/Header/ShortConceroLogo.svg' : '/Header/ConceroLogo.svg'
+	//TODO: Fix these paths
+	const logoSrc = isMobile ? Concero_logo_short : '/Header/ConceroLogo.svg'
 	return <img src={logoSrc} alt="Concero" className="header__logo" />
 })
 
@@ -44,7 +46,7 @@ export const Header: FC = () => {
 				</header>
 			),
 		}),
-		[isMobile],
+		[isMobile, isWhitelisted],
 	)
 
 	return headerMap[pathname] || null

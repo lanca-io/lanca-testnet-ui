@@ -1,5 +1,5 @@
 import { Address } from 'viem'
-const ADMIN_ADDRESSES: string[] = Array.from(new Set(['0x5B694fF6592F77958621595F94bFFa05aC0724A12'])).map(addr =>
+const ADMIN_ADDRESSES: string[] = Array.from(new Set(['0x5B694fF6592F77958621595F94bFFa05aC0724A1'])).map(addr =>
 	addr.toLowerCase().trim(),
 )
 
