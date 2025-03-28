@@ -4,6 +4,12 @@ import { Button } from '@concero/ui-kit'
 import './NotWhitelisted.pcss'
 
 export const NotWhitelisted: FC = memo(() => {
+	const link =
+		'https://docs.google.com/forms/d/e/1FAIpQLSdxDzz9-7cdxHsNFubyTAIl29dbpqzJhm0vHOsYmKmg5DSxeQ/viewform?usp=header'
+	const handleClick = () => {
+		window.open(link, '_blank', 'noopener,noreferrer')
+	}
+
 	return (
 		<div className="not-whitelisted">
 			<div className="not-whitelisted__content">
@@ -14,7 +20,9 @@ export const NotWhitelisted: FC = memo(() => {
 					team will review your submission, and you'll be notified once your access is approved.
 				</p>
 			</div>
-			<Button size="l">Get Invite</Button>
+			<Button size="l" onClick={handleClick}>
+				Get Invite
+			</Button>
 		</div>
 	)
 })

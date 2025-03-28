@@ -1,8 +1,13 @@
 import type { FC } from 'react'
 import { Button } from '@concero/ui-kit'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
+import FrameLeft from '@/assets/images/Welcome_Frame_6.png'
+import FrameRight from '@/assets/images/Welcome_Frame_7.png'
+import TabletBackgroungFrame from '@/assets/images/Welcome_tablet_frame_6.png'
 import './Hero.pcss'
-
+import { useAppKit } from '@reown/appkit/react'
+import { useAccount } from 'wagmi'
+import { Navigate, useNavigate } from 'react-router-dom'
 const Heading: FC = (): JSX.Element => {
 	return <h1 className="heading">Welcome to Concero Testnet</h1>
 }
@@ -18,8 +23,17 @@ const Subheading: FC = (): JSX.Element => {
 }
 
 export const Hero: FC = () => {
+	const { open } = useAppKit()
+	const { isConnected } = useAccount()
+	const navigate = useNavigate()
 	const heading = useMemo(() => <Heading />, [])
 	const subheading = useMemo(() => <Subheading />, [])
+
+	useEffect(() => {
+		if (isConnected) {
+			navigate('/swap')
+		}
+	}, [isConnected])
 
 	return (
 		<div className="hero">
@@ -27,9 +41,20 @@ export const Hero: FC = () => {
 				{heading}
 				{subheading}
 			</div>
-			<Button size="l" variant="primary" className="action-button">
+			<Button
+				size="l"
+				variant="primary"
+				className="action-button"
+				onClick={event => {
+					event.preventDefault()
+					open()
+				}}
+			>
 				Connect wallet
 			</Button>
+			<img src={FrameLeft} alt="" className="illustration-one" />
+			<img src={FrameRight} alt="" className="illustration-two" />
+			<img src={TabletBackgroungFrame} alt="" className="illustration-tablet" />
 		</div>
 	)
 }

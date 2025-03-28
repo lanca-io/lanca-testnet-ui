@@ -4,20 +4,26 @@ import { GasWidget } from '../common/GasWidget/GasWidget'
 import { WalletButton } from '../common/WalletButton/WalletButton'
 import { routes } from '../../configuration/routes'
 import { useIsMobile } from '@/hooks/useMediaQuery'
+import Concero_logo_short from '@/assets/icons/concero_logo_short.svg'
 import './Header.pcss'
+import { isAdminAddress } from '@/utils/tests/isAdminAddress'
+import { useAccount } from 'wagmi'
 
 type LogoProps = {
 	isMobile?: boolean
 }
 
 const Logo: FC<LogoProps> = memo(({ isMobile }) => {
-	const logoSrc = isMobile ? '/Header/ShortConceroLogo.svg' : '/Header/ConceroLogo.svg'
+	//TODO: Fix these paths
+	const logoSrc = isMobile ? Concero_logo_short : '/Header/ConceroLogo.svg'
 	return <img src={logoSrc} alt="Concero" className="header__logo" />
 })
 
 export const Header: FC = () => {
 	const { pathname } = useLocation()
 	const isMobile = useIsMobile()
+	const { address } = useAccount()
+	const isWhitelisted = isAdminAddress(address)
 
 	const headerMap = useMemo(
 		() => ({
@@ -26,7 +32,7 @@ export const Header: FC = () => {
 					<Logo />
 				</header>
 			),
-			[routes.swap]: (
+			[routes.swap]: isWhitelisted ? (
 				<header className="swap-header">
 					<Logo isMobile={isMobile} />
 					<div className="swap-header__actions">
@@ -34,9 +40,13 @@ export const Header: FC = () => {
 						<WalletButton />
 					</div>
 				</header>
+			) : (
+				<header className=" home-header header-not-whitelist">
+					<Logo />
+				</header>
 			),
 		}),
-		[isMobile],
+		[isMobile, isWhitelisted],
 	)
 
 	return headerMap[pathname] || null

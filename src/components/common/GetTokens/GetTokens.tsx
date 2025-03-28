@@ -3,7 +3,10 @@ import { memo } from 'react'
 import { Button } from '@concero/ui-kit'
 import './GetTokens.pcss'
 
-export const GetTokens: FC = memo(() => {
+type TProps = {
+	onGetTokens?: () => void
+}
+export const GetTokens: FC<TProps> = memo(({ onGetTokens }) => {
 	return (
 		<div className="get-tokens">
 			<div className="get-tokens__content">
@@ -11,7 +14,9 @@ export const GetTokens: FC = memo(() => {
 				<img src="/Swap/GetTokens.svg" alt="Tokens" />
 				<p className="get-tokens__subtitle">Claim test tokens to start testing</p>
 			</div>
-			<Button size="l">Get Test Tokens</Button>
+			<Button size="l" onClick={onGetTokens}>
+				Get Test Tokens
+			</Button>
 		</div>
 	)
 })

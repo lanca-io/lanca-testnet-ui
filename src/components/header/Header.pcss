@@ -3,7 +3,7 @@
 	display: flex;
 	padding: var(--space-2) var(--space-8);
 	align-self: stretch;
-	background: var(--color-grey-25);
+	background: var(--color-gray-25);
 }
 
 .home-header {
@@ -19,12 +19,16 @@
 	align-items: center;
 	gap: var(--space-4);
 }
-
 .header__logo {
 	display: block;
 }
+.header-not-whitelist {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
 
-@media (max-width: 576px) {
+@media (max-width: 744px) {
 	.swap-header {
 		padding: var(--space-2) var(--space-4);
 	}
