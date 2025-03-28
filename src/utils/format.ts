@@ -40,5 +40,5 @@ export function format(value: number, decimalPlaces: number = 2, symbol?: string
  * @returns The truncated text with an ellipsis if it exceeds the specified length.
  */
 export const truncateText = (text: string, maxLength: number): string => {
-    return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
-};
+	return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text
+}

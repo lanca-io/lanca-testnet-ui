@@ -25,7 +25,7 @@
 		"max-empty-lines": 1,
 		"no-duplicate-selectors": true,
 		"selector-class-pattern": [
-			"^[a-z0-9]+(_[a-z0-9]+)*$",
+			"^[a-z0-9]+(-[a-z0-9]+)*$",
 			{
 				"message": "Please use only lowercase letters, numbers, and underscores in class names.",
 				"resolveNestedSelectors": true

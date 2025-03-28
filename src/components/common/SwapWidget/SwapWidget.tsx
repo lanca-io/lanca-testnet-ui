@@ -3,7 +3,7 @@ import { SourceCard } from './SourceCard/SourceCard'
 import { DestinationCard } from './DestinationCard/DestinationCard'
 import { CardSwitcher } from '../CardSwitcher/CardSwitcher'
 import { SwapCard } from './SwapCard/SwapCard'
-import "./SwapWidget.pcss"
+import './SwapWidget.pcss'
 
 export const SwapWidget: FC = () => {
 	return (
