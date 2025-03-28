@@ -5,6 +5,8 @@ import { WalletButton } from '../common/WalletButton/WalletButton'
 import { routes } from '../../configuration/routes'
 import { useIsMobile } from '@/hooks/useMediaQuery'
 import './Header.pcss'
+import { isAdminAddress } from '@/utils/tests/isAdminAddress'
+import { useAccount } from 'wagmi'
 
 type LogoProps = {
 	isMobile?: boolean
@@ -18,6 +20,8 @@ const Logo: FC<LogoProps> = memo(({ isMobile }) => {
 export const Header: FC = () => {
 	const { pathname } = useLocation()
 	const isMobile = useIsMobile()
+	const { address } = useAccount()
+	const isWhitelisted = isAdminAddress(address)
 
 	const headerMap = useMemo(
 		() => ({
@@ -26,13 +30,17 @@ export const Header: FC = () => {
 					<Logo />
 				</header>
 			),
-			[routes.swap]: (
+			[routes.swap]: isWhitelisted ? (
 				<header className="swap-header">
 					<Logo isMobile={isMobile} />
 					<div className="swap-header__actions">
 						{!isMobile && <GasWidget />}
 						<WalletButton />
 					</div>
+				</header>
+			) : (
+				<header className=" home-header header-not-whitelist">
+					<Logo />
 				</header>
 			),
 		}),
