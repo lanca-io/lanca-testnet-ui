@@ -100,7 +100,7 @@ export const chains: [AppKitNetwork, ...AppKitNetwork[]] = [
 	zircuitTestnet,
 	sonicBlazeTestnet,
 	shibuya,
-	coreTestnet
+	coreTestnet,
 ]
 
 export const transports = {
@@ -223,5 +223,3 @@ export const transports = {
 	[shibuya.id]: fallback([http()]),
 	[coreTestnet.id]: fallback([http()]),
 }
-
-

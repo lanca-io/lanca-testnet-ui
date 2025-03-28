@@ -1,7 +1,7 @@
 import type { FC, PropsWithChildren } from 'react'
 import { ModalHeader } from './ModalHeader/ModalHeader'
 import { createPortal } from 'react-dom'
-import "./Modal.pcss"
+import './Modal.pcss'
 
 type ModalProps = {
 	isOpen: boolean
@@ -10,15 +10,15 @@ type ModalProps = {
 }
 
 export const Modal: FC<PropsWithChildren<ModalProps>> = ({ isOpen, title, onClose, children }) => {
-    if (!isOpen) return null
-    
-    return createPortal(
-        <div className="backdrop">
-            <div className="modal">
-                <ModalHeader title={title} onClose={onClose}/>
-                {children}
-            </div>
-        </div>,
-        document.body
-    )
+	if (!isOpen) return null
+
+	return createPortal(
+		<div className="backdrop">
+			<div className="modal">
+				<ModalHeader title={title} onClose={onClose} />
+				{children}
+			</div>
+		</div>,
+		document.body,
+	)
 }

@@ -13,53 +13,52 @@ import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 import './SourceCard.pcss'
 
 export const SourceCard: FC = (): JSX.Element => {
-    const { sourceChain, setSourceChain, setFromTokenAddress, error } = useFormStore()
-    const { balances, isLoading } = useBalancesStore()
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+	const { sourceChain, setSourceChain, setFromTokenAddress, error } = useFormStore()
+	const { balances, isLoading } = useBalancesStore()
+	const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
-    const openModal = useCallback(() => {
-        setIsModalOpen(true)
-    }, [])
+	const openModal = useCallback(() => {
+		setIsModalOpen(true)
+	}, [])
 
-    const closeModal = useCallback(() => {
-        setIsModalOpen(false)
-    }, [])
+	const closeModal = useCallback(() => {
+		setIsModalOpen(false)
+	}, [])
 
-    const handleSelectChain = useCallback((chain: Chain) => {
-        setSourceChain(chain)
-        const tokenAddress = TokenAddresses[chain.id]
-        setFromTokenAddress(tokenAddress as Address)
-        closeModal()
-    }, [setSourceChain, closeModal])
+	const handleSelectChain = useCallback(
+		(chain: Chain) => {
+			setSourceChain(chain)
+			const tokenAddress = TokenAddresses[chain.id]
+			setFromTokenAddress(tokenAddress as Address)
+			closeModal()
+		},
+		[setSourceChain, closeModal],
+	)
 
-    const token = useMemo(() => {
-        if (!sourceChain || !balances[Number(sourceChain.id)]) {
-            return { balance: '0', decimals: 18, symbol: 'tCERO' }
-        }
-        return balances[Number(sourceChain.id)]
-    }, [sourceChain, balances])
+	const token = useMemo(() => {
+		if (!sourceChain || !balances[Number(sourceChain.id)]) {
+			return { balance: '0', decimals: 18, symbol: 'tCERO' }
+		}
+		return balances[Number(sourceChain.id)]
+	}, [sourceChain, balances])
 
-    return (
-        <div className="source-card-wrapper">
-            <div className="source-card">
-                <ChainSelector chain={sourceChain} openModal={openModal} />
-                <AmountInput />
-                {error ? (
-                    <ErrorDisplay error={error} />
-                ) : (
-                    <BalanceDisplay 
-                        balance={token.balance} 
-                        isLoading={isLoading} 
-                        showMax 
-                    />
-                )}
-                <AssetModal
-                    isOpen={isModalOpen}
-                    title="Select Chain"
-                    onClose={closeModal}
-                    onChainSelect={handleSelectChain}
-                />
-            </div>
-        </div>
-    )
+	return (
+		<div className="source-card-wrapper">
+			<div className="source-card">
+				<ChainSelector chain={sourceChain} openModal={openModal} />
+				<AmountInput />
+				{error ? (
+					<ErrorDisplay error={error} />
+				) : (
+					<BalanceDisplay balance={token.balance} isLoading={isLoading} showMax />
+				)}
+				<AssetModal
+					isOpen={isModalOpen}
+					title="Select Chain"
+					onClose={closeModal}
+					onChainSelect={handleSelectChain}
+				/>
+			</div>
+		</div>
+	)
 }

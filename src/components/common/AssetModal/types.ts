@@ -1,13 +1,13 @@
-import type { Chain } from "@/stores/chains/types";
+import type { Chain } from '@/stores/chains/types'
 
 export type AssetModalProps = {
-    title: string;
-    isOpen: boolean;
-    onClose: () => void;
-    onChainSelect: (chain: Chain) => void;
-};
+	title: string
+	isOpen: boolean
+	onClose: () => void
+	onChainSelect: (chain: Chain) => void
+}
 
 export enum ActiveTab {
-    All = "all",
-    CCIP = "ccip"
+	All = 'all',
+	CCIP = 'ccip',
 }

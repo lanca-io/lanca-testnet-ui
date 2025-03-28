@@ -1,4 +1,4 @@
-import "./SkeletonLoader.pcss"
+import './SkeletonLoader.pcss'
 
 type SkeletonLoaderProps = {
 	className?: string
