@@ -9,6 +9,7 @@ export type Chain = {
 	isCCIP: boolean
 	nativeToken: string
 	decimals: number
+	selector: bigint
 }
 
 export type ChainsState = {

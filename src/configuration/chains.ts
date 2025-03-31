@@ -116,7 +116,6 @@ export const transports = {
 	[arbitrumSepolia.id]: fallback([
 		http('https://arbitrum-sepolia.gateway.tenderly.co'),
 		http('https://arbitrum-sepolia.drpc.org'),
-		http('https://endpoints.omniatech.io/v1/arbitrum/sepolia/public'),
 		http(),
 	]),
 	// [avalancheFuji.id]: fallback([
