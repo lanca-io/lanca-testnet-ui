@@ -11,7 +11,7 @@ type TSteps = 'ready_to_start' | 'need_to_whitelist' | 'swap'
 export const Swap: FC = () => {
 	const { address } = useAccount()
 	const isWhitelisted = isAdminAddress(address)
-	const hasTokens = false
+	const hasTokens = true
 	const [currentStepView, setCurrentStepView] = useState<TSteps>(() =>
 		isWhitelisted ? (hasTokens ? 'swap' : 'ready_to_start') : 'need_to_whitelist',
 	)

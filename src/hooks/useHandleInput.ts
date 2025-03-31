@@ -7,7 +7,7 @@ const TYPING_TIMEOUT = 700
 
 export const useHandleInput = () => {
 	const { fromAmount, setFromAmount } = useFormStore()
-	const { handleInputError } = useInputError()
+	// const { handleInputError } = useInputError()
 
 	const [inputValue, setInputValue] = useState(fromAmount)
 	const timeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -40,7 +40,7 @@ export const useHandleInput = () => {
 		}
 
 		timeoutRef.current = setTimeout(() => {
-			handleInputError(inputValue)
+			// handleInputError(inputValue)
 			if (inputValue !== fromAmount) {
 				setFromAmount(inputValue)
 			}
@@ -51,7 +51,7 @@ export const useHandleInput = () => {
 				clearTimeout(timeoutRef.current)
 			}
 		}
-	}, [inputValue, fromAmount, setFromAmount, handleInputError])
+	}, [inputValue, fromAmount, setFromAmount])
 
 	return {
 		inputValue,

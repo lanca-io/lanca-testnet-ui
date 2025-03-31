@@ -64,4 +64,5 @@ export const useInputError = () => {
             return true;
         },
         [setError],
-    );
+    )
+}

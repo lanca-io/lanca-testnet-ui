@@ -13,17 +13,6 @@ chains.forEach(chain => {
 	const nativeToken = chain.nativeCurrency?.symbol || ''
 	const decimals = chain.nativeCurrency?.decimals || 18
 
-<<<<<<< HEAD
-	initialState.chains[chainId] = {
-		id: chainId.toString(),
-		name: chain.name,
-		logoURL: chainLogos[chain.id as number] || '',
-		explorerURL: explorerURL,
-		isCCIP: chainDetails[chain.id as number]?.isCCIP || false,
-		nativeToken: nativeToken,
-		decimals: decimals,
-	}
-=======
     initialState.chains[chainId] = {
         id: chainId.toString(),
         name: chain.name,
@@ -35,7 +24,6 @@ chains.forEach(chain => {
         selector: chainSelectors[chain.id as number] || BigInt(0),
 
     }
->>>>>>> feature/tx-execution
 })
 
 export const CreateChainsStore = (): ChainsStore => {
