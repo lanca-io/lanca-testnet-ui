@@ -4,10 +4,7 @@ import { useFormStore } from '@/stores/form/useFormStore'
 import './AmountInput.pcss'
 
 export const AmountInput: FC = () => {
-	const { inputValue, handleChange, handleFocus, handleBlur } = useHandleInput()
-	const { error } = useFormStore()
-
-	console.log('This is the error', error)
+    const { inputValue, handleChange, handleFocus, handleBlur } = useHandleInput();
 
 	return (
 		<div className="amount-input">
