@@ -1,7 +1,6 @@
 import type { ChangeEvent, FocusEvent } from 'react'
 import { useState, useCallback, useEffect, useRef } from 'react'
 import { useFormStore } from '@/stores/form/useFormStore'
-import { useInputError } from './useInputError'
 
 const TYPING_TIMEOUT = 700
 

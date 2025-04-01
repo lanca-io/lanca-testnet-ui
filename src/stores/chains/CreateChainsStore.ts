@@ -13,17 +13,16 @@ chains.forEach(chain => {
 	const nativeToken = chain.nativeCurrency?.symbol || ''
 	const decimals = chain.nativeCurrency?.decimals || 18
 
-    initialState.chains[chainId] = {
-        id: chainId.toString(),
-        name: chain.name,
-        logoURL: chainLogos[chain.id as number] || '',
-        explorerURL: explorerURL,
-        isCCIP: chainCCIP[chain.id as number]?.isCCIP || false,
-        nativeToken: nativeToken,
-        decimals: decimals,
-        selector: chainSelectors[chain.id as number] || BigInt(0),
-
-    }
+	initialState.chains[chainId] = {
+		id: chainId.toString(),
+		name: chain.name,
+		logoURL: chainLogos[chain.id as number] || '',
+		explorerURL: explorerURL,
+		isCCIP: chainCCIP[chain.id as number]?.isCCIP || false,
+		nativeToken: nativeToken,
+		decimals: decimals,
+		selector: chainSelectors[chain.id as number] || BigInt(0),
+	}
 })
 
 export const CreateChainsStore = (): ChainsStore => {

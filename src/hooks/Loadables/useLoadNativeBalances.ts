@@ -48,7 +48,6 @@ export const useLoadNativeBalances = () => {
 		queryKey: ['nativeBalances', address],
 		queryFn: handleFetchNativeBalances,
 		enabled: !!address,
-		refetchInterval: 300_000,
 	})
 
 	useEffect(() => {

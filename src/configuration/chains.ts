@@ -225,5 +225,3 @@ export const transports = {
 	// [coreTestnet.id]: fallback([http()]),
 	[megaethTestnet.id]: fallback([http('https://carrot.megaeth.com/rpc'), http()]),
 }
-
-

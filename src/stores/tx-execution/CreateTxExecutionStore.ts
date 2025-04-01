@@ -1,12 +1,13 @@
-import type { TxExecutionStateAndActions, TxExecutionStore } from './types'
-import { TxStatus, StepStatus, StepType } from './types'
+import type { TxExecutionStateAndActions, TxExecutionStore, ExecutionStep } from './types'
+import type { StepType } from '@lanca/sdk'
 import { createWithEqualityFn } from 'zustand/traditional'
+import { Status } from '@lanca/sdk'
 
 const initialState = {
-	txStatus: TxStatus.Idle,
+	txStatus: Status.NOT_STARTED,
+	steps: [] as ExecutionStep[],
 	activeStep: null as StepType | null,
-	approval: StepStatus.Idle,
-	bridge: StepStatus.Idle,
+	error: null as string | null,
 }
 
 export const CreateTxExecutionStore = (): TxExecutionStore => {
@@ -14,27 +15,22 @@ export const CreateTxExecutionStore = (): TxExecutionStore => {
 		(set, get) => ({
 			...initialState,
 
-			setTxStatus: (status: TxStatus) => {
+			setTxStatus: (status: Status) => {
 				set({ txStatus: status })
 			},
 
-			setStepStatus: (step: StepType, status: StepStatus) => {
-				switch (step) {
-					case StepType.Approval:
-						set({ approval: status })
-						break
-					case StepType.Bridge:
-						set({ bridge: status })
-						break
-				}
+			setStepStatus: (stepType: StepType, status: Status) => {
+				set(state => ({
+					steps: state.steps.map(step => (step.type === stepType ? { ...step, status } : step)),
+				}))
 
-				if (status === StepStatus.Loading) {
-					set({ activeStep: step })
+				if (status === Status.PENDING) {
+					set({ activeStep: stepType })
 				}
 
 				if (
-					(status === StepStatus.Success || status === StepStatus.Failed || status === StepStatus.Rejected) &&
-					get().activeStep === step
+					[Status.SUCCESS, Status.FAILED, Status.REJECTED].includes(status) &&
+					get().activeStep === stepType
 				) {
 					set({ activeStep: null })
 				}
@@ -43,56 +39,23 @@ export const CreateTxExecutionStore = (): TxExecutionStore => {
 			setActiveStep: (step: StepType | null) => {
 				set({ activeStep: step })
 			},
-
-			getActiveStep: () => get().activeStep,
-
-			startStep: (step: StepType) => {
-				const update: Partial<typeof initialState> = {
-					txStatus: TxStatus.Loading,
-					activeStep: step,
-				}
-
-				switch (step) {
-					case StepType.Approval:
-						update.approval = StepStatus.Loading
-						break
-					case StepType.Bridge:
-						update.bridge = StepStatus.Loading
-						break
-				}
-
-				set(update)
+			appendStep: (step: ExecutionStep) => {
+				set(state => {
+					const exists = state.steps.some(s => s.type === step.type)
+					if (!exists) {
+						return { steps: [...state.steps, step] }
+					}
+					return state
+				})
 			},
-
-			completeStep: (step: StepType, success: boolean) => {
-				const newStatus = success ? StepStatus.Success : StepStatus.Failed
-
-				switch (step) {
-					case StepType.Approval:
-						set({ approval: newStatus })
-						break
-					case StepType.Bridge:
-						set({ bridge: newStatus })
-						break
-				}
-
-				if (get().activeStep === step) {
-					set({ activeStep: null })
-				}
-
-				const { approval, bridge } = get()
-
-				if (approval !== StepStatus.Loading && bridge !== StepStatus.Loading) {
-					const txSucceeded =
-						approval !== StepStatus.Failed &&
-						approval !== StepStatus.Rejected &&
-						bridge !== StepStatus.Failed &&
-						bridge !== StepStatus.Rejected
-
-					set({ txStatus: txSucceeded ? TxStatus.Success : TxStatus.Failed })
-				}
+			updateStep: (stepType: StepType, updates: Partial<ExecutionStep>) => {
+				set(state => ({
+					steps: state.steps.map(step => (step.type === stepType ? { ...step, ...updates } : step)),
+				}))
 			},
-
+			setError: (error: string | null) => {
+				set({ error })
+			},
 			reset: () => {
 				set(initialState)
 			},

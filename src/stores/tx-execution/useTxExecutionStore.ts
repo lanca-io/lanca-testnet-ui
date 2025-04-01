@@ -3,37 +3,35 @@ import { TxExecutionContext } from './TxExecutionContext'
 
 export const useTxExecutionStore = () => {
 	const useStore = useContext(TxExecutionContext)
+
 	if (!useStore) {
 		throw new Error(`You forgot to wrap your component in <TxExecutionStoreProvider>.`)
 	}
 
 	const txStatus = useStore(state => state.txStatus)
 	const activeStep = useStore(state => state.activeStep)
-	const approval = useStore(state => state.approval)
-	const bridge = useStore(state => state.bridge)
+	const steps = useStore(state => state.steps)
+	const error = useStore(state => state.error)
 
 	const setTxStatus = useStore(state => state.setTxStatus)
 	const setStepStatus = useStore(state => state.setStepStatus)
 	const setActiveStep = useStore(state => state.setActiveStep)
-	const getActiveStep = useStore(state => state.getActiveStep)
-
-	const startStep = useStore(state => state.startStep)
-	const completeStep = useStore(state => state.completeStep)
+	const appendStep = useStore(state => state.appendStep)
+	const updateStep = useStore(state => state.updateStep)
+	const setError = useStore(state => state.setError)
 	const reset = useStore(state => state.reset)
 
 	return {
 		txStatus,
 		activeStep,
-		approval,
-		bridge,
-
+		steps,
+		error,
 		setTxStatus,
 		setStepStatus,
 		setActiveStep,
-		getActiveStep,
-
-		startStep,
-		completeStep,
+		appendStep,
+		updateStep,
+		setError,
 		reset,
 	}
 }

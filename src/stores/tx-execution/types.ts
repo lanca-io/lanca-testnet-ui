@@ -1,43 +1,30 @@
 import type { UseBoundStoreWithEqualityFn } from 'zustand/traditional'
 import type { StoreApi } from 'zustand/vanilla'
+import type { StepType, IRouteStep } from '@lanca/sdk'
+import { Status } from '@lanca/sdk'
 
-export enum StepType {
-	Approval = 'approval',
-	Bridge = 'bridge',
-}
-
-export enum StepStatus {
-	Idle = 'idle',
-	Loading = 'loading',
-	Success = 'success',
-	Failed = 'failed',
-	Rejected = 'rejected',
-}
-
-export enum TxStatus {
-	Idle = 'idle',
-	Loading = 'loading',
-	Success = 'success',
-	Failed = 'failed',
-	Rejected = 'rejected',
+export type ExecutionStep = {
+	type: StepType
+	status: Status
 }
 
 export type TxExecutionState = {
-	txStatus: TxStatus
+	txStatus: Status
+	steps: ExecutionStep[]
 	activeStep: StepType | null
-	approval: StepStatus
-	bridge: StepStatus
+	error: string | null
 }
 
 export interface TxExecutionActions {
-	setTxStatus: (status: TxStatus) => void
-	setStepStatus: (step: StepType, status: StepStatus) => void
+	setTxStatus: (status: Status) => void
+	setStepStatus: (stepType: StepType, status: Status) => void
 	setActiveStep: (step: StepType | null) => void
-	getActiveStep: () => StepType | null
-	startStep: (step: StepType) => void
-	completeStep: (step: StepType, success: boolean) => void
+	appendStep: (step: ExecutionStep) => void
+	updateStep: (stepType: StepType, updates: Partial<ExecutionStep>) => void
+	setError: (error: string | null) => void
 	reset: () => void
 }
+
 export type TxExecutionStateAndActions = TxExecutionState & TxExecutionActions
 
 export type TxExecutionStore = UseBoundStoreWithEqualityFn<StoreApi<TxExecutionStateAndActions>>

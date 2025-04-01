@@ -5,7 +5,7 @@ import { LancaClient } from '@lanca/sdk'
 import { sdkConfiguration } from './ClientConfig'
 
 export type SDKContext = {
-    client: Client;
+	client: Client
 }
 
 const initialContext: SDKContext = {
@@ -15,7 +15,7 @@ const initialContext: SDKContext = {
 export const SDKContext = createContext<SDKContext>(initialContext)
 
 export const SDKProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
-	const client = new LancaClient()
+	const client = new LancaClient(sdkConfiguration)
 
 	return <SDKContext.Provider value={{ client }}>{children}</SDKContext.Provider>
 }
