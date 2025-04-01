@@ -1,17 +1,32 @@
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 import { SourceCard } from './SourceCard/SourceCard'
 import { DestinationCard } from './DestinationCard/DestinationCard'
 import { CardSwitcher } from '../CardSwitcher/CardSwitcher'
 import { SwapCard } from './SwapCard/SwapCard'
+import { ProcessCard } from '../ProcessCard/ProcessCard'
+import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 import './SwapWidget.pcss'
 
 export const SwapWidget: FC = () => {
-	return (
-		<div className="swap-widget">
-			<SourceCard />
-			<CardSwitcher />
-			<DestinationCard />
-			<SwapCard />
-		</div>
-	)
+	const { txStatus } = useTxExecutionStore()
+
+	const Card = useMemo(() => {
+		switch (txStatus) {
+			case 'PENDING':
+			case 'SUCCESS':
+			case 'FAILED':
+				return <ProcessCard />
+			default:
+				return (
+					<>
+						<SourceCard />
+						<CardSwitcher />
+						<DestinationCard />
+						<SwapCard />
+					</>
+				)
+		}
+	}, [txStatus])
+
+	return <div className="swap-widget">{Card}</div>
 }

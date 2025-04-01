@@ -1,25 +1,25 @@
 import { FC, memo, useMemo } from 'react'
 import { TxStep } from '../TxStep/TxStep'
 import { RightIcon } from '@/assets/icons/right'
-import { StepStatus, StepType } from '@/stores/tx-execution/types'
+import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
+import { Status, StepType } from '@lanca/sdk'
 import './TxProgress.pcss'
 
-type TxProgressProps = {
-	approvalStatus: StepStatus
-	bridgeStatus: StepStatus
-}
+export const TxProgress: FC = memo((): JSX.Element | null => {
+	const { txStatus, steps } = useTxExecutionStore()
 
-export const TxProgress: FC<TxProgressProps> = memo(({ approvalStatus, bridgeStatus }): JSX.Element => {
-	const steps = useMemo(
+	const stepsContent = useMemo(
 		() => (
 			<>
-				<TxStep step={StepType.Approval} status={approvalStatus} />
+				<TxStep step={StepType.ALLOWANCE} status={steps.ALLOWANCE} />
 				<RightIcon />
-				<TxStep step={StepType.Bridge} status={bridgeStatus} />
+				<TxStep step={StepType.BRIDGE} status={steps.BRIDGE} />
 			</>
 		),
-		[approvalStatus, bridgeStatus],
+		[steps],
 	)
 
-	return <div className="tx-progress">{steps}</div>
+	if (txStatus === Status.SUCCESS) return null
+
+	return <div className="tx-progress">{stepsContent}</div>
 })

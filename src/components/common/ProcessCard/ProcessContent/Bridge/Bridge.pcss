@@ -1,0 +1,33 @@
+.bridge-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: var(--space-2);
+	align-self: stretch;
+}
+
+.bridge-content__from,
+.bridge-content__to {
+	display: flex;
+	height: 160px;
+	width: 160px;
+	padding: var(--space-7);
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	flex: 1 0 0;
+	border-radius: var(--space-4);
+	background-color: var(--color-gray-50);
+}
+
+.bridge-content__image {
+	width: 48px;
+	height: 48px;
+}
+
+@media only screen and (max-width: 743px) {
+	.bridge-content__from,
+	.bridge-content__to {
+		width: auto;
+	}
+}

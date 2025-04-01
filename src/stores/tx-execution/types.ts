@@ -1,27 +1,17 @@
 import type { UseBoundStoreWithEqualityFn } from 'zustand/traditional'
 import type { StoreApi } from 'zustand/vanilla'
-import type { StepType, IRouteStep } from '@lanca/sdk'
-import { Status } from '@lanca/sdk'
-
-export type ExecutionStep = {
-	type: StepType
-	status: Status
-}
+import { Status, StepType } from '@lanca/sdk'
 
 export type TxExecutionState = {
+	steps: {
+		ALLOWANCE: Status
+		BRIDGE: Status
+	}
 	txStatus: Status
-	steps: ExecutionStep[]
-	activeStep: StepType | null
-	error: string | null
 }
 
 export interface TxExecutionActions {
-	setTxStatus: (status: Status) => void
 	setStepStatus: (stepType: StepType, status: Status) => void
-	setActiveStep: (step: StepType | null) => void
-	appendStep: (step: ExecutionStep) => void
-	updateStep: (stepType: StepType, updates: Partial<ExecutionStep>) => void
-	setError: (error: string | null) => void
 	reset: () => void
 }
 

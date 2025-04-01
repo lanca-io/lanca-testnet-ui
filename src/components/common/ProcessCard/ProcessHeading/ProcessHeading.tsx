@@ -1,33 +1,40 @@
 import type { FC } from 'react'
 import { useMemo } from 'react'
-import { TxStatus, StepType } from '@/stores/tx-execution/types'
+import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
+import { Status, StepType } from '@lanca/sdk'
+import './ProcessHeading.pcss'
 
 type HeadingMapType = {
-	[TxStatus.Idle]: string
-	[TxStatus.Loading]: Record<StepType, string>
-	[TxStatus.Success]: string
-	[TxStatus.Failed]: string
-	[TxStatus.Rejected]: string
+	[key in Status]: string | Partial<Record<StepType, string>>
 }
 
-export const ProcessHeading: FC<{ txStatus: TxStatus; activeStep: StepType | null }> = ({ txStatus, activeStep }) => {
+export const ProcessHeading: FC = () => {
+	const { txStatus, steps } = useTxExecutionStore()
+
 	const headingMap = useMemo<HeadingMapType>(
 		() => ({
-			[TxStatus.Idle]: 'Initializing...',
-			[TxStatus.Loading]: {
-				[StepType.Approval]: 'Approval...',
-				[StepType.Bridge]: 'Transaction...',
+			[Status.NOT_STARTED]: 'Initializing...',
+			[Status.PENDING]: {
+				[StepType.ALLOWANCE]: 'Approval...',
+				[StepType.BRIDGE]: 'Transaction...',
 			},
-			[TxStatus.Success]: 'Success!',
-			[TxStatus.Failed]: 'Transaction Failed',
-			[TxStatus.Rejected]: 'Transaction Rejected',
+			[Status.SUCCESS]: 'Success!',
+			[Status.FAILED]: 'Transaction',
+			[Status.REJECTED]: 'Transaction',
 		}),
 		[],
 	)
 
+	const activeStep = useMemo<StepType | null>(() => {
+		if (steps.ALLOWANCE === Status.PENDING) return StepType.ALLOWANCE
+		if (steps.BRIDGE === Status.PENDING) return StepType.BRIDGE
+		return null
+	}, [steps])
+
 	const heading = useMemo<string>(() => {
-		if (txStatus === TxStatus.Loading && activeStep !== null) {
-			return headingMap[TxStatus.Loading][activeStep]
+		if (txStatus === Status.PENDING && activeStep !== null) {
+			const pendingHeadings = headingMap[Status.PENDING] as Partial<Record<StepType, string>>
+			return pendingHeadings[activeStep] || 'Initializing...'
 		}
 		return headingMap[txStatus] as string
 	}, [txStatus, activeStep, headingMap])

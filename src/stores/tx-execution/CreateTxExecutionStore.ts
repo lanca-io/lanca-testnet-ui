@@ -1,13 +1,36 @@
-import type { TxExecutionStateAndActions, TxExecutionStore, ExecutionStep } from './types'
-import type { StepType } from '@lanca/sdk'
+import type { TxExecutionStateAndActions, TxExecutionStore } from './types'
 import { createWithEqualityFn } from 'zustand/traditional'
-import { Status } from '@lanca/sdk'
+import { Status, StepType } from '@lanca/sdk'
 
 const initialState = {
 	txStatus: Status.NOT_STARTED,
-	steps: [] as ExecutionStep[],
-	activeStep: null as StepType | null,
-	error: null as string | null,
+	steps: {
+		ALLOWANCE: Status.NOT_STARTED,
+		BRIDGE: Status.NOT_STARTED,
+	},
+}
+
+// Helper function to calculate the overall transaction status
+const calculateTxStatus = (steps: { ALLOWANCE: Status; BRIDGE: Status }): Status => {
+	const statuses = Object.values(steps)
+
+	if (statuses.includes(Status.REJECTED)) {
+		return Status.REJECTED
+	}
+
+	if (statuses.includes(Status.FAILED)) {
+		return Status.FAILED
+	}
+
+	if (statuses.every(status => status === Status.SUCCESS)) {
+		return Status.SUCCESS
+	}
+
+	if (statuses.some(status => status === Status.PENDING)) {
+		return Status.PENDING
+	}
+
+	return Status.NOT_STARTED
 }
 
 export const CreateTxExecutionStore = (): TxExecutionStore => {
@@ -15,47 +38,22 @@ export const CreateTxExecutionStore = (): TxExecutionStore => {
 		(set, get) => ({
 			...initialState,
 
-			setTxStatus: (status: Status) => {
-				set({ txStatus: status })
-			},
-
 			setStepStatus: (stepType: StepType, status: Status) => {
-				set(state => ({
-					steps: state.steps.map(step => (step.type === stepType ? { ...step, status } : step)),
-				}))
+				if (stepType === 'ALLOWANCE' || stepType === 'BRIDGE') {
+					set(state => ({
+						steps: {
+							...state.steps,
+							[stepType]: status,
+						},
+					}))
 
-				if (status === Status.PENDING) {
-					set({ activeStep: stepType })
-				}
-
-				if (
-					[Status.SUCCESS, Status.FAILED, Status.REJECTED].includes(status) &&
-					get().activeStep === stepType
-				) {
-					set({ activeStep: null })
+					const { steps } = get()
+					const overallStatus = calculateTxStatus(steps)
+					set({ txStatus: overallStatus })
 				}
 			},
 
-			setActiveStep: (step: StepType | null) => {
-				set({ activeStep: step })
-			},
-			appendStep: (step: ExecutionStep) => {
-				set(state => {
-					const exists = state.steps.some(s => s.type === step.type)
-					if (!exists) {
-						return { steps: [...state.steps, step] }
-					}
-					return state
-				})
-			},
-			updateStep: (stepType: StepType, updates: Partial<ExecutionStep>) => {
-				set(state => ({
-					steps: state.steps.map(step => (step.type === stepType ? { ...step, ...updates } : step)),
-				}))
-			},
-			setError: (error: string | null) => {
-				set({ error })
-			},
+			// Reset the store to its initial state
 			reset: () => {
 				set(initialState)
 			},
