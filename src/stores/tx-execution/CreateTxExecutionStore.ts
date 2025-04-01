@@ -10,7 +10,6 @@ const initialState = {
 	},
 }
 
-// Helper function to calculate the overall transaction status
 const calculateTxStatus = (steps: { ALLOWANCE: Status; BRIDGE: Status }): Status => {
 	const statuses = Object.values(steps)
 
@@ -53,7 +52,6 @@ export const CreateTxExecutionStore = (): TxExecutionStore => {
 				}
 			},
 
-			// Reset the store to its initial state
 			reset: () => {
 				set(initialState)
 			},

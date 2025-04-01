@@ -2,8 +2,8 @@ import type { FC } from 'react';
 import { useMemo } from 'react';
 import { Badge } from '@/components/common/Badge/Badge';
 import { useFormStore } from '@/stores/form/useFormStore';
-import './Success.pcss';
 import { ClockIcon } from '@/assets/icons/clock';
+import './Success.pcss';
 
 export const Success: FC = (): JSX.Element => {
     const { destinationChain } = useFormStore();
@@ -36,8 +36,6 @@ export const Success: FC = (): JSX.Element => {
                     <div className='success-info__timer'>
                         <ClockIcon />
                         <p className="success-info__timer-text">In 40 seconds</p>
-
-
                     </div>
                 </div>
             </div>

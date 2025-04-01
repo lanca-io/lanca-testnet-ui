@@ -1,0 +1,45 @@
+.process-action__not_started,
+.process-action__pending,
+.process-action__success,
+.process-action__failed,
+.process-action__rejected {
+	position: relative;
+	width: 100%;
+	border-radius: var(--space-5);
+	transition: box-shadow 0.3s ease;
+	z-index: 1;
+}
+
+.process-action__not_started {
+	box-shadow: 0px 20px 150px 0px var(--color-accent-100);
+}
+
+.process-action__pending {
+	box-shadow: 0px 20px 150px 0px var(--color-accent-100);
+}
+
+.process-action__success {
+	box-shadow: 0px 20px 150px var(--color-success-50);
+}
+
+.process-action__failed {
+	box-shadow: 0px 20px 150px var(--color-danger-100);
+}
+
+.process-action__rejected {
+	box-shadow: 0px 20px 150px var(--color-danger-100);
+}
+
+.process-action {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	border-radius: var(--space-5);
+	background-color: var(--color-gray-25);
+	gap: 10px;
+	padding: var(--space-4);
+	border-top: 1px solid var(--color-gray-100);
+	position: relative;
+	z-index: 5;
+}
