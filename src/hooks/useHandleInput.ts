@@ -10,21 +10,36 @@ const NUM_REGEX = /^(\d*\.?\d*)?$/;
 export const useHandleInput = (decimals: number = 18) => {
     const [value, setValue] = useState<string>('');
     const [active, setActive] = useState<boolean>(false);
+
+    const isFirst = useRef<boolean>(true);
+    const prevValue = useRef<string>('');
     
     const { fromAmount, setFromAmount, setError } = useFormStore();
     const { validate } = useInputError();
 
-    const isFirst = useRef<boolean>(true);
-    const prevValue = useRef<string>('');
+    const lastFromAmount = useRef<string>(fromAmount);
     
     useEffect(() => {
         if (isFirst.current && fromAmount && fromAmount !== '0') {
             const readableVal = formatTokenAmount(fromAmount, decimals);
             setValue(readableVal);
             isFirst.current = false;
+            lastFromAmount.current = fromAmount;
+            return;
+        }
+        
+        if (fromAmount !== lastFromAmount.current) {
+            if (fromAmount && fromAmount !== '0') {
+                const readableVal = formatTokenAmount(fromAmount, decimals);
+                setValue(readableVal);
+                setActive(true);
+            } else if (fromAmount === '0') {
+                setValue('');
+            }
+            lastFromAmount.current = fromAmount;
         }
     }, [fromAmount, decimals]);
-
+    
     const debounced = useDebounce<string>(value, 500);
 
     useEffect(() => {
@@ -43,6 +58,7 @@ export const useHandleInput = (decimals: number = 18) => {
                 const valid = validate(rawVal);
                 if (valid) {
                     setFromAmount(rawVal);
+                    lastFromAmount.current = rawVal;
                 }
             }
         }

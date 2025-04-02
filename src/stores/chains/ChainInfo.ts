@@ -27,7 +27,7 @@ export const chainLogos: Record<number, string> = {
 	// 200810: '/Chains/200810.svg',
 	421614: '/Chains/421614.svg', //
 	// 763373: '/Chains/763373.svg',
-	// 11155111: '/Chains/11155111.svg',
+	11155111: '/Chains/11155111.svg',
 	// 11155420: '/Chains/11155420.svg',
 	// 168587773: '/Chains/168587773.svg',
 }
@@ -60,7 +60,7 @@ export const chainCCIP: Record<number, { isCCIP: boolean }> = {
 	// 200810: { isCCIP: true },
 	421614: { isCCIP: true },
 	// 763373: { isCCIP: true },
-	// 11155111: { isCCIP: true },
+	11155111: { isCCIP: true },
 	// 11155420: { isCCIP: true },
 	// 168587773: { isCCIP: true },
 }
@@ -94,7 +94,7 @@ export const chainSelectors: Record<number, bigint> = {
 	// 200810: BigInt(0),
 	421614: BigInt(3478487238524512106),
 	// 763373: BigInt(0),
-	// 11155111: BigInt(0),
+	11155111: BigInt(0),
 	// 11155420: BigInt(0),
 	// 168587773: BigInt(0),
 }

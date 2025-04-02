@@ -1,11 +1,11 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useEffect } from 'react'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 import { useEstimateGas } from './useEstimateGas'
 
 export const useInputError = () => {
     const { gas, isLoading: isGasLoading } = useEstimateGas()
-    const { setFromAmount, setError, sourceChain } = useFormStore()
+    const { fromAmount, setFromAmount, setError, sourceChain } = useFormStore()
     const { nativeBalances, balances, isLoading: isBalanceLoading } = useBalancesStore()
 
     const chainId = useMemo(() => 
@@ -21,7 +21,7 @@ export const useInputError = () => {
     }, [chainId, nativeBalances, balances])
 
     const checkGas = useCallback((): boolean => {
-        if (isGasLoading || isBalanceLoading || chainId === null) return true
+        if (isGasLoading || isBalanceLoading || !chainId) return true
         
         try {
             const gasCost = BigInt(gas || '0')
@@ -67,6 +67,12 @@ export const useInputError = () => {
         
         return hasGas && hasBal
     }, [checkGas, checkAmount, setError])
+    
+    useEffect(() => {
+        if (fromAmount && fromAmount !== '0') {
+            validate(fromAmount)
+        }
+    }, [sourceChain, balanceData, gas, fromAmount, validate])
 
     return {
         validate,
