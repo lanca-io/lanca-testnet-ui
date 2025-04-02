@@ -1,31 +1,32 @@
-import { useExecutionListener } from './useExecutionListener'
+import { useCallback, useRef } from 'react'
 import { getWalletClient } from '@wagmi/core'
 import { adapter } from '@/configuration/wagmi'
 import { IExecutionConfig, IRouteType } from '@lanca/sdk'
 import { useSDK } from './useSDK'
+import { useExecutionListener } from './useExecutionListener'
 
 export const useExecuteRoute = (route: IRouteType | null) => {
-	const sdk = useSDK()
+    const sdk = useSDK()
+    const updateHandler = useExecutionListener()
+    
+    const configRef = useRef<IExecutionConfig>({
+        updateRouteStatusHook: updateHandler,
+    })
 
-	const handleExecutionUpdate = useExecutionListener()
-
-	const executionConfig: IExecutionConfig = {
-		updateRouteStatusHook: handleExecutionUpdate,
-	}
-
-	const executeRoute = async () => {
-		if (!route) return null
-		try {
-			const chainId = Number(route.from.chain.id)
-			const client = await getWalletClient(adapter.wagmiConfig, { chainId: chainId })
-			// @ts-ignore
-			const tx = await sdk.executeRoute(route, client, executionConfig)
-			return tx
-		} catch (error) {
-			console.error('Error executing route:', error)
-			throw error
-		}
-	}
-
-	return executeRoute
+    return useCallback(async () => {
+        if (!route) return null
+        
+        try {
+            const chainId = Number(route.from.chain.id)
+            const client = await getWalletClient(adapter.wagmiConfig, { chainId })
+            
+            if (!client) throw new Error('Cannot connect to wallet')
+            
+            // @ts-ignore
+            return await sdk.executeRoute(route, client, configRef.current)
+        } catch (error) {
+            console.error('Error executing route:', error)
+            throw error
+        }
+    }, [route, sdk, updateHandler])
 }

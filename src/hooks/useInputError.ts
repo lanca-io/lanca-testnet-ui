@@ -1,68 +1,77 @@
-import { useCallback } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 import { useEstimateGas } from './useEstimateGas'
 
 export const useInputError = () => {
-	const { gas, isLoading: isGasLoading } = useEstimateGas()
-	const { setError, sourceChain } = useFormStore()
-	const { nativeBalances, balances, isLoading: isBalanceLoading } = useBalancesStore()
+    const { gas, isLoading: isGasLoading } = useEstimateGas()
+    const { setFromAmount, setError, sourceChain } = useFormStore()
+    const { nativeBalances, balances, isLoading: isBalanceLoading } = useBalancesStore()
 
-	// const validateGasCost = useCallback(() => {
-	//     if (isGasLoading || isBalanceLoading || !sourceChain || !sourceChain.id) {
-	//         return false;
-	//     }
+    const chainId = useMemo(() => 
+        sourceChain?.id ? Number(sourceChain.id) : null
+    , [sourceChain])
 
-	//     const chainId = Number(sourceChain.id);
-	//     const nativeBalance = nativeBalances?.[chainId]?.balance || '0';
+    const balanceData = useMemo(() => {
+        if (!chainId) return { nativeBal: '0', tokenBal: '0' }
+        return {
+            nativeBal: nativeBalances?.[chainId]?.balance || '0',
+            tokenBal: balances?.[chainId]?.balance || '0'
+        }
+    }, [chainId, nativeBalances, balances])
 
-	//     const gasCost = BigInt(gas!);
-	//     const nativeBalanceBigInt = BigInt(nativeBalance);
+    const checkGas = useCallback((): boolean => {
+        if (isGasLoading || isBalanceLoading || chainId === null) return true
+        
+        try {
+            const gasCost = BigInt(gas || '0')
+            const nativeBal = BigInt(balanceData.nativeBal)
 
-	//     if (gasCost > nativeBalanceBigInt) {
-	//         setError('Insufficient gas');
-	//         return false;
-	//     }
+            if (gasCost > nativeBal) {
+                setFromAmount('')
+                setError('Insufficient gas')
+                return false
+            }
 
-	//     setError(null);
-	//     return true;
-	// }, [gas, isGasLoading, isBalanceLoading, nativeBalances, sourceChain, setError]);
+            return true
+        } catch {
+            return true 
+        }
+    }, [gas, isGasLoading, isBalanceLoading, chainId, balanceData.nativeBal, setError, setFromAmount])
 
-	// const validateInputAmount = useCallback(
-	//     (value: string) => {
-	//         if (isBalanceLoading || !sourceChain || !sourceChain.id) {
-	//             return false;
-	//         }
+    const checkAmount = useCallback((val: string): boolean => {
+        if (!val || val === '0') return true
+        if (isBalanceLoading || !chainId) return true
+        
+        try {
+            const inAmount = BigInt(val)
+            const tokenBal = BigInt(balanceData.tokenBal)
 
-	//         const chainId = Number(sourceChain.id);
-	//         const tokenBalance = balances?.[chainId]?.balance || '0';
+            if (inAmount > tokenBal) {
+                setFromAmount('')
+                setError('Insufficient tCERO balance')
+                return false
+            }
 
-	//         const inputAmountBigInt = BigInt(value);
-	//         const tokenBalanceBigInt = BigInt(tokenBalance);
+            return true
+        } catch {
+            return true 
+        }
+    }, [isBalanceLoading, chainId, balanceData.tokenBal, setError, setFromAmount])
 
-	//         if (inputAmountBigInt > tokenBalanceBigInt) {
-	//             setError('Insufficient tCERO balance.');
-	//             return false;
-	//         }
+    const validate = useCallback((val: string): boolean => {
+        setError(null)
+        
+        const hasGas = checkGas()
+        const hasBal = checkAmount(val)
+        
+        return hasGas && hasBal
+    }, [checkGas, checkAmount, setError])
 
-	//         setError(null);
-	//         return true;
-	//     },
-	//     [balances, isBalanceLoading, sourceChain, setError],
-	// );
-	const handleInputError = useCallback(
-		(value: string): boolean => {
-			// if (!validateGasCost()) {
-			//     return false;
-			// }
-
-			// if (!validateInputAmount(value)) {
-			//     return false;
-			// }
-
-			setError(null)
-			return true
-		},
-		[setError],
-	)
+    return {
+        validate,
+        checkGas,
+        checkAmount,
+        isLoading: isGasLoading || isBalanceLoading
+    }
 }

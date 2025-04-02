@@ -53,7 +53,7 @@ export const useGetRoute = (): IRouteType | null => {
 		destinationChain.name,
 	)
 
-	const rawFromAmount = BigInt(Number(fromAmount) * 10 ** fromToken.decimals)
+	const rawFromAmount = BigInt(Number(fromAmount))
 	const rawToAmount = BigInt(Number(rawFromAmount) - Number(fee))
 
 	const route: IRouteType = {

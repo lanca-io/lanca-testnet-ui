@@ -1,61 +1,87 @@
-import type { ChangeEvent, FocusEvent } from 'react'
-import { useState, useCallback, useEffect, useRef } from 'react'
-import { useFormStore } from '@/stores/form/useFormStore'
+import type { ChangeEvent, FocusEvent } from 'react';
+import { useState, useCallback, useRef, useEffect, useMemo } from 'react';
+import { useFormStore } from '@/stores/form/useFormStore';
+import { parseTokenAmount, formatTokenAmount } from '@/utils/tokens';
+import { useDebounce } from './useDebounce';
+import { useInputError } from './useInputError';
 
-const TYPING_TIMEOUT = 700
+const NUM_REGEX = /^(\d*\.?\d*)?$/;
 
-export const useHandleInput = () => {
-	const { fromAmount, setFromAmount } = useFormStore()
-	// const { handleInputError } = useInputError()
+export const useHandleInput = (decimals: number = 18) => {
+    const [value, setValue] = useState<string>('');
+    const [active, setActive] = useState<boolean>(false);
+    
+    const { fromAmount, setFromAmount, setError } = useFormStore();
+    const { validate } = useInputError();
 
-	const [inputValue, setInputValue] = useState(fromAmount)
-	const timeoutRef = useRef<NodeJS.Timeout | null>(null)
+    const isFirst = useRef<boolean>(true);
+    const prevValue = useRef<string>('');
+    
+    useEffect(() => {
+        if (isFirst.current && fromAmount && fromAmount !== '0') {
+            const readableVal = formatTokenAmount(fromAmount, decimals);
+            setValue(readableVal);
+            isFirst.current = false;
+        }
+    }, [fromAmount, decimals]);
 
-	const handleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-		const value = e.target.value
-		if (/^\d*\.?\d*$/.test(value)) {
-			setInputValue(value)
-		}
-	}, [])
+    const debounced = useDebounce<string>(value, 500);
 
-	const handleFocus = useCallback((e: FocusEvent<HTMLInputElement>) => {
-		e.target.placeholder = ''
-	}, [])
+    useEffect(() => {
+        if (debounced !== prevValue.current) {
+            prevValue.current = debounced;
+            
+            if (!debounced) {
+                setError(null);
+                setFromAmount('0');
+                return;
+            }
+            
+            if (active) {
+                const rawVal = parseTokenAmount(debounced, decimals);
+                
+                const valid = validate(rawVal);
+                if (valid) {
+                    setFromAmount(rawVal);
+                }
+            }
+        }
+    }, [debounced, setFromAmount, setError, decimals, validate, active]);
 
-	const handleBlur = useCallback(
-		(e: FocusEvent<HTMLInputElement>) => {
-			if (!e.target.value) {
-				setInputValue('')
-				setFromAmount('')
-			}
-			e.target.placeholder = '0'
-		},
-		[setFromAmount],
-	)
+    const onChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        const val = e.target.value;
+        
+        if (NUM_REGEX.test(val)) {
+            if (!active) {
+                setActive(true);
+            }
+            
+            setValue(val);
+            
+            if (!val) {
+                setError(null);
+            }
+        }
+    }, [active, setError]);
 
-	useEffect(() => {
-		if (timeoutRef.current) {
-			clearTimeout(timeoutRef.current)
-		}
+    const onFocus = useCallback((e: FocusEvent<HTMLInputElement>) => {
+        e.target.placeholder = '';
+    }, []);
 
-		timeoutRef.current = setTimeout(() => {
-			// handleInputError(inputValue)
-			if (inputValue !== fromAmount) {
-				setFromAmount(inputValue)
-			}
-		}, TYPING_TIMEOUT)
+    const onBlur = useCallback((e: FocusEvent<HTMLInputElement>) => {
+        if (!e.target.value) {
+            setValue('');
+            setFromAmount('0');
+            setError(null);
+        }
+        e.target.placeholder = '0';
+    }, [setFromAmount, setError]);
 
-		return () => {
-			if (timeoutRef.current) {
-				clearTimeout(timeoutRef.current)
-			}
-		}
-	}, [inputValue, fromAmount, setFromAmount])
-
-	return {
-		inputValue,
-		handleChange,
-		handleFocus,
-		handleBlur,
-	}
-}
+    return useMemo(() => ({
+        value,
+        onChange,
+        onFocus,
+        onBlur,
+        active
+    }), [value, onChange, onFocus, onBlur, active]);
+};

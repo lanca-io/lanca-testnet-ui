@@ -3,19 +3,19 @@ import { useHandleInput } from '@/hooks/useHandleInput'
 import './AmountInput.pcss'
 
 export const AmountInput: FC = () => {
-	const { inputValue, handleChange, handleFocus, handleBlur } = useHandleInput()
+    const { value, onChange, onFocus, onBlur } = useHandleInput()
 
-	return (
-		<div className="amount-input">
-			<input
-				type="text"
-				className="amount-input__input"
-				placeholder="0"
-				value={inputValue}
-				onChange={handleChange}
-				onFocus={handleFocus}
-				onBlur={handleBlur}
-			/>
-		</div>
-	)
+    return (
+        <div className="amount-input">
+            <input
+                type="text"
+                className="amount-input__input"
+                placeholder="0"
+                value={value}
+                onChange={onChange}
+                onFocus={onFocus}
+                onBlur={onBlur}
+            />
+        </div>
+    )
 }
