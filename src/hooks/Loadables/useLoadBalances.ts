@@ -1,5 +1,6 @@
 import type { Balance } from '@/stores/balances/types'
 import { useEffect, useCallback } from 'react'
+import { Status } from '@lanca/sdk'
 import { useQuery } from '@tanstack/react-query'
 import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 import { useAccount } from 'wagmi'
@@ -7,6 +8,7 @@ import { useChainsStore } from '@/stores/chains/useChainsStore'
 import { Address, erc20Abi } from 'viem'
 import { getPublicClient } from '@/utils/client'
 import { TokenAddresses } from '@/configuration/addresses'
+import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 
 const SYMBOL = 'tCERO'
 const DECIMALS = 18
@@ -15,6 +17,7 @@ export const useLoadBalances = () => {
 	const { address } = useAccount()
 	const { chains } = useChainsStore()
 	const { setBalances, setLoading } = useBalancesStore()
+	const { txStatus } = useTxExecutionStore()
 
 	const handleFetchBalances = useCallback(async () => {
 		if (!address) return []
@@ -62,11 +65,21 @@ export const useLoadBalances = () => {
 		return balances
 	}, [address, chains])
 
-	const { data: balances, isLoading } = useQuery({
+	const {
+		data: balances,
+		isLoading,
+		refetch,
+	} = useQuery({
 		queryKey: ['balances', address],
 		queryFn: handleFetchBalances,
 		enabled: !!address,
 	})
+
+	useEffect(() => {
+		if (txStatus === Status.SUCCESS) {
+			refetch()
+		}
+	}, [txStatus, refetch])
 
 	useEffect(() => {
 		setLoading(isLoading)

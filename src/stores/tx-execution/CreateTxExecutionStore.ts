@@ -1,68 +1,65 @@
-import type { TxExecutionStateAndActions, TxExecutionStore } from './types';
-import { createWithEqualityFn } from 'zustand/traditional';
-import { Status, StepType } from '@lanca/sdk';
+import type { TxExecutionStateAndActions, TxExecutionStore } from './types'
+import { createWithEqualityFn } from 'zustand/traditional'
+import { Status, StepType } from '@lanca/sdk'
 
 const initialState = {
-    txStatus: Status.NOT_STARTED,
-    steps: {
-        ALLOWANCE: Status.NOT_STARTED,
-        BRIDGE: Status.NOT_STARTED,
-    },
-    receivedAmount: null as string | null, 
-};
+	txStatus: Status.NOT_STARTED,
+	steps: {
+		ALLOWANCE: Status.NOT_STARTED,
+		BRIDGE: Status.NOT_STARTED,
+	},
+	executionTime: 0,
+}
 
 const computeTxStatus = (steps: { ALLOWANCE: Status; BRIDGE: Status }): Status => {
-    const statuses = Object.values(steps);
+	const statuses = Object.values(steps)
 
-    switch (true) {
-        case statuses.includes(Status.REJECTED):
-            return Status.REJECTED;
+	switch (true) {
+		case statuses.includes(Status.REJECTED):
+			return Status.REJECTED
 
-        case statuses.includes(Status.FAILED):
-            return Status.FAILED;
+		case statuses.includes(Status.FAILED):
+			return Status.FAILED
 
-        case statuses.every(status => status === Status.SUCCESS):
-            return Status.SUCCESS;
+		case statuses.every(status => status === Status.SUCCESS):
+			return Status.SUCCESS
 
-        case statuses.some(status => status === Status.PENDING):
-            return Status.PENDING;
+		case statuses.some(status => status === Status.PENDING):
+			return Status.PENDING
 
-        default:
-            return Status.NOT_STARTED;
-    }
-};
+		default:
+			return Status.NOT_STARTED
+	}
+}
 
 export const CreateTxExecutionStore = (): TxExecutionStore => {
-    return createWithEqualityFn<TxExecutionStateAndActions>(
-        (set, get) => ({
-            ...initialState,
+	return createWithEqualityFn<TxExecutionStateAndActions>(
+		(set, get) => ({
+			...initialState,
 
-            setStepStatus: (stepType: StepType, status: Status) => {
-                if (stepType === StepType.ALLOWANCE || stepType === StepType.BRIDGE) {
-                    set(state => ({
-                        steps: {
-                            ...state.steps,
-                            [stepType]: status,
-                        },
-                    }));
+			setStepStatus: (stepType: StepType, status: Status) => {
+				if (stepType === StepType.ALLOWANCE || stepType === StepType.BRIDGE) {
+					set(state => ({
+						steps: {
+							...state.steps,
+							[stepType]: status,
+						},
+					}))
 
-                    const { steps } = get();
-                    const overallStatus = computeTxStatus(steps);
-                    set({ txStatus: overallStatus });
-                    if (overallStatus !== Status.SUCCESS) {
-                        set({ receivedAmount: null });
-                    }
-                }
-            },
+					const { steps } = get()
+					const overallStatus = computeTxStatus(steps)
+					set({ txStatus: overallStatus })
+				}
+			},
 
-            setReceivedAmount: (amount: string) => {
-                set({ receivedAmount: amount });
-            },
+			setExecutionTime: (time: number) => {
+				set({ executionTime: time })
+			},
 
-            reset: () => {
-                set(initialState);
-            },
-        }),
-        Object.is,
-    );
-};
+			reset: () => {
+				set(initialState)
+			},
+		}),
+		Object.is,
+	)
+}

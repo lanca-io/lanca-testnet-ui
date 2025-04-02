@@ -53,19 +53,18 @@ export const useGetRoute = (): IRouteType | null => {
 		destinationChain.name,
 	)
 
-	const rawFromAmount = BigInt(Number(fromAmount))
-	const rawToAmount = BigInt(Number(rawFromAmount) - Number(fee))
+	const rawAmount = BigInt(Number(fromAmount))
 
 	const route: IRouteType = {
 		from: {
 			token: fromToken,
 			chain: fromChain,
-			amount: rawFromAmount.toString(),
+			amount: rawAmount.toString(),
 		},
 		to: {
 			token: toToken,
 			chain: toChain,
-			amount: rawToAmount.toString(),
+			amount: rawAmount.toString(),
 		},
 		steps: [
 			{
@@ -73,12 +72,12 @@ export const useGetRoute = (): IRouteType | null => {
 				from: {
 					token: fromToken,
 					chain: fromChain,
-					amount: rawFromAmount.toString(),
+					amount: rawAmount.toString(),
 				},
 				to: {
 					token: toToken,
 					chain: toChain,
-					amount: rawToAmount.toString(),
+					amount: rawAmount.toString(),
 				},
 			},
 		],

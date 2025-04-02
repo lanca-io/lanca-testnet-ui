@@ -1,15 +1,18 @@
 import type { NativeBalance } from '@/stores/balances/types'
 import { useEffect, useCallback } from 'react'
+import { Status } from '@lanca/sdk'
 import { useQuery } from '@tanstack/react-query'
 import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 import { useAccount } from 'wagmi'
 import { useChainsStore } from '@/stores/chains/useChainsStore'
 import { getPublicClient } from '@/utils/client'
+import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 
 export const useLoadNativeBalances = () => {
 	const { address } = useAccount()
 	const { chains } = useChainsStore()
 	const { setNativeBalances, setLoading } = useBalancesStore()
+	const { txStatus } = useTxExecutionStore()
 
 	const handleFetchNativeBalances = useCallback(async () => {
 		if (!address) return []
@@ -44,11 +47,21 @@ export const useLoadNativeBalances = () => {
 		return nativeBalances
 	}, [address, chains])
 
-	const { data: nativeBalances, isLoading } = useQuery({
+	const {
+		data: nativeBalances,
+		isLoading,
+		refetch,
+	} = useQuery({
 		queryKey: ['nativeBalances', address],
 		queryFn: handleFetchNativeBalances,
 		enabled: !!address,
 	})
+
+	useEffect(() => {
+		if (txStatus === Status.SUCCESS) {
+			refetch()
+		}
+	}, [txStatus, refetch])
 
 	useEffect(() => {
 		setLoading(isLoading)

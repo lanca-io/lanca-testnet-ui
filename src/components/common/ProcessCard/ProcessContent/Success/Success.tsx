@@ -2,11 +2,20 @@ import type { FC } from 'react'
 import { useMemo } from 'react'
 import { Badge } from '@/components/common/Badge/Badge'
 import { useFormStore } from '@/stores/form/useFormStore'
+import { formatTokenAmount } from '@/utils/tokens'
 import { ClockIcon } from '@/assets/icons/clock'
+import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 import './Success.pcss'
 
 export const Success: FC = (): JSX.Element => {
-	const { destinationChain } = useFormStore()
+	const { executionTime } = useTxExecutionStore()
+	const { destinationChain, fromAmount } = useFormStore()
+
+	const formattedAmount = useMemo(() => {
+		if (!fromAmount || fromAmount === '0') return '0'
+		return formatTokenAmount(fromAmount)
+	}, [fromAmount])
+
 	const imageSrc = useMemo(() => '/Swap/Success.svg', [])
 	const altText = useMemo(() => 'Success Process', [])
 	const headingText = useMemo(() => 'You received', [])
@@ -32,10 +41,10 @@ export const Success: FC = (): JSX.Element => {
 							<p className="success-info__name">{destinationChain?.name}</p>
 						</div>
 					</div>
-					<p className="success-info__number">1</p>
+					<p className="success-info__number">{formattedAmount}</p>
 					<div className="success-info__timer">
 						<ClockIcon />
-						<p className="success-info__timer-text">In 40 seconds</p>
+						<p className="success-info__timer-text">{`In ${executionTime} seconds`}</p>
 					</div>
 				</div>
 			</div>
