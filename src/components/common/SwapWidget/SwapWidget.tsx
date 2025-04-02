@@ -14,6 +14,7 @@ export const SwapWidget: FC = () => {
 		switch (txStatus) {
 			case 'PENDING':
 			case 'SUCCESS':
+			case 'REJECTED':
 			case 'FAILED':
 				return <ProcessCard />
 			default:
