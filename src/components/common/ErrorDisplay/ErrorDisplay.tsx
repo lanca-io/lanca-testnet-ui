@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { useAccount } from 'wagmi'
 import './ErrorDisplay.pcss'
 
 type ErrorDisplayProps = {
@@ -6,7 +7,9 @@ type ErrorDisplayProps = {
 }
 
 export const ErrorDisplay: FC<ErrorDisplayProps> = ({ error }): JSX.Element | null => {
-	if (!error) return null
+	const { isConnected } = useAccount()
+
+	if (!error || !isConnected) return null
 
 	return (
 		<div className="error-display">

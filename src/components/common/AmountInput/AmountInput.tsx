@@ -1,8 +1,10 @@
 import type { FC } from 'react'
 import { useHandleInput } from '@/hooks/useHandleInput'
+import { useAccount } from 'wagmi'
 import './AmountInput.pcss'
 
 export const AmountInput: FC = () => {
+	const { isConnected } = useAccount()
 	const { value, onChange, onFocus, onBlur } = useHandleInput()
 
 	return (
@@ -15,6 +17,7 @@ export const AmountInput: FC = () => {
 				onChange={onChange}
 				onFocus={onFocus}
 				onBlur={onBlur}
+				disabled={!isConnected}
 			/>
 		</div>
 	)

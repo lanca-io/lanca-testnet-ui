@@ -1,4 +1,12 @@
 export const chainLogos: Record<number, string> = {
+	// ARBITRUM SEPOLIA
+	421614: '/Chains/421614.svg',
+	// BASE SEPOLIA
+	84532: '/Chains/84532.svg',
+	// SAIGON RONIN
+	2021: '/Chains/2021.svg',
+	// MEGAETH TESTNET
+	6342: '/Chains/6342.svg',
 	// 81: '/Chains/81.svg',
 	// 97: '/Chains/97.svg',
 	// 133: '/Chains/133.svg',
@@ -10,10 +18,8 @@ export const chainLogos: Record<number, string> = {
 	// 1301: '/Chains/1301.svg',
 	// 1328: '/Chains/1328.svg',
 	// 1946: '/Chains/1946.svg',
-	2021: '/Chains/2021.svg', //
 	// 3636: '/Chains/3636.svg',
 	// 5003: '/Chains/5003.svg',
-	6342: '/Chains/6342.svg', //
 	// 10143: '/Chains/10143.svg',
 	// 10200: '/Chains/10200.svg',
 	// 33111: '/Chains/33111.svg',
@@ -23,16 +29,21 @@ export const chainLogos: Record<number, string> = {
 	// 57054: '/Chains/57054.svg',
 	// 59141: '/Chains/59141.svg',
 	// 80002: '/Chains/80002.svg',
-	84532: '/Chains/84532.svg', //
 	// 200810: '/Chains/200810.svg',
-	421614: '/Chains/421614.svg', //
 	// 763373: '/Chains/763373.svg',
-	11155111: '/Chains/11155111.svg',
+	// 11155111: '/Chains/11155111.svg',
 	// 11155420: '/Chains/11155420.svg',
 	// 168587773: '/Chains/168587773.svg',
 }
 
 export const chainCCIP: Record<number, { isCCIP: boolean }> = {
+	// ARBITRUM SEPOLIA
+	421614: { isCCIP: true },
+	// BASE SEPOLIA
+	84532: { isCCIP: true },
+	// SAIGON RONIN
+	2021: { isCCIP: true },
+
 	// 81: { isCCIP: true },
 	// 97: { isCCIP: true },
 	// 133: { isCCIP: true },
@@ -44,7 +55,6 @@ export const chainCCIP: Record<number, { isCCIP: boolean }> = {
 	// 1301: { isCCIP: true },
 	// 1328: { isCCIP: true },
 	// 1946: { isCCIP: true },
-	2021: { isCCIP: true },
 	// 3636: { isCCIP: true },
 	// 5003: { isCCIP: true },
 	// 10143: { isCCIP: true },
@@ -56,16 +66,18 @@ export const chainCCIP: Record<number, { isCCIP: boolean }> = {
 	// 57054: { isCCIP: true },
 	// 59141: { isCCIP: true },
 	// 80002: { isCCIP: true },
-	84532: { isCCIP: true },
 	// 200810: { isCCIP: true },
-	421614: { isCCIP: true },
 	// 763373: { isCCIP: true },
-	11155111: { isCCIP: true },
+	// 11155111: { isCCIP: true },
 	// 11155420: { isCCIP: true },
 	// 168587773: { isCCIP: true },
 }
 
 export const chainSelectors: Record<number, bigint> = {
+	421614: BigInt(3478487238524512106),
+	84532: BigInt(10344971235874465080),
+	2021: BigInt(13116810400804392105),
+	6342: BigInt(2443239559770384419),
 	// 81: BigInt(0),
 	// 97: BigInt(0),
 	// 133: BigInt(0),
@@ -77,10 +89,8 @@ export const chainSelectors: Record<number, bigint> = {
 	// 1301: BigInt(0),
 	// 1328: BigInt(0),
 	// 1946: BigInt(0),
-	2021: BigInt(13116810400804392105),
 	// 3636: BigInt(0),
 	// 5003: BigInt(0),
-	6342: BigInt(2443239559770384419),
 	// 10143: BigInt(0),
 	// 10200: BigInt(0),
 	// 33111: BigInt(0),
@@ -90,11 +100,9 @@ export const chainSelectors: Record<number, bigint> = {
 	// 57054: BigInt(0),
 	// 59141: BigInt(0),
 	// 80002: BigInt(0),
-	84532: BigInt(10344971235874465080),
 	// 200810: BigInt(0),
-	421614: BigInt(3478487238524512106),
 	// 763373: BigInt(0),
-	11155111: BigInt(0),
+	// 11155111: BigInt(0),
 	// 11155420: BigInt(0),
 	// 168587773: BigInt(0),
 }
