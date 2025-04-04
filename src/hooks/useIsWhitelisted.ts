@@ -1,40 +1,48 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useAccount } from 'wagmi'
-import { isAdminAddress } from '@/utils/tests/isAdminAddress'
+import { usePostHog } from 'posthog-js/react'
 
 export const useIsWhitelisted = () => {
-	const { address, isConnected } = useAccount()
-	const [isWhitelisted, setIsWhitelisted] = useState(false)
-	const [isLoading, setIsLoading] = useState(false)
+    const { address, isConnected } = useAccount()
+    const [isWhitelisted, setIsWhitelisted] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
+    const posthog = usePostHog()
 
-	const mockCheckStatus = async () => {
-		setIsWhitelisted(false)
+    const checkWhitelistStatus = useCallback(() => {
+        setIsWhitelisted(false)
 
-		if (!isConnected || !address) {
-			return
-		}
+        if (!isConnected || !address) {
+            setIsLoading(false)
+            return
+        }
 
-		setIsLoading(true)
+        setIsLoading(true)
 
-		try {
-			await new Promise(resolve => setTimeout(resolve, 800))
-			const mockWhitelisted = isAdminAddress(address)
+        try {
+            const isEnabled = posthog.isFeatureEnabled('concero-testnet-whitelist')
+            setIsWhitelisted(!!isEnabled)
+        } catch (err) {
+            setIsWhitelisted(false)
+            console.warn('Whitelist check failed:', err)
+        } finally {
+            setIsLoading(false)
+        }
+    }, [posthog, address, isConnected])
 
-			setIsWhitelisted(mockWhitelisted)
-		} catch (err) {
-			setIsWhitelisted(false)
-			console.warn('Whitelisted check failed:', err)
-		} finally {
-			setIsLoading(false)
-		}
-	}
+    useEffect(() => {
+        if (!posthog || !isConnected || !address) {
+            setIsWhitelisted(false)
+            setIsLoading(false)
+            return
+        }
 
-	useEffect(() => {
-		mockCheckStatus()
-	}, [address, isConnected])
+        posthog.onFeatureFlags(() => {
+            checkWhitelistStatus()
+        })
+    }, [address, isConnected, posthog, checkWhitelistStatus])
 
-	return {
-		isWhitelisted,
-		isLoading,
-	}
+    return {
+        isWhitelisted,
+        isLoading,
+    }
 }

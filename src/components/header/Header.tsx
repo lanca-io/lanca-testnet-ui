@@ -3,12 +3,12 @@ import { useLocation } from 'react-router-dom'
 import { GasWidget } from '../common/GasWidget/GasWidget'
 import { WalletButton } from '../common/WalletButton/WalletButton'
 import { routes } from '../../configuration/routes'
-import { useIsMobile } from '@/hooks/useMediaQuery'
-import Concero_logo_short from '@/assets/icons/concero_logo_short.svg'
-import { isAdminAddress } from '@/utils/tests/isAdminAddress'
-import { useAccount } from 'wagmi'
+import { useIsDesktop, useIsMobile } from '@/hooks/useMediaQuery'
 import { TokenWidget } from '../common/TokenWidget/TokenWidget'
 import './Header.pcss'
+
+import Concero_logo_short from '@/assets/icons/concero_logo_short.svg'
+import { useIsWhitelisted } from '@/hooks/useIsWhitelisted'
 
 type LogoProps = {
 	isMobile?: boolean
@@ -21,9 +21,12 @@ const Logo: FC<LogoProps> = memo(({ isMobile }) => {
 
 export const Header: FC = () => {
 	const { pathname } = useLocation()
+	const { isWhitelisted, isLoading } = useIsWhitelisted()
+
+
 	const isMobile = useIsMobile()
-	const { address } = useAccount()
-	const isWhitelisted = isAdminAddress(address)
+	const isDesktop = useIsDesktop()
+	const isWidgetVisible = !isDesktop && !isLoading && isWhitelisted
 
 	const headerMap = useMemo(
 		() => ({
@@ -36,8 +39,8 @@ export const Header: FC = () => {
 				<header className="swap-header">
 					<Logo isMobile={isMobile} />
 					<div className="swap-header__actions">
-						{!isMobile && <TokenWidget />}
-						{!isMobile && <GasWidget />}
+						{isWidgetVisible && <TokenWidget />}
+						{isWidgetVisible && <GasWidget />}
 						<WalletButton />
 					</div>
 				</header>
@@ -47,7 +50,7 @@ export const Header: FC = () => {
 				</header>
 			),
 		}),
-		[isMobile, isWhitelisted],
+		[isMobile, isWhitelisted, isDesktop],
 	)
 
 	return headerMap[pathname] || null
