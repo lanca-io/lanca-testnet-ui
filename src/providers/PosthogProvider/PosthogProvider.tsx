@@ -6,7 +6,7 @@ import { PostHogProvider as PHProvider } from 'posthog-js/react'
 export const PosthogProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
 	const options: Partial<PostHogConfig> = {
 		api_host: posthog_domain,
-		autocapture: false
+		autocapture: false,
 	}
 
 	return (

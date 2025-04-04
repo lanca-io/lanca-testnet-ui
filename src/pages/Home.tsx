@@ -1,10 +1,14 @@
 import type { FC } from 'react'
 import { Hero } from '@/components/hero/Hero'
+import { MetaTags } from '@/components/common/MetaTags/MetaTags'
 
 export const HomePage: FC = (): JSX.Element => {
-	return (
-		<main>
-			<Hero />
-		</main>
-	)
+    return (
+        <>
+            <MetaTags />
+            <main>
+                <Hero />
+            </main>
+        </>
+    )
 }

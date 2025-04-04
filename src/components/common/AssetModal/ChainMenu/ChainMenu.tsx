@@ -1,6 +1,6 @@
 import type { FC } from 'react'
-import { memo, useMemo } from 'react'
 import type { Chain as IChain } from '@/stores/chains/types'
+import { memo, useMemo } from 'react'
 import { ChainItem } from '../ChainItem/ChainItem'
 import { useGetChains } from '@/hooks/useGetChains'
 import { useBalancesStore } from '@/stores/balances/useBalancesStore'

@@ -23,10 +23,9 @@ export const Header: FC = () => {
 	const { pathname } = useLocation()
 	const { isWhitelisted, isLoading } = useIsWhitelisted()
 
-
 	const isMobile = useIsMobile()
 	const isDesktop = useIsDesktop()
-	const isWidgetVisible = !isDesktop && !isLoading && isWhitelisted
+	const isWidgetVisible = isDesktop && !isLoading && isWhitelisted
 
 	const headerMap = useMemo(
 		() => ({
