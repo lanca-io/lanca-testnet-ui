@@ -5,16 +5,16 @@ import { WalletButton } from '../common/WalletButton/WalletButton'
 import { routes } from '../../configuration/routes'
 import { useIsMobile } from '@/hooks/useMediaQuery'
 import Concero_logo_short from '@/assets/icons/concero_logo_short.svg'
-import './Header.pcss'
 import { isAdminAddress } from '@/utils/tests/isAdminAddress'
 import { useAccount } from 'wagmi'
+import { TokenWidget } from '../common/TokenWidget/TokenWidget'
+import './Header.pcss'
 
 type LogoProps = {
 	isMobile?: boolean
 }
 
 const Logo: FC<LogoProps> = memo(({ isMobile }) => {
-	//TODO: Fix these paths
 	const logoSrc = isMobile ? Concero_logo_short : '/Header/ConceroLogo.svg'
 	return <img src={logoSrc} alt="Concero" className="header__logo" />
 })
@@ -36,6 +36,7 @@ export const Header: FC = () => {
 				<header className="swap-header">
 					<Logo isMobile={isMobile} />
 					<div className="swap-header__actions">
+						{!isMobile && <TokenWidget />}
 						{!isMobile && <GasWidget />}
 						<WalletButton />
 					</div>

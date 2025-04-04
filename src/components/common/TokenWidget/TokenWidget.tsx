@@ -1,6 +1,6 @@
 import { FC, useMemo, memo } from 'react'
 import { IconButton } from '@concero/ui-kit'
-import { GasIcon } from '@/assets/icons/gas'
+import { TokenIcon } from '@/assets/icons/token'
 import { AddIcon } from '@/assets/icons/add'
 import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 import { useFormStore } from '@/stores/form/useFormStore'
@@ -8,55 +8,55 @@ import { useAccount } from 'wagmi'
 import { formatTokenAmount } from '@/utils/tokens'
 import { SkeletonLoader } from '../SkeletonLoader/SkeletonLoader'
 import { format } from '@/utils/format'
-import './GasWidget.pcss'
+import './TokenWidget.pcss'
 
 const COLORS = {
     PURPLE: 'var(--color-accent-600)',
     GRAY: 'var(--color-gray-600)',
 }
 
-export const GasWidget: FC = memo(() => {
+export const TokenWidget: FC = memo(() => {
     const { isConnected } = useAccount()
     const { sourceChain } = useFormStore()
-    const { nativeBalances, isLoading } = useBalancesStore()
+    const { balances, isLoading } = useBalancesStore()
 
     const rawAmount = useMemo(() => {
-        if (!sourceChain || !nativeBalances[Number(sourceChain.id)]) {
+        if (!sourceChain || !balances[Number(sourceChain.id)]) {
             return '0'
         }
-        return nativeBalances[Number(sourceChain.id)].balance
-    }, [sourceChain, nativeBalances])
+        return balances[Number(sourceChain.id)].balance
+    }, [sourceChain, balances])
 
-    const gas = useMemo(
+    const nativeToken = useMemo(
         () => formatTokenAmount(rawAmount, sourceChain?.decimals || 18),
         [rawAmount, sourceChain?.decimals],
     )
 
     const uiProps = useMemo<{
-        gasColor: string
+        tokenColor: string
         addColor: string
         buttonVariant: 'secondary' | 'secondary_color'
     }>(() => {
-        const hasGas = !isLoading && Number(gas) > 0
+        const hasToken = !isLoading && Number(nativeToken) > 0
 
         return {
-            gasColor: hasGas || isLoading ? COLORS.PURPLE : COLORS.GRAY,
-            addColor: hasGas || isLoading ? COLORS.GRAY : COLORS.PURPLE,
-            buttonVariant: hasGas ? 'secondary' : ('secondary_color' as const),
+            tokenColor: hasToken || isLoading ? COLORS.PURPLE : COLORS.GRAY,
+            addColor: hasToken || isLoading ? COLORS.GRAY : COLORS.PURPLE,
+            buttonVariant: hasToken ? 'secondary' : ('secondary_color' as const),
         }
-    }, [gas, isLoading])
+    }, [nativeToken, isLoading])
 
     if (!isConnected) {
         return null
     }
 
     return (
-        <div className="gas_widget">
-            <GasIcon color={uiProps.gasColor} />
+        <div className="token_widget">
+            <TokenIcon color={uiProps.tokenColor} />
             {isLoading ? (
                 <SkeletonLoader width={28} height={22} className="loader" />
             ) : (
-                <h5 className="gas_value">{format(Number(gas), 2)}</h5>
+                <h5 className="native_token_value">{format(Number(nativeToken), 2)}</h5>
             )}
 
             <IconButton size="s" variant={uiProps.buttonVariant}>
