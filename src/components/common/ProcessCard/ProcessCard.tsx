@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import { memo } from 'react'
 import { ProcessHeading } from './ProcessHeading/ProcessHeading'
 import { ProcessContent } from './ProcessContent/ProcessContent'
 import { useTxExecutionTimer } from '@/hooks/useTxExecutionTimer'
@@ -8,21 +9,23 @@ import { ProcessAction } from './ProcessAction/ProcessAction'
 import { useTxProcess } from '@/hooks/useTxProcess'
 import './ProcessCard.pcss'
 
-export const ProcessCard: FC = (): JSX.Element => {
-	const { currentStage } = useTxProcess()
-	useTxExecutionTimer()
+export const ProcessCard: FC = memo((): JSX.Element => {
+    const { currentStage } = useTxProcess()
+    useTxExecutionTimer()
 
-	return (
-		<>
-			<div className={`process-card__${currentStage}`}>
-				<div className="process-card">
-					<ProcessHeading />
-					<ProcessContent />
-					<TxProgress />
-					<ProcessInfo />
-				</div>
-			</div>
-			<ProcessAction />
-		</>
-	)
-}
+    return (
+        <>
+            <div className={`process_card_${currentStage}`} data-testid={`process-card-${currentStage}`}>
+                <div className="process_card">
+                    <ProcessHeading />
+                    <ProcessContent />
+                    <TxProgress />
+                    <ProcessInfo />
+                </div>
+            </div>
+            <ProcessAction />
+        </>
+    )
+})
+
+ProcessCard.displayName = 'ProcessCard'

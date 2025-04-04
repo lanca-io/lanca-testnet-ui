@@ -6,20 +6,22 @@ import { Status, StepType } from '@lanca/sdk'
 import './TxProgress.pcss'
 
 export const TxProgress: FC = memo((): JSX.Element | null => {
-	const { txStatus, steps } = useTxExecutionStore()
+    const { txStatus, steps } = useTxExecutionStore()
 
-	const stepsContent = useMemo(
-		() => (
-			<>
-				<TxStep step={StepType.ALLOWANCE} status={steps.ALLOWANCE} />
-				<RightIcon />
-				<TxStep step={StepType.BRIDGE} status={steps.BRIDGE} />
-			</>
-		),
-		[steps],
-	)
+    const stepsContent = useMemo(
+        () => (
+            <>
+                <TxStep step={StepType.ALLOWANCE} status={steps.ALLOWANCE} />
+                <RightIcon />
+                <TxStep step={StepType.BRIDGE} status={steps.BRIDGE} />
+            </>
+        ),
+        [steps],
+    )
 
-	if (txStatus === Status.SUCCESS) return null
+    if (txStatus === Status.SUCCESS) return null
 
-	return <div className="tx-progress">{stepsContent}</div>
+    return <div className="tx_progress" data-testid="tx-progress">{stepsContent}</div>
 })
+
+TxProgress.displayName = 'TxProgress'

@@ -11,7 +11,7 @@ export const CardSwitcher: FC = (): JSX.Element => {
 	const sourceCardRef = useRef<HTMLElement | null>(null)
 
 	useEffect(() => {
-		const sourceCard = document.querySelector('.source-card') as HTMLElement
+		const sourceCard = document.querySelector('.source_card') as HTMLElement
 		sourceCardRef.current = sourceCard
 
 		const updatePosition = () => {
@@ -32,8 +32,8 @@ export const CardSwitcher: FC = (): JSX.Element => {
 	}, [])
 
 	return (
-		<div className="card-switcher" style={topOffset !== null ? { top: `${topOffset}px` } : undefined}>
-			<IconButton size="s" variant="secondary" className="card-switcher__button" onClick={swapTokensAndChains}>
+		<div className="card_switcher" style={topOffset !== null ? { top: `${topOffset}px` } : undefined}>
+			<IconButton size="s" variant="secondary" className="card_switcher_button" onClick={swapTokensAndChains}>
 				<SwapIcon />
 			</IconButton>
 		</div>

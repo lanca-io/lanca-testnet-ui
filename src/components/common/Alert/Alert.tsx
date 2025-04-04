@@ -1,23 +1,25 @@
-import { FC, type ReactNode } from 'react'
+import { FC, type ReactNode, memo } from 'react'
 import './Alert.pcss'
 
 type Variant = 'neutral' | 'info' | 'success' | 'error' | 'warning'
 
 type AlertProps = {
-	icon?: ReactNode
-	title: string
-	subtitle?: string
-	variant?: Variant
+    icon?: ReactNode
+    title: string
+    subtitle?: string
+    variant?: Variant
 }
 
-export const Alert: FC<AlertProps> = ({ icon, title, subtitle, variant = 'info' }) => {
-	return (
-		<div className={`alert alert--${variant}`}>
-			<div className="alert__icon">{icon}</div>
-			<div className="alert__content">
-				<h3 className="alert__title">{title}</h3>
-				{subtitle && <p className="alert__subtitle">{subtitle}</p>}
-			</div>
-		</div>
-	)
-}
+export const Alert: FC<AlertProps> = memo(({ icon, title, subtitle, variant = 'info' }) => {
+    const alertClass = `alert alert_${variant}`
+    
+    return (
+        <div className={alertClass}>
+            <div className="alert_icon">{icon}</div>
+            <div className="alert_content">
+                <h3 className="alert_title">{title}</h3>
+                {subtitle && <p className="alert_subtitle">{subtitle}</p>}
+            </div>
+        </div>
+    )
+})

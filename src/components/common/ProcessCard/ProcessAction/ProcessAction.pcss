@@ -1,35 +1,35 @@
-.process-action__not_started,
-.process-action__pending,
-.process-action__success,
-.process-action__failed,
-.process-action__rejected {
+.process_action_not_started,
+.process_action_pending,
+.process_action_success,
+.process_action_failed,
+.process_action_rejected {
 	position: relative;
 	border-radius: var(--space-5);
 	transition: box-shadow 0.3s ease;
 	z-index: 1;
 }
 
-.process-action__not_started {
+.process_action_not_started {
 	box-shadow: 0px 20px 150px 0px var(--color-accent-100);
 }
 
-.process-action__pending {
+.process_action_pending {
 	box-shadow: 0px 20px 150px 0px var(--color-accent-100);
 }
 
-.process-action__success {
+.process_action_success {
 	box-shadow: 0px 20px 150px var(--color-success-50);
 }
 
-.process-action__failed {
+.process_action_failed {
 	box-shadow: 0px 20px 150px var(--color-danger-100);
 }
 
-.process-action__rejected {
+.process_action_rejected {
 	box-shadow: 0px 20px 150px var(--color-danger-100);
 }
 
-.process-action {
+.process_action {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -44,13 +44,13 @@
 }
 
 @media only screen and (max-width: 768px) {
-	.process-action {
+	.process_action {
 		width: 448px;
 	}
 }
 
 @media only screen and (max-width: 576px) {
-	.process-action {
+	.process_action {
 		width: 332px;
 	}
 }
