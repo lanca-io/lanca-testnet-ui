@@ -1,4 +1,5 @@
 import { Address } from 'viem'
+
 const ADMIN_ADDRESSES: string[] = Array.from(
 	new Set([
 		'0xffb54219e8e4b0e08e5fa503edc1cf3080f73869',
@@ -13,6 +14,7 @@ const ADMIN_ADDRESSES: string[] = Array.from(
 		'0x546060b9f58182ad21fba50bf78e71eaf3925b32',
 		'0x0e71d5cff90abacd07be4f79ff245984e73edb08',
 		'0x207da52a19bdde899f200989c04b4f62ad5176ef',
+		'0xf0d5e1AB35acd0F5Bc56d949eC2abD6DC1887D81',
 	]),
 ).map(addr => addr.toLowerCase().trim())
 

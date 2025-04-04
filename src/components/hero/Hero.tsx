@@ -4,6 +4,7 @@ import { useEffect, useMemo } from 'react'
 import { useAppKit } from '@reown/appkit/react'
 import { useAccount } from 'wagmi'
 import { useNavigate } from 'react-router-dom'
+import { routes } from '@/configuration/routes'
 
 import FrameLeft from '@/assets/images/Welcome_Frame_6.png'
 import FrameRight from '@/assets/images/Welcome_Frame_7.png'
@@ -34,7 +35,7 @@ export const Hero: FC = () => {
 
 	useEffect(() => {
 		if (isConnected) {
-			navigate('/swap')
+			navigate(routes.swap, { replace: true })
 		}
 	}, [isConnected])
 

@@ -1,31 +1,56 @@
-import { ReactNode, useState, type FC } from 'react'
-import { NotWhitelisted } from '../common/NotWhitelisted/NotWhitelisted'
+import type { FC } from 'react'
+import { lazy } from 'react'
 import { SwapWidget } from '../common/SwapWidget/SwapWidget'
-import { GetTokens } from '../common/GetTokens/GetTokens'
 import { useAccount } from 'wagmi'
-import { isAdminAddress } from '@/utils/tests/isAdminAddress'
+import { ScreenLoader } from '../common/ScreenLoader/ScreenLoader'
+import { useIsWhitelisted } from '@/hooks/useIsWhitelisted'
+import { useHasTestTokens } from '@/hooks/useHasTestTokens'
 import './Swap.pcss'
 
-type TSteps = 'ready_to_start' | 'need_to_whitelist' | 'swap'
+const NotWhitelisted = lazy(() => 
+	import('../common/NotWhitelisted/NotWhitelisted').then(module => ({
+	  default: module.NotWhitelisted
+	}))
+  )
+  
+  const GetTokens = lazy(() => 
+	import('../common/GetTokens/GetTokens').then(module => ({
+	  default: module.GetTokens
+	}))
+  )
 
 export const Swap: FC = () => {
-	const { address } = useAccount()
-	const isWhitelisted = isAdminAddress(address)
-	const hasTokens = true
-	const [currentStepView, setCurrentStepView] = useState<TSteps>(() =>
-		isWhitelisted ? (hasTokens ? 'swap' : 'ready_to_start') : 'need_to_whitelist',
-	)
+	const { isConnected, isConnecting } = useAccount()
+	const { isWhitelisted, isLoading: isWhitelistLoading } = useIsWhitelisted()
+	const { hasTokens, isLoading: isCheckLoading} = useHasTestTokens()
+	
+	const isLoading = isConnecting || isCheckLoading || isWhitelistLoading
 
-	const stepMap: Record<TSteps, ReactNode> = {
-		need_to_whitelist: <NotWhitelisted />,
-		ready_to_start: (
-			<GetTokens
-				onGetTokens={() => {
-					setCurrentStepView('swap')
-				}}
-			/>
-		),
-		swap: <SwapWidget />,
+	if (isLoading) {
+		return <ScreenLoader />
 	}
-	return <div className="swap">{stepMap[currentStepView]}</div>
+
+	const renderContent = () => {
+		if (!isConnected) {
+		  return <SwapWidget />
+		}
+		
+		switch (true) {
+		  case !isWhitelisted:
+			return (
+				<NotWhitelisted />
+			)
+			
+		  case !hasTokens:
+			return (
+				<GetTokens />
+			)
+			
+		  default:
+			return <SwapWidget />
+		}
+	  }
+	
+
+	return <div className="swap">{renderContent()}</div>
 }

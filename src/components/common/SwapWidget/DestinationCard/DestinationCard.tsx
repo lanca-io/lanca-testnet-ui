@@ -1,16 +1,19 @@
 import type { FC } from 'react'
 import type { Address } from 'viem'
 import type { Chain } from '@/stores/chains/types'
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, lazy } from 'react'
 import { ChainSelector } from '../../ChainSelector/ChainSelector'
 import { AmountDisplay } from '../../AmountDisplay/AmountDisplay'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { TxInfo } from '../../TxInfo/TxInfo'
-import { AssetModal } from '../../AssetModal/AssetModal'
 import { TokenAddresses } from '@/configuration/addresses'
 import { BalanceDisplay } from '../../BalanceDisplay/BalanceDisplay'
 import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 import './DestinationCard.pcss'
+
+const AssetModal = lazy(() => import('../../AssetModal/AssetModal').then(module => ({
+	default: module.AssetModal
+  })))
 
 export const DestinationCard: FC = (): JSX.Element => {
 	const { destinationChain, setDestinationChain, setToTokenAddress } = useFormStore()
