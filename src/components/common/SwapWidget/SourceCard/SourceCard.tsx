@@ -11,57 +11,59 @@ import { ErrorDisplay } from '../../ErrorDisplay/ErrorDisplay'
 import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 import './SourceCard.pcss'
 
-const AssetModal = lazy(() => import('../../AssetModal/AssetModal').then(module => ({
-    default: module.AssetModal
-})))
+const AssetModal = lazy(() =>
+	import('../../AssetModal/AssetModal').then(module => ({
+		default: module.AssetModal,
+	})),
+)
 
 export const SourceCard: FC = memo((): JSX.Element => {
-    const { sourceChain, setSourceChain, setFromTokenAddress, error } = useFormStore()
-    const { balances, isLoading } = useBalancesStore()
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+	const { sourceChain, setSourceChain, setFromTokenAddress, error } = useFormStore()
+	const { balances, isLoading } = useBalancesStore()
+	const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
-    const openModal = useCallback(() => {
-        setIsModalOpen(true)
-    }, [])
+	const openModal = useCallback(() => {
+		setIsModalOpen(true)
+	}, [])
 
-    const closeModal = useCallback(() => {
-        setIsModalOpen(false)
-    }, [])
+	const closeModal = useCallback(() => {
+		setIsModalOpen(false)
+	}, [])
 
-    const handleSelectChain = useCallback(
-        (chain: Chain) => {
-            setSourceChain(chain)
-            const tokenAddress = TokenAddresses[chain.id]
-            setFromTokenAddress(tokenAddress as Address)
-            closeModal()
-        },
-        [setSourceChain, setFromTokenAddress, closeModal],
-    )
+	const handleSelectChain = useCallback(
+		(chain: Chain) => {
+			setSourceChain(chain)
+			const tokenAddress = TokenAddresses[chain.id]
+			setFromTokenAddress(tokenAddress as Address)
+			closeModal()
+		},
+		[setSourceChain, setFromTokenAddress, closeModal],
+	)
 
-    const token = useMemo(() => {
-        if (!sourceChain || !balances[Number(sourceChain.id)]) {
-            return { balance: '0', decimals: 18, symbol: 'tCERO' }
-        }
-        return balances[Number(sourceChain.id)]
-    }, [sourceChain, balances])
+	const token = useMemo(() => {
+		if (!sourceChain || !balances[Number(sourceChain.id)]) {
+			return { balance: '0', decimals: 18, symbol: 'tCERO' }
+		}
+		return balances[Number(sourceChain.id)]
+	}, [sourceChain, balances])
 
-    return (
-        <div className="source_card_wrapper">
-            <div className="source_card" data-testid="source-card">
-                <ChainSelector chain={sourceChain} openModal={openModal} />
-                <AmountInput />
-                {error ? (
-                    <ErrorDisplay error={error} />
-                ) : (
-                    <BalanceDisplay balance={token.balance} isLoading={isLoading} showMax />
-                )}
-                <AssetModal
-                    isOpen={isModalOpen}
-                    title="Select Chain"
-                    onClose={closeModal}
-                    onChainSelect={handleSelectChain}
-                />
-            </div>
-        </div>
-    )
+	return (
+		<div className="source_card_wrapper">
+			<div className="source_card" data-testid="source-card">
+				<ChainSelector chain={sourceChain} openModal={openModal} />
+				<AmountInput />
+				{error ? (
+					<ErrorDisplay error={error} />
+				) : (
+					<BalanceDisplay balance={token.balance} isLoading={isLoading} showMax />
+				)}
+				<AssetModal
+					isOpen={isModalOpen}
+					title="Select Chain"
+					onClose={closeModal}
+					onChainSelect={handleSelectChain}
+				/>
+			</div>
+		</div>
+	)
 })

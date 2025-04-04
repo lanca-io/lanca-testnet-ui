@@ -8,26 +8,30 @@ import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 import './SwapWidget.pcss'
 
 export const SwapWidget: FC = memo(() => {
-    const { txStatus } = useTxExecutionStore()
+	const { txStatus } = useTxExecutionStore()
 
-    const Card = useMemo(() => {
-        switch (txStatus) {
-            case 'PENDING':
-            case 'SUCCESS':
-            case 'REJECTED':
-            case 'FAILED':
-                return <ProcessCard />
-            default:
-                return (
-                    <>
-                        <SourceCard />
-                        <CardSwitcher />
-                        <DestinationCard />
-                        <SwapCard />
-                    </>
-                )
-        }
-    }, [txStatus])
+	const Card = useMemo(() => {
+		switch (txStatus) {
+			case 'PENDING':
+			case 'SUCCESS':
+			case 'REJECTED':
+			case 'FAILED':
+				return <ProcessCard />
+			default:
+				return (
+					<>
+						<SourceCard />
+						<CardSwitcher />
+						<DestinationCard />
+						<SwapCard />
+					</>
+				)
+		}
+	}, [txStatus])
 
-    return <div className="swap_widget" data-testid="swap-widget">{Card}</div>
+	return (
+		<div className="swap_widget" data-testid="swap-widget">
+			{Card}
+		</div>
+	)
 })

@@ -8,37 +8,40 @@ import { WalletIcon } from '@/assets/icons/wallet'
 import { RightIcon } from '@/assets/icons/right'
 
 export const WalletButton: FC = memo(() => {
-    const { address, isConnected, isConnecting } = useAccount()
-    const { open } = useAppKit()
+	const { address, isConnected, isConnecting } = useAccount()
+	const { open } = useAppKit()
 
-    const handleClick = useCallback<React.MouseEventHandler<HTMLButtonElement>>(event => {
-        event.preventDefault()
-        open()
-    }, [open])
+	const handleClick = useCallback<React.MouseEventHandler<HTMLButtonElement>>(
+		event => {
+			event.preventDefault()
+			open()
+		},
+		[open],
+	)
 
-    const buttonConfig = useMemo(() => {
-        const formattedAddress = isConnected && address ? `${address.slice(0, 4)}...${address.slice(-4)}` : address
+	const buttonConfig = useMemo(() => {
+		const formattedAddress = isConnected && address ? `${address.slice(0, 4)}...${address.slice(-4)}` : address
 
-        return {
-            text: isConnected ? formattedAddress : isConnecting ? 'Connecting...' : 'Connect Wallet',
-            variant: isConnected ? 'secondary' : ('secondary_color' as TButtonVariant),
-            leftIcon: isConnected ? <WalletIcon /> : undefined,
-            rightIcon: isConnected ? <RightIcon /> : undefined,
-        }
-    }, [address, isConnected, isConnecting])
+		return {
+			text: isConnected ? formattedAddress : isConnecting ? 'Connecting...' : 'Connect Wallet',
+			variant: isConnected ? 'secondary' : ('secondary_color' as TButtonVariant),
+			leftIcon: isConnected ? <WalletIcon /> : undefined,
+			rightIcon: isConnected ? <RightIcon /> : undefined,
+		}
+	}, [address, isConnected, isConnecting])
 
-    return (
-        <Button
-            variant={buttonConfig.variant}
-            leftIcon={buttonConfig.leftIcon}
-            rightIcon={buttonConfig.rightIcon}
-            onClick={handleClick}
-            isDisabled={isConnecting}
-            aria-busy={isConnecting}
-            isLoading={isConnecting}
-            data-testid="wallet-button"
-        >
-            {buttonConfig.text}
-        </Button>
-    )
+	return (
+		<Button
+			variant={buttonConfig.variant}
+			leftIcon={buttonConfig.leftIcon}
+			rightIcon={buttonConfig.rightIcon}
+			onClick={handleClick}
+			isDisabled={isConnecting}
+			aria-busy={isConnecting}
+			isLoading={isConnecting}
+			data-testid="wallet-button"
+		>
+			{buttonConfig.text}
+		</Button>
+	)
 })

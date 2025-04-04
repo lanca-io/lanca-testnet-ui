@@ -10,22 +10,22 @@ import { useTxProcess } from '@/hooks/useTxProcess'
 import './ProcessCard.pcss'
 
 export const ProcessCard: FC = memo((): JSX.Element => {
-    const { currentStage } = useTxProcess()
-    useTxExecutionTimer()
+	const { currentStage } = useTxProcess()
+	useTxExecutionTimer()
 
-    return (
-        <>
-            <div className={`process_card_${currentStage}`} data-testid={`process-card-${currentStage}`}>
-                <div className="process_card">
-                    <ProcessHeading />
-                    <ProcessContent />
-                    <TxProgress />
-                    <ProcessInfo />
-                </div>
-            </div>
-            <ProcessAction />
-        </>
-    )
+	return (
+		<>
+			<div className={`process_card_${currentStage}`} data-testid={`process-card-${currentStage}`}>
+				<div className="process_card">
+					<ProcessHeading />
+					<ProcessContent />
+					<TxProgress />
+					<ProcessInfo />
+				</div>
+			</div>
+			<ProcessAction />
+		</>
+	)
 })
 
 ProcessCard.displayName = 'ProcessCard'

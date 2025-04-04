@@ -3,12 +3,12 @@ import { memo } from 'react'
 import './Approval.pcss'
 
 export const Approval: FC = memo((): JSX.Element => {
-    const imageSrc = '/Swap/Process.svg'
-    const altText = 'Approval Process'
+	const imageSrc = '/Swap/Process.svg'
+	const altText = 'Approval Process'
 
-    return (
-        <div className="approval_content">
-            <img src={imageSrc} alt={altText} className="approval_content_image" />
-        </div>
-    )
+	return (
+		<div className="approval_content">
+			<img src={imageSrc} alt={altText} className="approval_content_image" />
+		</div>
+	)
 })

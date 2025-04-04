@@ -1,7 +1,7 @@
 .hero {
 	display: flex;
 	max-width: 702px;
-	margin: 86px auto;
+	margin: 96px auto;
 	flex-direction: column;
 	align-items: center;
 	gap: var(--space-3);
@@ -43,10 +43,11 @@
 }
 
 .action-button {
-	min-width: 346px;
+	max-width: 346px;
+	width: 100%;
 	justify-content: center;
 }
-/* Стили по умолчанию (десктопная версия) */
+
 .illustration-one {
 	position: absolute;
 	bottom: 0;
@@ -96,11 +97,20 @@
 }
 @media only screen and (max-width: 743px) {
 	.hero {
-		max-width: 680px;
-		margin: 172px auto;
+		margin: 0;
+		padding: var(--space-10) var(--space-4);
+	}
+
+	.heading {
+		text-align: center;
+		font-size: 2rem;
+		line-height: 36px;
+		letter-spacing: -0.064px;
 	}
 
 	.subheading {
-		width: 448px;
+		max-width: 448px;
+		width: 100%;
+		align-text: center;
 	}
 }

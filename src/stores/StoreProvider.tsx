@@ -8,9 +8,9 @@ export const StoreProvider: FC<PropsWithChildren<{}>> = ({ children }): JSX.Elem
 	return (
 		<ChainsStoreProvider>
 			<BalancesStoreProvider>
-					<FormStoreProvider>
-						<TxExecutionStoreProvider>{children}</TxExecutionStoreProvider>
-					</FormStoreProvider>
+				<FormStoreProvider>
+					<TxExecutionStoreProvider>{children}</TxExecutionStoreProvider>
+				</FormStoreProvider>
 			</BalancesStoreProvider>
 		</ChainsStoreProvider>
 	)
