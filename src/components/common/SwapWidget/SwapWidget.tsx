@@ -6,6 +6,8 @@ import { SwapCard } from './SwapCard/SwapCard'
 import { ProcessCard } from '../ProcessCard/ProcessCard'
 import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 import './SwapWidget.pcss'
+import { Status } from '@lanca/sdk'
+import { RewardWidget } from '../RewardWidget/RewardWidget'
 
 export const SwapWidget: FC = memo(() => {
 	const { txStatus } = useTxExecutionStore()
@@ -32,6 +34,7 @@ export const SwapWidget: FC = memo(() => {
 	return (
 		<div className="swap_widget" data-testid="swap-widget">
 			{Card}
+			{txStatus === Status.SUCCESS && <RewardWidget /> }
 		</div>
 	)
 })
