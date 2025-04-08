@@ -19,7 +19,7 @@ export const GetTokens: FC = memo(() => {
 				<p className="get_tokens_subtitle">Claim tCER0 (test tokens) on ETH sepolia to start testing</p>
 			</div>
 			<Button size="l" onClick={handleGetTokens} isLoading={isLoading} data-testid="get-tokens-button">
-				Get Test Tokens
+				Get tCERO
 			</Button>
 		</div>
 	)
