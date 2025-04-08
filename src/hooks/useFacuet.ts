@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react'
 import { Address } from 'viem'
 import { useAccount } from 'wagmi'
 import { useLoadBalances } from './Loadables/useLoadBalances'
+import { domain_url } from '@/configuration/constants'
 
 type FaucetResponse = {
     success: boolean
@@ -11,7 +12,7 @@ type FaucetResponse = {
 
 const requestTokens = async (address: Address, chainId: number): Promise<FaucetResponse> => {
     try {
-        const res = await fetch(`http://localhost:4000/api/faucet`, {
+        const res = await fetch(`${domain_url}/api/faucet`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

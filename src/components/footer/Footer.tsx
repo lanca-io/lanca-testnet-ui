@@ -11,6 +11,7 @@ import { routes } from '../../configuration/routes'
 import './Footer.pcss'
 
 type FooterIcon = {
+	link: string | undefined
 	icon: React.ReactNode
 	className?: string
 }
@@ -25,9 +26,11 @@ const FooterItem: FC<FooterSection> = ({ heading, icons }) => (
 		<h5 className="footer-item__heading">{heading}</h5>
 		<div className="footer-item__actions">
 			{icons.map((item, index) => (
-				<IconButton key={`${heading}-icon-${index}`} variant="secondary" className={item.className}>
-					{item.icon}
-				</IconButton>
+				<a href={item.link} target="_blank" rel="noopener noreferrer" key={`${heading}-link-${index}`}>
+					<IconButton key={`${heading}-icon-${index}`} variant="secondary" className={item.className}>
+						{item.icon}
+					</IconButton>
+				</a>
 			))}
 		</div>
 	</div>
@@ -36,17 +39,40 @@ const FooterItem: FC<FooterSection> = ({ heading, icons }) => (
 export const Footer: FC = () => {
 	const { pathname } = useLocation()
 
-	const icons = useMemo(
-		() => ({
-			x: { icon: <XIcon />, className: 'x-icon-button' },
-			discord: { icon: <DiscordIcon />, className: 'discord-icon-button' },
-			medium: { icon: <MediumIcon />, className: 'medium-icon-button' },
-			youtube: { icon: <YouTubeIcon />, className: 'youtube-icon-button' },
-			file: { icon: <FileIcon /> },
-			docs: { icon: <DocsIcon /> },
-		}),
-		[],
-	)
+
+    const icons = useMemo(
+        () => ({
+            x: { 
+                icon: <XIcon />, 
+                className: 'x-icon-button',
+                link: 'https://x.com/concero_io'
+            },
+            discord: { 
+                icon: <DiscordIcon />, 
+                className: 'discord-icon-button',
+                link: 'https://discord.gg/lanca'
+            },
+            medium: { 
+                icon: <MediumIcon />, 
+                className: 'medium-icon-button',
+                link: 'https://medium.com/@concero'
+            },
+            youtube: { 
+                icon: <YouTubeIcon />, 
+                className: 'youtube-icon-button',
+                link: 'https://www.youtube.com/@concero_io'
+            },
+            file: { 
+                icon: <FileIcon />,
+                link: 'https://concero.io/whitepaper.pdf'
+            },
+            docs: { 
+                icon: <DocsIcon />,
+                link: 'https://docs.concero.io/'
+            },
+        }),
+        [],
+    )
 
 	const sections = useMemo(
 		() => ({

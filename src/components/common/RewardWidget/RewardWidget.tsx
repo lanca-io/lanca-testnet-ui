@@ -15,9 +15,11 @@ export const RewardWidget: FC = (): JSX.Element => {
 						Claim your<span> CERs reward</span>
 					</p>
 				</div>
-				<Button variant="secondary_color" size="m">
-					Claim
-				</Button>
+				<a href='https://app.concero.io/rewards' target='_blank' rel='noopener noreferrer'>
+					<Button variant="secondary_color" size="m">
+						Claim
+					</Button>
+				</a>
 			</div>
 		),
 		[],
