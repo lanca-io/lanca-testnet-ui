@@ -5,10 +5,6 @@ import { useAppKit } from '@reown/appkit/react'
 import { useAccount } from 'wagmi'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '@/configuration/routes'
-
-import FrameLeft from '@/assets/images/Welcome_Frame_6.png'
-import FrameRight from '@/assets/images/Welcome_Frame_7.png'
-import TabletBackgroungFrame from '@/assets/images/Welcome_tablet_frame_6.png'
 import './Hero.pcss'
 
 const Heading: FC = (): JSX.Element => {
@@ -55,9 +51,9 @@ export const Hero: FC = () => {
 			>
 				Connect wallet
 			</Button>
-			<img src={FrameLeft} alt="" className="illustration-one" />
-			<img src={FrameRight} alt="" className="illustration-two" />
-			<img src={TabletBackgroungFrame} alt="" className="illustration-tablet" />
+			<img src={"/Hero/Welcome_Frame_6.png"} alt="" className="illustration-one" />
+			<img src={"/Hero/Welcome_Frame_7.png"} alt="" className="illustration-two" />
+			<img src={"/Hero/Welcome_tablet_frame_6.png"} alt="" className="illustration-tablet" />
 		</div>
 	)
 }
