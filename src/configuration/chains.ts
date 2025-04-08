@@ -268,7 +268,7 @@ export const transports = {
 
 	//// POLYGON AMOY ////
 	[polygonAmoy.id]: fallback([
-		http('https://api.zan.top/polygon-amoy'),
+		http('https://polygon-amoy-bor-rpc.publicnode.com'),
 		http('https://polygon-amoy.gateway.tenderly.co'),
 		http('https://rpc-amoy.polygon.technology'),
 		http(),

@@ -1,9 +1,11 @@
 import { Helmet } from 'react-helmet-async'
 
 const DEFAULT_DESCRIPTION =
-    'We offer developers and early adopters a risk-free space to test our fully decentralized cross-chain messaging solution, including token swaps and inter-chain communications'
+    'Welcome to Concero Testnet – a risk-free, developer-focused blockchain sandbox for testing our fully decentralized cross-chain messaging solution featuring secure token swaps and seamless inter-chain communications.'
 
-const DEFAULT_TITLE = 'Concero'
+const DEFAULT_TITLE = 'Concero | Testnet'
+
+const DEFAULT_KEYWORDS = 'concero testnet, blockchain testing, decentralized applications, blockchain integration, testnet environment, ethereum, arbitrum, optimism, sepolia, megaeth, monad, berachain, chainlink, ccip, concero'
 
 const IMAGE = "https://pbs.twimg.com/profile_banners/1656709850234077194/1739576452/1500x500"
 
@@ -24,6 +26,7 @@ export const MetaTags = ({
 
         {/* Meta Tags */}
         <meta name="description" content={description} />
+        <meta name="keywords" content={DEFAULT_KEYWORDS} />
         <meta name="viewport" content="width=device-width" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
