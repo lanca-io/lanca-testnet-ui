@@ -1,6 +1,8 @@
 import type { FC, ChangeEvent } from 'react'
 import type { AssetModalProps } from './types'
-import { useState, useCallback, memo, lazy } from 'react'
+import type { Chain } from '@/stores/chains/types'
+import type { Address } from 'viem'
+import { useState, useCallback, memo } from 'react'
 import { Modal } from '../Modal/Modal'
 import { Input } from '@concero/ui-kit'
 import { SearchIcon } from '@/assets/icons/search'
@@ -9,17 +11,19 @@ import { ChainMenu } from './ChainMenu/ChainMenu'
 import { Button } from '@concero/ui-kit'
 import { ActiveTab } from './types'
 import { useModalStore } from '@/stores/modals/useModalsStore'
+import { useFormStore } from '@/stores/form/useFormStore'
+import { TokenAddresses } from '@/configuration/addresses'
 import './AssetModal.pcss'
 
-const FaucetModal = lazy(() =>
-    import('../FaucetModal/FaucetModal').then(module => ({
-        default: module.FaucetModal,
-    }))
-)
-
 export const AssetModal: FC<AssetModalProps> = memo(
-    ({ title, isOpen, isSrcModal, onClose, onChainSelect }): JSX.Element => {
-        const { isFaucetModalOpen, openFaucetModal, closeFaucetModal } = useModalStore()
+    ({ title, isOpen, isSrcModal, onClose }): JSX.Element => {
+        const { isFaucetModalOpen, openFaucetModal } = useModalStore()
+        const { 
+            setSourceChain, 
+            setDestinationChain, 
+            setFromTokenAddress, 
+            setToTokenAddress 
+        } = useFormStore()
         const [activeTab, setActiveTab] = useState<ActiveTab>(ActiveTab.All)
         const [searchInput, setSearchInput] = useState<string>('')
 
@@ -31,49 +35,52 @@ export const AssetModal: FC<AssetModalProps> = memo(
             setActiveTab(tab)
         }, [])
 
+        const handleChainSelect = useCallback((chain: Chain) => {
+            if (isSrcModal) {
+                setSourceChain(chain)
+                const tokenAddress = TokenAddresses[chain.id]
+                setFromTokenAddress(tokenAddress as Address)
+            } else {
+                setDestinationChain(chain)
+                const tokenAddress = TokenAddresses[chain.id]
+                setToTokenAddress(tokenAddress as Address)
+            }
+            onClose()
+        }, [isSrcModal, setSourceChain, setDestinationChain, setFromTokenAddress, setToTokenAddress, onClose])
+
         return (
-            <>
-                <Modal
-                    title={title}
-                    isOpen={isOpen}
-                    onClose={onClose}
-                    className={isFaucetModalOpen ? 'faucet_open' : ''}
-                >
-                    <Input
-                        placeholder="Select chain"
+            <Modal
+                title={title}
+                isOpen={isOpen}
+                onClose={onClose}
+                backdropClassName={isFaucetModalOpen ? 'faucet_open' : ''}
+            >
+                <Input
+                    placeholder="Select chain"
+                    size="l"
+                    icon={<SearchIcon />}
+                    value={searchInput}
+                    classNameWrap="input_wrap"
+                    onChange={handleSearchChange}
+                    data-testid="chain-search-input"
+                />
+
+                {!isSrcModal && <ChainController activeTab={activeTab} setActiveTab={handleTabChange} />}
+                <ChainMenu activeTab={activeTab} searchInput={searchInput} onSelectChain={handleChainSelect} />
+                <div className={isSrcModal ? 'gradient_blur_button' : 'gradient_blur'} />
+
+                {isSrcModal && (
+                    <Button
                         size="l"
-                        icon={<SearchIcon />}
-                        value={searchInput}
-                        classNameWrap="input_wrap"
-                        onChange={handleSearchChange}
-                        data-testid="chain-search-input"
-                    />
-
-                    {!isSrcModal && <ChainController activeTab={activeTab} setActiveTab={handleTabChange} />}
-                    <ChainMenu activeTab={activeTab} searchInput={searchInput} onSelectChain={onChainSelect} />
-                    <div className={isSrcModal ? 'gradient_blur_button' : 'gradient_blur'} />
-
-                    {isSrcModal && (
-                        <Button
-                            size="l"
-                            variant="secondary_color"
-                            isFull
-                            onClick={openFaucetModal}
-                            data-testid="add-tokens-button"
-                        >
-                            Add Tokens
-                        </Button>
-                    )}
-                </Modal>
-
-                {isFaucetModalOpen && isSrcModal && (
-                    <FaucetModal 
-                        title="Get Test Tokens" 
-                        isOpen={isFaucetModalOpen} 
-                        onClose={closeFaucetModal} 
-                    />
+                        variant="secondary_color"
+                        isFull
+                        onClick={openFaucetModal}
+                        data-testid="add-tokens-button"
+                    >
+                        Add Tokens
+                    </Button>
                 )}
-            </>
+            </Modal>
         )
     }
 )

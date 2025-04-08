@@ -5,6 +5,7 @@ export const useGetChains = () => {
 	const { chains } = useChainsStore()
 	const [allChains, setAllChains] = useState(Object.values(chains))
 	const [ccipChains, setCCIPChains] = useState(Object.values(chains).filter(chain => chain.isCCIP))
+	const [faucetChains, setFaucetChains] = useState(Object.values(chains).filter(chain => chain.hastCEROFaucet))
 	const [isLoading, setIsLoading] = useState(true)
 
 	useEffect(() => {
@@ -16,5 +17,5 @@ export const useGetChains = () => {
 		setIsLoading(false)
 	}, [chains])
 
-	return { allChains, ccipChains, isLoading }
+	return { allChains, ccipChains, faucetChains, isLoading }
 }

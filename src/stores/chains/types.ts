@@ -10,6 +10,7 @@ export type Chain = {
 	nativeToken: string
 	decimals: number
 	selector: bigint
+	hastCEROFaucet: boolean
 }
 
 export type ChainsState = {

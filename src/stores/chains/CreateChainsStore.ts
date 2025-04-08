@@ -1,6 +1,6 @@
 import type { ChainsState, ChainsStore } from './types'
 import { createWithEqualityFn } from 'zustand/traditional'
-import { chainLogos, chainCCIP, chainSelectors } from './ChainInfo'
+import { chainLogos, chainCCIP, chainSelectors, hastCEROFaucet, chainNames } from './ChainInfo'
 import { chains } from '@/configuration/chains'
 
 const initialState: ChainsState = {
@@ -15,13 +15,14 @@ chains.forEach(chain => {
 
 	initialState.chains[chainId] = {
 		id: chainId.toString(),
-		name: chain.name,
+		name: chainNames[chain.id as number] || chain.name,
 		logoURL: chainLogos[chain.id as number] || '',
 		explorerURL: explorerURL,
 		isCCIP: chainCCIP[chain.id as number]?.isCCIP || false,
 		nativeToken: nativeToken,
 		decimals: decimals,
 		selector: chainSelectors[chain.id as number] || BigInt(0),
+		hastCEROFaucet: hastCEROFaucet[chain.id as number].hastCEROFaucet || false,
 	}
 })
 

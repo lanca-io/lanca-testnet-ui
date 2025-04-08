@@ -282,3 +282,193 @@ export const chainSelectors: Record<number, bigint> = {
 	//// ZIRCUIT TESTNET ////
 	48899: BigInt(4562743618362911021),
 }
+
+export const hastCEROFaucet: Record<number, { hastCEROFaucet: boolean }> = {
+    //// APECHAIN CURTIS ////
+    33111: { hastCEROFaucet: false },
+
+    //// ARBITRUM SEPOLIA ////
+    421614: { hastCEROFaucet: true },
+
+    //// AVALANCHE FUJI ////
+    43113: { hastCEROFaucet: true },
+
+    //// BASE SEPOLIA ////
+    84532: { hastCEROFaucet: true },
+
+    //// BITLAYER TESTNET ////
+    200810: { hastCEROFaucet: false },
+
+    //// BLAST SEPOLIA ////
+    168587773: { hastCEROFaucet: false },
+
+    //// BNB TESTNET ////
+    97: { hastCEROFaucet: false },
+
+    //// BOTANIX TESTNET ////
+    3636: { hastCEROFaucet: false },
+
+    //// CELO ALFAJORES ////
+    44787: { hastCEROFaucet: true },
+
+    //// CORE TESTNET ////
+    1114: { hastCEROFaucet: false },
+
+    //// CRONOS TESTNET ////
+    338: { hastCEROFaucet: false },
+
+    //// GNOSIS CHIADO ////
+    10200: { hastCEROFaucet: false },
+
+    //// HASHKEY TESTNET ////
+    133: { hastCEROFaucet: false },
+
+    //// INK SEPOLIA ////
+    763373: { hastCEROFaucet: false },
+
+    //// LINEA SEPOLIA ////
+    59141: { hastCEROFaucet: false },
+
+    //// MANTLE SEPOLIA ////
+    5003: { hastCEROFaucet: false },
+
+    //// MEGAETH TESTNET ////
+    6342: { hastCEROFaucet: true },
+
+    /// MODE TESTNET ////
+    919: { hastCEROFaucet: false },
+
+    //// MONAD TESTNET ////
+    10143: { hastCEROFaucet: false },
+
+    //// OPTIMISM SEPOLIA ////
+    11155420: { hastCEROFaucet: true },
+
+    //// POLYGON AMOY ////
+    80002: { hastCEROFaucet: true },
+
+    //// RONIN SAIGON ////
+    2021: { hastCEROFaucet: false },
+
+    //// SCROLL SEPOLIA ////
+    534351: { hastCEROFaucet: false },
+
+    //// SEI TESTNET ////
+    1328: { hastCEROFaucet: false },
+
+    //// SEPOLIA ////
+    11155111: { hastCEROFaucet: true },
+
+    //// SHIBARIUM PUPPYNET ////
+    157: { hastCEROFaucet: false },
+
+    //// SONEIUM MINATO ////
+    1946: { hastCEROFaucet: false },
+
+    //// SONIC BLAZE ////
+    57054: { hastCEROFaucet: false },
+
+    //// UNICHAIN SEPOLIA ////
+    1301: { hastCEROFaucet: false },
+
+    //// XLAYER SEPOLIA ////
+    195: { hastCEROFaucet: false },
+
+    //// ZIRCUIT TESTNET ////
+    48899: { hastCEROFaucet: false },
+}
+
+export const chainNames: Record<number, string> = {
+    //// APECHAIN CURTIS ////
+    33111: "Curtis",
+
+    //// ARBITRUM SEPOLIA ////
+    421614: "Arbitrum",
+
+    //// AVALANCHE FUJI ////
+    43113: "Fuji",
+
+    //// BASE SEPOLIA ////
+    84532: "Base",
+
+    //// BITLAYER TESTNET ////
+    200810: "Bitlayer",
+
+    //// BLAST SEPOLIA ////
+    168587773: "Blast",
+
+    //// BNB TESTNET ////
+    97: "BSC",
+
+    //// BOTANIX TESTNET ////
+    3636: "Botanix",
+
+    //// CELO ALFAJORES ////
+    44787: "Alfajores",
+
+    //// CORE TESTNET ////
+    1114: "Core",
+
+    //// CRONOS TESTNET ////
+    338: "Cronos",
+
+    //// GNOSIS CHIADO ////
+    10200: "Chiado",
+
+    //// HASHKEY TESTNET ////
+    133: "HashKey",
+
+    //// INK SEPOLIA ////
+    763373: "Ink",
+
+    //// LINEA SEPOLIA ////
+    59141: "Linea",
+
+    //// MANTLE SEPOLIA ////
+    5003: "Mantle",
+
+    //// MEGAETH TESTNET ////
+    6342: "MegaETH",
+
+    /// MODE TESTNET ////
+    919: "Mode",
+
+    //// MONAD TESTNET ////
+    10143: "Monad",
+
+    //// OPTIMISM SEPOLIA ////
+    11155420: "Optimism",
+
+    //// POLYGON AMOY ////
+    80002: "Amoy",
+
+    //// RONIN SAIGON ////
+    2021: "Saigon",
+
+    //// SCROLL SEPOLIA ////
+    534351: "Scroll",
+
+    //// SEI TESTNET ////
+    1328: "Sei",
+
+    //// SEPOLIA ////
+    11155111: "Sepolia",
+
+    //// SHIBARIUM PUPPYNET ////
+    157: "Puppynet",
+
+    //// SONEIUM MINATO ////
+    1946: "Minato",
+
+    //// SONIC BLAZE ////
+    57054: "Blaze",
+
+    //// UNICHAIN SEPOLIA ////
+    1301: "Unichain",
+
+    //// XLAYER SEPOLIA ////
+    195: "XLayer",
+
+    //// ZIRCUIT TESTNET ////
+    48899: "Zircuit",
+}
