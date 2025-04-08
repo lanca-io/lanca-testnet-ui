@@ -12,7 +12,7 @@ type FaucetResponse = {
 
 const requestTokens = async (address: Address, chainId: number): Promise<FaucetResponse> => {
     try {
-        const res = await fetch(`${domain_url}/api/faucet`, {
+        const res = await fetch(`https://api.concero.io/api/faucet`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
