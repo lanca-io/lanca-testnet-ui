@@ -12,6 +12,7 @@ const defaultSourceChain: Chain = {
 	nativeToken: 'ETH',
 	decimals: 18,
 	selector: BigInt(3478487238524512256),
+	hastCEROFaucet: true,
 }
 
 const defaultDestinationChain: Chain = {
@@ -23,6 +24,7 @@ const defaultDestinationChain: Chain = {
 	nativeToken: 'ETH',
 	decimals: 18,
 	selector: BigInt(10344971235874465080),
+	hastCEROFaucet: true,
 }
 
 const initialState: FormState = {
