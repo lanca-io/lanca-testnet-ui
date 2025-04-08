@@ -2,7 +2,6 @@ import { useState, useCallback } from 'react'
 import { Address } from 'viem'
 import { useAccount } from 'wagmi'
 import { useLoadBalances } from './Loadables/useLoadBalances'
-import { domain_url } from '@/configuration/constants'
 
 type FaucetResponse = {
     success: boolean
