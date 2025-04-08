@@ -34,7 +34,7 @@ export const SwapWidget: FC = memo(() => {
 	return (
 		<div className="swap_widget" data-testid="swap-widget">
 			{Card}
-			{txStatus === Status.SUCCESS && <RewardWidget /> }
+			{txStatus === Status.SUCCESS && <RewardWidget />}
 		</div>
 	)
 })

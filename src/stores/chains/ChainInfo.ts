@@ -1,193 +1,192 @@
 export const chainLogos: Record<number, string> = {
-    //// APECHAIN CURTIS ////
-    33111: '/Chains/33111.svg',
+	//// APECHAIN CURTIS ////
+	33111: '/Chains/33111.svg',
 
-    //// ARBITRUM SEPOLIA ////
-    421614: '/Chains/421614.svg',
+	//// ARBITRUM SEPOLIA ////
+	421614: '/Chains/421614.svg',
 
-    //// AVALANCHE FUJI ////
-    43113: '/Chains/43113.svg',
+	//// AVALANCHE FUJI ////
+	43113: '/Chains/43113.svg',
 
-    //// BASE SEPOLIA ////
-    84532: '/Chains/84532.svg',
+	//// BASE SEPOLIA ////
+	84532: '/Chains/84532.svg',
 
-    //// BITLAYER TESTNET ////
-    200810: '/Chains/200810.svg',
+	//// BITLAYER TESTNET ////
+	200810: '/Chains/200810.svg',
 
-    //// BLAST SEPOLIA ////
-    168587773: '/Chains/168587773.svg',
+	//// BLAST SEPOLIA ////
+	168587773: '/Chains/168587773.svg',
 
-    //// BNB TESTNET ////
-    97: '/Chains/97.svg',
+	//// BNB TESTNET ////
+	97: '/Chains/97.svg',
 
-    //// BOTANIX TESTNET ////
-    3636: '/Chains/3636.svg',
+	//// BOTANIX TESTNET ////
+	3636: '/Chains/3636.svg',
 
-    //// CELO ALFAJORES ////
-    44787: '/Chains/44787.svg',
+	//// CELO ALFAJORES ////
+	44787: '/Chains/44787.svg',
 
-    //// CORE TESTNET ////
-    1114: '/Chains/1114.svg',
+	//// CORE TESTNET ////
+	1114: '/Chains/1114.svg',
 
-    //// CRONOS TESTNET ////
-    338: '/Chains/338.svg',
+	//// CRONOS TESTNET ////
+	338: '/Chains/338.svg',
 
-    //// GNOSIS CHIADO ////
-    10200: '/Chains/10200.svg',
+	//// GNOSIS CHIADO ////
+	10200: '/Chains/10200.svg',
 
-    //// HASHKEY TESTNET ////
-    133: '/Chains/133.svg',
+	//// HASHKEY TESTNET ////
+	133: '/Chains/133.svg',
 
-    //// INK SEPOLIA ////
-    763373: '/Chains/763373.svg',
+	//// INK SEPOLIA ////
+	763373: '/Chains/763373.svg',
 
-    //// LINEA SEPOLIA ////
-    59141: '/Chains/59141.svg',
+	//// LINEA SEPOLIA ////
+	59141: '/Chains/59141.svg',
 
-    //// MANTLE SEPOLIA ////
-    5003: '/Chains/5003.svg',
+	//// MANTLE SEPOLIA ////
+	5003: '/Chains/5003.svg',
 
-    //// MEGAETH TESTNET ////
-    6342: '/Chains/6342.svg',
+	//// MEGAETH TESTNET ////
+	6342: '/Chains/6342.svg',
 
-    /// MODE TESTNET ////
-    919: '/Chains/919.svg',
+	/// MODE TESTNET ////
+	919: '/Chains/919.svg',
 
-    //// MONAD TESTNET ////
-    10143: '/Chains/10143.svg',
+	//// MONAD TESTNET ////
+	10143: '/Chains/10143.svg',
 
-    //// OPTIMISM SEPOLIA ////
-    11155420: '/Chains/11155420.svg',
+	//// OPTIMISM SEPOLIA ////
+	11155420: '/Chains/11155420.svg',
 
-    //// POLYGON AMOY ////
-    80002: '/Chains/80002.svg',
+	//// POLYGON AMOY ////
+	80002: '/Chains/80002.svg',
 
-    //// RONIN SAIGON ////
-    2021: '/Chains/2021.svg',
+	//// RONIN SAIGON ////
+	2021: '/Chains/2021.svg',
 
-    //// SCROLL SEPOLIA ////
-    534351: '/Chains/534351.svg',
+	//// SCROLL SEPOLIA ////
+	534351: '/Chains/534351.svg',
 
-    //// SEI TESTNET ////
-    1328: '/Chains/1328.svg',
+	//// SEI TESTNET ////
+	1328: '/Chains/1328.svg',
 
-    //// SEPOLIA ////
-    11155111: '/Chains/11155111.svg',
+	//// SEPOLIA ////
+	11155111: '/Chains/11155111.svg',
 
-    //// SHIBARIUM PUPPYNET ////
-    157: '/Chains/157.svg',
+	//// SHIBARIUM PUPPYNET ////
+	157: '/Chains/157.svg',
 
-    //// SONEIUM MINATO ////
-    1946: '/Chains/1946.svg',
+	//// SONEIUM MINATO ////
+	1946: '/Chains/1946.svg',
 
-    //// SONIC BLAZE ////
-    57054: '/Chains/57054.svg',
+	//// SONIC BLAZE ////
+	57054: '/Chains/57054.svg',
 
-    //// UNICHAIN SEPOLIA ////
-    1301: '/Chains/1301.svg',
+	//// UNICHAIN SEPOLIA ////
+	1301: '/Chains/1301.svg',
 
-    //// XLAYER SEPOLIA ////
-    195: '/Chains/195.svg',
+	//// XLAYER SEPOLIA ////
+	195: '/Chains/195.svg',
 
-    //// ZIRCUIT TESTNET ////
-    48899: '/Chains/48899.svg',
+	//// ZIRCUIT TESTNET ////
+	48899: '/Chains/48899.svg',
 }
 
 export const chainCCIP: Record<number, { isCCIP: boolean }> = {
-    //// APECHAIN CURTIS ////
-    33111: { isCCIP: true },
+	//// APECHAIN CURTIS ////
+	33111: { isCCIP: true },
 
-    //// ARBITRUM SEPOLIA ////
-    421614: { isCCIP: true },
+	//// ARBITRUM SEPOLIA ////
+	421614: { isCCIP: true },
 
-    //// AVALANCHE FUJI ////
-    43113: { isCCIP: true },
+	//// AVALANCHE FUJI ////
+	43113: { isCCIP: true },
 
-    //// BASE SEPOLIA ////
-    84532: { isCCIP: true },
+	//// BASE SEPOLIA ////
+	84532: { isCCIP: true },
 
-    //// BITLAYER TESTNET ////
-    200810: { isCCIP: true },
+	//// BITLAYER TESTNET ////
+	200810: { isCCIP: true },
 
-    //// BLAST SEPOLIA ////
-    168587773: { isCCIP: true },
+	//// BLAST SEPOLIA ////
+	168587773: { isCCIP: true },
 
-    //// BNB TESTNET ////
-    97: { isCCIP: true },
+	//// BNB TESTNET ////
+	97: { isCCIP: true },
 
-    //// BOTANIX TESTNET ////
-    3636: { isCCIP: true },
+	//// BOTANIX TESTNET ////
+	3636: { isCCIP: true },
 
-    //// CELO ALFAJORES ////
-    44787: { isCCIP: true },
+	//// CELO ALFAJORES ////
+	44787: { isCCIP: true },
 
-    //// CORE TESTNET ////
-    1114: { isCCIP: true },
+	//// CORE TESTNET ////
+	1114: { isCCIP: true },
 
-    //// CRONOS TESTNET ////
-    338: { isCCIP: true },
+	//// CRONOS TESTNET ////
+	338: { isCCIP: true },
 
-    //// GNOSIS CHIADO ////
-    10200: { isCCIP: true },
+	//// GNOSIS CHIADO ////
+	10200: { isCCIP: true },
 
-    //// HASHKEY TESTNET ////
-    133: { isCCIP: true },
+	//// HASHKEY TESTNET ////
+	133: { isCCIP: true },
 
-    //// INK SEPOLIA ////
-    763373: { isCCIP: true },
+	//// INK SEPOLIA ////
+	763373: { isCCIP: true },
 
-    //// LINEA SEPOLIA ////
-    59141: { isCCIP: true },
+	//// LINEA SEPOLIA ////
+	59141: { isCCIP: true },
 
-    //// MANTLE SEPOLIA ////
-    5003: { isCCIP: true },
+	//// MANTLE SEPOLIA ////
+	5003: { isCCIP: true },
 
-    //// MEGAETH TESTNET ////
-    6342: { isCCIP: false },
+	//// MEGAETH TESTNET ////
+	6342: { isCCIP: false },
 
-    /// MODE TESTNET ////
-    919: { isCCIP: true },
+	/// MODE TESTNET ////
+	919: { isCCIP: true },
 
-    //// MONAD TESTNET ////
-    10143: { isCCIP: true },
+	//// MONAD TESTNET ////
+	10143: { isCCIP: true },
 
-    //// OPTIMISM SEPOLIA ////
-    11155420: { isCCIP: true },
+	//// OPTIMISM SEPOLIA ////
+	11155420: { isCCIP: true },
 
-    //// POLYGON AMOY ////
-    80002: { isCCIP: true },
+	//// POLYGON AMOY ////
+	80002: { isCCIP: true },
 
-    //// RONIN SAIGON ////
-    2021: { isCCIP: true },
+	//// RONIN SAIGON ////
+	2021: { isCCIP: true },
 
-    //// SCROLL SEPOLIA ////
-    534351: { isCCIP: true },
+	//// SCROLL SEPOLIA ////
+	534351: { isCCIP: true },
 
-    //// SEI TESTNET ////
-    1328: { isCCIP: true },
+	//// SEI TESTNET ////
+	1328: { isCCIP: true },
 
-    //// SEPOLIA ////
-    11155111: { isCCIP: true },
+	//// SEPOLIA ////
+	11155111: { isCCIP: true },
 
-    //// SHIBARIUM PUPPYNET ////
-    157: { isCCIP: true },
+	//// SHIBARIUM PUPPYNET ////
+	157: { isCCIP: true },
 
-    //// SONEIUM MINATO ////
-    1946: { isCCIP: true },
+	//// SONEIUM MINATO ////
+	1946: { isCCIP: true },
 
-    //// SONIC BLAZE ////
-    57054: { isCCIP: true },
+	//// SONIC BLAZE ////
+	57054: { isCCIP: true },
 
-    //// UNICHAIN SEPOLIA ////
-    1301: { isCCIP: true },
+	//// UNICHAIN SEPOLIA ////
+	1301: { isCCIP: true },
 
-    //// XLAYER SEPOLIA ////
-    195: { isCCIP: true },
+	//// XLAYER SEPOLIA ////
+	195: { isCCIP: true },
 
-    //// ZIRCUIT TESTNET ////
-    48899: { isCCIP: true },
+	//// ZIRCUIT TESTNET ////
+	48899: { isCCIP: true },
 }
-
 
 export const chainSelectors: Record<number, bigint> = {
 	//// APECHAIN CURTIS ////
@@ -209,77 +208,77 @@ export const chainSelectors: Record<number, bigint> = {
 	168587773: BigInt(2027362563942762617),
 
 	//// BNB TESTNET ////
-    97: BigInt(13264668187771770619),
+	97: BigInt(13264668187771770619),
 
-    //// BOTANIX TESTNET ////
-    3636: BigInt(1467223411771711614),
+	//// BOTANIX TESTNET ////
+	3636: BigInt(1467223411771711614),
 
-    //// CELO ALFAJORES ////
-    44787: BigInt(3552045678561919002),
+	//// CELO ALFAJORES ////
+	44787: BigInt(3552045678561919002),
 
-    //// CORE TESTNET ////
-    1114: BigInt(4264732132125536123),
+	//// CORE TESTNET ////
+	1114: BigInt(4264732132125536123),
 
-    //// CRONOS TESTNET ////
-    338: BigInt(2995292832068775165),
+	//// CRONOS TESTNET ////
+	338: BigInt(2995292832068775165),
 
-    //// GNOSIS CHIADO ////
-    10200: BigInt(8871595565390010547),
+	//// GNOSIS CHIADO ////
+	10200: BigInt(8871595565390010547),
 
-    //// HASHKEY TESTNET ////
-    133: BigInt(4356164186791070119),
+	//// HASHKEY TESTNET ////
+	133: BigInt(4356164186791070119),
 
-    //// INK SEPOLIA ////
-    763373: BigInt(9763904284804119144),
+	//// INK SEPOLIA ////
+	763373: BigInt(9763904284804119144),
 
-    //// LINEA SEPOLIA ////
-    59141: BigInt(5719461335882077547),
+	//// LINEA SEPOLIA ////
+	59141: BigInt(5719461335882077547),
 
-    //// MANTLE SEPOLIA ////
-    5003: BigInt(8236463271206331221),
+	//// MANTLE SEPOLIA ////
+	5003: BigInt(8236463271206331221),
 
-    //// MEGAETH TESTNET ////
-    6342: BigInt(2443239559770384419),
+	//// MEGAETH TESTNET ////
+	6342: BigInt(2443239559770384419),
 
-    /// MODE TESTNET ////
-    919: BigInt(829525985033418733),
+	/// MODE TESTNET ////
+	919: BigInt(829525985033418733),
 
-    //// MONAD TESTNET ////
-    10143: BigInt(2183018362218727504),
+	//// MONAD TESTNET ////
+	10143: BigInt(2183018362218727504),
 
-    //// OPTIMISM SEPOLIA ////
-    11155420: BigInt(5224473277236331295),
+	//// OPTIMISM SEPOLIA ////
+	11155420: BigInt(5224473277236331295),
 
-    //// POLYGON AMOY ////
-    80002: BigInt(16281711391670634445),
+	//// POLYGON AMOY ////
+	80002: BigInt(16281711391670634445),
 
-    //// RONIN SAIGON ////
-    2021: BigInt(13116810400804392105),
+	//// RONIN SAIGON ////
+	2021: BigInt(13116810400804392105),
 
-    //// SCROLL SEPOLIA ////
-    534351: BigInt(2279865765895943307),
+	//// SCROLL SEPOLIA ////
+	534351: BigInt(2279865765895943307),
 
-    //// SEI TESTNET ////
-    1328: BigInt(1216300075444106652),
+	//// SEI TESTNET ////
+	1328: BigInt(1216300075444106652),
 
-    //// SEPOLIA ////
-    11155111: BigInt(16015286601757825753),
+	//// SEPOLIA ////
+	11155111: BigInt(16015286601757825753),
 
-    //// SHIBARIUM PUPPYNET ////
-    157: BigInt(17833296867764334567),
+	//// SHIBARIUM PUPPYNET ////
+	157: BigInt(17833296867764334567),
 
-    //// SONEIUM MINATO ////
-    1946: BigInt(686603546605904534),
+	//// SONEIUM MINATO ////
+	1946: BigInt(686603546605904534),
 
-    //// SONIC BLAZE ////
-    57054: BigInt(3676871237479449268),
+	//// SONIC BLAZE ////
+	57054: BigInt(3676871237479449268),
 
-    //// UNICHAIN SEPOLIA ////
-    1301: BigInt(14135854469784514356),
+	//// UNICHAIN SEPOLIA ////
+	1301: BigInt(14135854469784514356),
 
-    //// XLAYER SEPOLIA ////
-    195: BigInt(2066098519157881736),
+	//// XLAYER SEPOLIA ////
+	195: BigInt(2066098519157881736),
 
-    //// ZIRCUIT TESTNET ////
-    48899: BigInt(4562743618362911021),
+	//// ZIRCUIT TESTNET ////
+	48899: BigInt(4562743618362911021),
 }

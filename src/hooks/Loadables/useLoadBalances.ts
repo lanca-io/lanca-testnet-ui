@@ -97,4 +97,9 @@ export const useLoadBalances = () => {
 			setBalances(balancesRecord)
 		}
 	}, [balances, setBalances])
+
+	return {
+		refetch,
+		isLoading,
+	}
 }

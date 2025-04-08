@@ -3,45 +3,45 @@ import { useAccount } from 'wagmi'
 import { usePostHog } from 'posthog-js/react'
 
 export const useIsWhitelisted = () => {
-    const { address, isConnected } = useAccount()
-    const [isWhitelisted, setIsWhitelisted] = useState<boolean | null>(null)
-    const [isLoading, setIsLoading] = useState<boolean>(true)
-    const posthog = usePostHog()
+	const { address, isConnected } = useAccount()
+	const [isWhitelisted, setIsWhitelisted] = useState<boolean | null>(null)
+	const [isLoading, setIsLoading] = useState<boolean>(true)
+	const posthog = usePostHog()
 
-    const checkWhitelistStatus = useCallback(() => {
-        if (!isConnected || !address) {
-            setIsWhitelisted(false)
-            setIsLoading(false)
-            return
-        }
+	const checkWhitelistStatus = useCallback(() => {
+		if (!isConnected || !address) {
+			setIsWhitelisted(false)
+			setIsLoading(false)
+			return
+		}
 
-        setIsLoading(true)
+		setIsLoading(true)
 
-        try {
-            const isEnabled = posthog.isFeatureEnabled('concero-testnet-whitelist')
-            setIsWhitelisted(!!isEnabled)
-        } catch (err) {
-            setIsWhitelisted(false)
-            console.warn('Whitelist check failed:', err)
-        } finally {
-            setIsLoading(false)
-        }
-    }, [posthog, address, isConnected])
+		try {
+			const isEnabled = posthog.isFeatureEnabled('concero-testnet-whitelist')
+			setIsWhitelisted(!!isEnabled)
+		} catch (err) {
+			setIsWhitelisted(false)
+			console.warn('Whitelist check failed:', err)
+		} finally {
+			setIsLoading(false)
+		}
+	}, [posthog, address, isConnected])
 
-    useEffect(() => {
-        if (!posthog || !isConnected || !address) {
-            setIsWhitelisted(false)
-            setIsLoading(false)
-            return
-        }
-		
-        posthog.onFeatureFlags(() => {
-            checkWhitelistStatus()
-        })
-    }, [address, isConnected, posthog, checkWhitelistStatus])
+	useEffect(() => {
+		if (!posthog || !isConnected || !address) {
+			setIsWhitelisted(false)
+			setIsLoading(false)
+			return
+		}
 
-    return {
-        isWhitelisted,
-        isLoading,
-    }
+		posthog.onFeatureFlags(() => {
+			checkWhitelistStatus()
+		})
+	}, [address, isConnected, posthog, checkWhitelistStatus])
+
+	return {
+		isWhitelisted,
+		isLoading,
+	}
 }

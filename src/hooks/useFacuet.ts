@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react'
 import { Address } from 'viem'
 import { useAccount } from 'wagmi'
+import { useLoadBalances } from './Loadables/useLoadBalances'
 
 type FaucetResponse = {
 	success: boolean
@@ -46,6 +47,7 @@ export const useFaucet = () => {
 	const { address } = useAccount()
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [txHash, setTxHash] = useState<string | null>(null)
+	const { refetch: refetchBalances } = useLoadBalances()
 
 	const getTestTokens = useCallback(
 		async (chainId: number) => {
@@ -64,6 +66,10 @@ export const useFaucet = () => {
 					setTxHash(response.txHash)
 				}
 
+				setTimeout(() => {
+					refetchBalances()
+				}, 2000)
+
 				return true
 			} catch (err) {
 				return false
@@ -71,7 +77,7 @@ export const useFaucet = () => {
 				setIsLoading(false)
 			}
 		},
-		[address],
+		[address, refetchBalances],
 	)
 
 	return {

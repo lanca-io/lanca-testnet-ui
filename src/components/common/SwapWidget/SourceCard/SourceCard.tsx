@@ -1,7 +1,7 @@
 import type { FC } from 'react'
-import type { Address } from 'viem'
 import type { Chain } from '@/stores/chains/types'
-import { useState, useCallback, useMemo, lazy, memo } from 'react'
+import type { Address } from 'viem'
+import { useCallback, useMemo, lazy, memo } from 'react'
 import { ChainSelector } from '../../ChainSelector/ChainSelector'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { AmountInput } from '../../AmountInput/AmountInput'
@@ -9,6 +9,7 @@ import { TokenAddresses } from '@/configuration/addresses'
 import { BalanceDisplay } from '../../BalanceDisplay/BalanceDisplay'
 import { ErrorDisplay } from '../../ErrorDisplay/ErrorDisplay'
 import { useBalancesStore } from '@/stores/balances/useBalancesStore'
+import { useModalStore } from '@/stores/modals/useModalsStore'
 import './SourceCard.pcss'
 
 const AssetModal = lazy(() =>
@@ -20,24 +21,20 @@ const AssetModal = lazy(() =>
 export const SourceCard: FC = memo((): JSX.Element => {
 	const { sourceChain, setSourceChain, setFromTokenAddress, error } = useFormStore()
 	const { balances, isLoading } = useBalancesStore()
-	const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+	const { isSrcAssetModalOpen, openSrcAssetModal, closeSrcAssetModal } = useModalStore()
 
-	const openModal = useCallback(() => {
-		setIsModalOpen(true)
-	}, [])
-
-	const closeModal = useCallback(() => {
-		setIsModalOpen(false)
-	}, [])
+	const handleOpenModal = useCallback(() => {
+		openSrcAssetModal()
+	}, [openSrcAssetModal])
 
 	const handleSelectChain = useCallback(
 		(chain: Chain) => {
 			setSourceChain(chain)
 			const tokenAddress = TokenAddresses[chain.id]
 			setFromTokenAddress(tokenAddress as Address)
-			closeModal()
+			closeSrcAssetModal()
 		},
-		[setSourceChain, setFromTokenAddress, closeModal],
+		[setSourceChain, setFromTokenAddress, closeSrcAssetModal],
 	)
 
 	const token = useMemo(() => {
@@ -50,7 +47,7 @@ export const SourceCard: FC = memo((): JSX.Element => {
 	return (
 		<div className="source_card_wrapper">
 			<div className="source_card" data-testid="source-card">
-				<ChainSelector chain={sourceChain} openModal={openModal} />
+				<ChainSelector chain={sourceChain} openModal={handleOpenModal} />
 				<AmountInput />
 				{error ? (
 					<ErrorDisplay error={error} />
@@ -58,10 +55,11 @@ export const SourceCard: FC = memo((): JSX.Element => {
 					<BalanceDisplay balance={token.balance} isLoading={isLoading} showMax />
 				)}
 				<AssetModal
-					isOpen={isModalOpen}
-					title="Select Chain"
-					onClose={closeModal}
+					isOpen={isSrcAssetModalOpen}
+					title="Select From Chain"
+					onClose={closeSrcAssetModal}
 					onChainSelect={handleSelectChain}
+					isSrcModal={true}
 				/>
 			</div>
 		</div>

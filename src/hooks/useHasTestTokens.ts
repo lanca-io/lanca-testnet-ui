@@ -3,59 +3,57 @@ import { useAccount } from 'wagmi'
 import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 
 export const useHasTestTokens = () => {
-    const { isConnected } = useAccount()
-    const { balances, isLoading: isBalanceLoading } = useBalancesStore()
-    const [hasTokens, setHasTokens] = useState<boolean | null>(null)
-    const [isCheckingTokens, setIsCheckingTokens] = useState<boolean>(true)
+	const { isConnected } = useAccount()
+	const { balances, isLoading: isBalanceLoading } = useBalancesStore()
+	const [hasTokens, setHasTokens] = useState<boolean | null>(null)
+	const [isCheckingTokens, setIsCheckingTokens] = useState<boolean>(true)
 
-    const checkForTokens = useCallback(() => {
-        if (!isConnected) {
-            setHasTokens(false)
-            setIsCheckingTokens(false)
-            return
-        }
-        
-        setIsCheckingTokens(true)
-        
-        if (isBalanceLoading) {
-            return
-        }
+	const checkForTokens = useCallback(() => {
+		if (!isConnected) {
+			setHasTokens(false)
+			setIsCheckingTokens(false)
+			return
+		}
 
-        if (Object.keys(balances).length === 0) {
-            setHasTokens(false)
-            setIsCheckingTokens(false)
-            return
-        }
+		setIsCheckingTokens(true)
 
-        let foundTokens = false
-        for (const token of Object.values(balances)) {
-            if (!token.balance) continue
+		if (isBalanceLoading) {
+			return
+		}
 
-            try {
-                if (BigInt(token.balance) > BigInt(0)) {
-                    foundTokens = true
-                    break
-                }
-            } catch {
-                continue
-            }
-        }
+		if (Object.keys(balances).length === 0) {
+			setHasTokens(false)
+			setIsCheckingTokens(false)
+			return
+		}
 
-        setHasTokens(foundTokens)
-        setIsCheckingTokens(false)
-    }, [isConnected, balances, isBalanceLoading])
+		let foundTokens = false
+		for (const token of Object.values(balances)) {
+			if (!token.balance) continue
 
-    useEffect(() => {
-        checkForTokens()
-    }, [checkForTokens])
+			try {
+				if (BigInt(token.balance) > BigInt(0)) {
+					foundTokens = true
+					break
+				}
+			} catch {
+				continue
+			}
+		}
 
-    // Define isLoading with explicit handling for disconnected state
-    const isLoading = isConnected ? 
-        (isBalanceLoading || isCheckingTokens || hasTokens === null) : 
-        false;
+		setHasTokens(foundTokens)
+		setIsCheckingTokens(false)
+	}, [isConnected, balances, isBalanceLoading])
 
-    return {
-        hasTokens: isConnected ? hasTokens : false,
-        isLoading,
-    }
+	useEffect(() => {
+		checkForTokens()
+	}, [checkForTokens])
+
+	// Define isLoading with explicit handling for disconnected state
+	const isLoading = isConnected ? isBalanceLoading || isCheckingTokens || hasTokens === null : false
+
+	return {
+		hasTokens: isConnected ? hasTokens : false,
+		isLoading,
+	}
 }

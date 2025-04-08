@@ -34,7 +34,6 @@ import {
 	zircuitTestnet,
 } from '@reown/appkit/networks'
 
-
 const coreTestnet = defineChain({
 	id: 1114,
 	name: 'Core Blockchain TestNet',
@@ -167,7 +166,7 @@ export const transports = {
 		http('https://endpoints.omniatech.io/v1/avax/fuji/public'),
 		http(),
 	]),
-	
+
 	//// BASE SEPOLIA ////
 	[baseSepolia.id]: fallback([
 		http('https://base-sepolia.gateway.tenderly.co'),
@@ -335,7 +334,3 @@ export const transports = {
 		http(),
 	]),
 }
-
-
-
-
