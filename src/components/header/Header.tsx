@@ -5,17 +5,15 @@ import { WalletButton } from '../common/WalletButton/WalletButton'
 import { routes } from '../../configuration/routes'
 import { useIsDesktop, useIsMobile } from '@/hooks/useMediaQuery'
 import { TokenWidget } from '../common/TokenWidget/TokenWidget'
-import './Header.pcss'
-
-import Concero_logo_short from '@/assets/icons/concero_logo_short.svg'
 import { useIsWhitelisted } from '@/hooks/useIsWhitelisted'
+import './Header.pcss'
 
 type LogoProps = {
 	isMobile?: boolean
 }
 
 const Logo: FC<LogoProps> = memo(({ isMobile }) => {
-	const logoSrc = isMobile ? Concero_logo_short : '/Header/ConceroLogo.svg'
+	const logoSrc = isMobile ? '/Header/ConceroShortLogo.svg' : '/Header/ConceroLogo.svg'
 	return <img src={logoSrc} alt="Concero" className="header__logo" />
 })
 

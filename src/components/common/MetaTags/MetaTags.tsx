@@ -9,6 +9,11 @@ const DEFAULT_KEYWORDS = 'concero testnet, blockchain testing, decentralized app
 
 const IMAGE = "https://pbs.twimg.com/profile_banners/1656709850234077194/1739576452/1500x500"
 
+const PRELOAD_IMAGES = [
+    '/Header/ConceroLogo.svg',
+    '/Header/ConceroShortLogo.svg',
+]
+
 type MetaTagsProps = {
     title?: string;
     description?: string;
@@ -42,6 +47,17 @@ export const MetaTags = ({
         <meta property="og:description" content={description} />
         <meta property="og:image" content={IMAGE} />
         <meta property="og:type" content="website" />
+
+        {/* Preload critical images */}
+        {PRELOAD_IMAGES.map((imagePath, index) => (
+            <link 
+                key={`preload-image-${index}`} 
+                rel="preload" 
+                as="image" 
+                href={imagePath} 
+                type={imagePath.endsWith('.svg') ? 'image/svg+xml' : 'image/png'}
+            />
+        ))}
 
         {/* Preloading - Only if prefetchUrl is provided */}
         {prefetchUrl && (
