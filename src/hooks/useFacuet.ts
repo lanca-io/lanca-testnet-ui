@@ -4,85 +4,90 @@ import { useAccount } from 'wagmi'
 import { useLoadBalances } from './Loadables/useLoadBalances'
 
 type FaucetResponse = {
-	success: boolean
-	message?: string
-	txHash?: string
+    success: boolean
+    message?: string
+    txHash?: string
 }
 
 const requestTokens = async (address: Address, chainId: number): Promise<FaucetResponse> => {
-	try {
-		const res = await fetch(`http://localhost:4000/api/faucet`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({
-				address,
-				chainId,
-			}),
-		})
+    try {
+        const res = await fetch(`http://localhost:4000/api/faucet`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                address,
+                chainId,
+            }),
+        })
 
-		if (!res.ok) {
-			const errorData = await res.json()
-			return {
-				success: false,
-				message: errorData.message || `Error: ${res.status} ${res.statusText}`,
-			}
-		}
+        if (!res.ok) {
+            const errorData = await res.json()
+            return {
+                success: false,
+                message: errorData.message || `Error: ${res.status} ${res.statusText}`,
+            }
+        }
 
-		const data = await res.json()
-		return {
-			success: true,
-			...data,
-		}
-	} catch (error) {
-		return {
-			success: false,
-			message: error instanceof Error ? error.message : 'Unknown error occurred',
-		}
-	}
+        const data = await res.json()
+        return {
+            success: true,
+            ...data,
+        }
+    } catch (error) {
+        return {
+            success: false,
+            message: error instanceof Error ? error.message : 'Unknown error occurred',
+        }
+    }
 }
 
 export const useFaucet = () => {
-	const { address } = useAccount()
-	const [isLoading, setIsLoading] = useState<boolean>(false)
-	const [txHash, setTxHash] = useState<string | null>(null)
-	const { refetch: refetchBalances } = useLoadBalances()
+    const { address } = useAccount()
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [txHash, setTxHash] = useState<string | null>(null)
+    const [error, setError] = useState<string | null>(null)
+    const { refetch: refetchBalances } = useLoadBalances()
 
-	const getTestTokens = useCallback(
-		async (chainId: number) => {
-			if (!address) return false
+    const getTestTokens = useCallback(
+        async (chainId: number) => {
+            if (!address) return false
 
-			setIsLoading(true)
+            setIsLoading(true)
+            setError(null)
 
-			try {
-				const response = await requestTokens(address, chainId)
+            try {
+                const response = await requestTokens(address, chainId)
 
-				if (!response.success) {
-					return false
-				}
+                if (!response.success) {
+                    setError('Error, please try again')
+                    return false
+                }
 
-				if (response.txHash) {
-					setTxHash(response.txHash)
-				}
+                if (response.txHash) {
+                    setTxHash(response.txHash)
+                }
 
-				setTimeout(() => {
-					refetchBalances()
-				}, 2000)
+                setTimeout(() => {
+                    refetchBalances()
+                }, 2000)
 
-				return true
-			} catch (err) {
-				return false
-			} finally {
-				setIsLoading(false)
-			}
-		},
-		[address, refetchBalances],
-	)
+                return true
+            } catch (err) {
+                setError('Error, please try again')
+                return false
+            } finally {
+                setIsLoading(false)
+            }
+        },
+        [address, refetchBalances],
+    )
 
-	return {
-		getTestTokens,
-		isLoading,
-		txHash,
-	}
+    return {
+        getTestTokens,
+        isLoading,
+        txHash,
+        error,
+    }
 }

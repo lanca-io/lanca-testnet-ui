@@ -15,7 +15,59 @@
 	display: grid;
 	width: 100%;
 	grid-template-columns: repeat(3, 1fr);
-	gap: var(--sp-md);
+	gap: var(--space-3);
 	align-items: center;
 	justify-items: center;
+}
+
+.error_state {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	gap: 10px;
+	flex: 1 0 0;
+	align-self: stretch;
+}
+
+.error_state_content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: var(--space-2);
+}
+
+.error_state_text {
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 20px;
+	color: var(--color-danger-600);
+}
+
+.loading_state {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	gap: 10px;
+	flex: 1 0 0;
+	align-self: stretch;
+}
+
+.loading_state_content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: var(--space-2);
+}
+
+.loading_state_text {
+	font-size: 1rem;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 20px;
+	color: var(--color-gray-600);
 }
