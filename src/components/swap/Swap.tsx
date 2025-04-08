@@ -25,7 +25,7 @@ const GetTokens = lazy(() =>
 )
 
 export const Swap: FC = () => {
-    const { isConnecting } = useAccount()
+    const { isConnecting, isConnected } = useAccount()
     const { isWhitelisted, isLoading: isWhitelistLoading } = useIsWhitelisted()
     const { hasTokens, isLoading: isCheckLoading } = useHasTestTokens()
     const { txStatus } = useTxProcess()
@@ -40,10 +40,10 @@ export const Swap: FC = () => {
 
     let content = <SwapWidget />;
     
-    if (!isWhitelisted) {
+    if (!isWhitelisted && isConnected) {
         content = <NotWhitelisted />;
     } 
-    else if (isWhitelisted && !hasTokens) {
+    else if (isWhitelisted && !hasTokens && isConnected) {
         content = <GetTokens />;
     }
 

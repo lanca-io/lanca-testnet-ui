@@ -9,9 +9,15 @@ export const useHasTestTokens = () => {
     const [isCheckingTokens, setIsCheckingTokens] = useState<boolean>(true)
 
     const checkForTokens = useCallback(() => {
+        if (!isConnected) {
+            setHasTokens(false)
+            setIsCheckingTokens(false)
+            return
+        }
+        
         setIsCheckingTokens(true)
         
-        if (!isConnected || isBalanceLoading) {
+        if (isBalanceLoading) {
             return
         }
 
@@ -43,10 +49,13 @@ export const useHasTestTokens = () => {
         checkForTokens()
     }, [checkForTokens])
 
-    const isLoading = isBalanceLoading || isCheckingTokens || hasTokens === null
+    // Define isLoading with explicit handling for disconnected state
+    const isLoading = isConnected ? 
+        (isBalanceLoading || isCheckingTokens || hasTokens === null) : 
+        false;
 
     return {
-        hasTokens,
+        hasTokens: isConnected ? hasTokens : false,
         isLoading,
     }
 }
