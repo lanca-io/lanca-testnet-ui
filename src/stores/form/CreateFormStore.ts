@@ -5,7 +5,7 @@ import { createWithEqualityFn } from 'zustand/traditional'
 
 const defaultSourceChain: Chain = {
 	id: '421614',
-	name: 'Arbitrum Sepolia',
+	name: 'Arbitrum',
 	logoURL: '/Chains/421614.svg',
 	explorerURL: 'https://sepolia.arbiscan.io',
 	isCCIP: true,
@@ -17,7 +17,7 @@ const defaultSourceChain: Chain = {
 
 const defaultDestinationChain: Chain = {
 	id: '84532',
-	name: 'Base Sepolia',
+	name: 'Base',
 	logoURL: '/Chains/84532.svg',
 	explorerURL: 'https://sepolia.basescan.org',
 	isCCIP: true,
