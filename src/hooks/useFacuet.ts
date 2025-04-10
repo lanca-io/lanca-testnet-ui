@@ -2,14 +2,12 @@ import { useState, useCallback } from 'react'
 import { Address } from 'viem'
 import { useAccount } from 'wagmi'
 import { useLoadBalances } from './Loadables/useLoadBalances'
-import { domain_url } from '@/configuration/constants'
 
 type FaucetResponse = {
     success: boolean
     message?: string
     txHash?: string
 }
-
 const requestTokens = async (address: Address, chainId: number): Promise<FaucetResponse> => {
     try {
         const res = await fetch(`https://api.concero.io/api/faucet`, {
@@ -49,7 +47,7 @@ export const useFaucet = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [txHash, setTxHash] = useState<string | null>(null)
     const [error, setError] = useState<string | null>(null)
-    const { refetch: refetchBalances } = useLoadBalances()
+    const { refetch } = useLoadBalances()
 
     const getTestTokens = useCallback(
         async (chainId: number) => {
@@ -57,6 +55,7 @@ export const useFaucet = () => {
 
             setIsLoading(true)
             setError(null)
+            let success = false;
 
             try {
                 const response = await requestTokens(address, chainId)
@@ -70,19 +69,20 @@ export const useFaucet = () => {
                     setTxHash(response.txHash)
                 }
 
-                setTimeout(() => {
-                    refetchBalances()
-                }, 2000)
-
+                success = true;
+                await refetch()
                 return true
             } catch (err) {
                 setError('Error, please try again')
                 return false
             } finally {
+                if (success) {
+                    await refetch()
+                }
                 setIsLoading(false)
             }
         },
-        [address, refetchBalances],
+        [address, refetch],
     )
 
     return {
