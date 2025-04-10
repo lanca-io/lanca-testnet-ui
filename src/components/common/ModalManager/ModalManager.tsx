@@ -1,17 +1,7 @@
-import { FC, lazy, memo } from 'react'
+import { FC, memo } from 'react'
 import { useModalStore } from '@/stores/modals/useModalsStore'
-
-const AssetModal = lazy(() =>
-    import('../AssetModal/AssetModal').then(module => ({
-        default: module.AssetModal,
-    }))
-)
-
-const FaucetModal = lazy(() =>
-    import('../FaucetModal/FaucetModal').then(module => ({
-        default: module.FaucetModal,
-    }))
-)
+import { AssetModal } from '../AssetModal/AssetModal'
+import { FaucetModal } from '../FaucetModal/FaucetModal'
 
 export const ModalManager: FC = memo((): JSX.Element => {
     const { 
