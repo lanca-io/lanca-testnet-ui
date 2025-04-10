@@ -3,7 +3,7 @@ import { memo } from 'react'
 import './Approval.pcss'
 
 export const Approval: FC = memo((): JSX.Element => {
-	const imageSrc = '/Swap/Process.svg'
+	const imageSrc = '/Swap/Process.webp'
 	const altText = 'Approval Process'
 
 	return (

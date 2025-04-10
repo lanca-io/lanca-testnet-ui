@@ -8,7 +8,7 @@ const DEFAULT_TITLE = 'Concero | Testnet'
 const DEFAULT_KEYWORDS =
     'concero testnet, blockchain testing, decentralized applications, blockchain integration, testnet environment, ethereum, arbitrum, optimism, sepolia, megaeth, monad, berachain, chainlink, ccip, concero'
 
-const IMAGE = '/Cover.png'
+const IMAGE = '/Cover/Cover.png'
 
 type MetaTagsProps = {
     title?: string

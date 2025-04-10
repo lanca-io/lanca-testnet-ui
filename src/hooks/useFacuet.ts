@@ -8,7 +8,6 @@ type FaucetResponse = {
     message?: string
     txHash?: string
 }
-
 const requestTokens = async (address: Address, chainId: number): Promise<FaucetResponse> => {
     try {
         const res = await fetch(`https://api.concero.io/api/faucet`, {

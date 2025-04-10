@@ -15,7 +15,7 @@ export const GetTokens: FC = memo(() => {
 		<div className="get_tokens">
 			<div className="get_tokens_content">
 				<h3 className="get_tokens_title">Let's start</h3>
-				<img src="/Swap/GetTokens.svg" alt="Tokens" />
+				<img src="/Swap/GetTokens.webp" alt="Tokens" />
 				<p className="get_tokens_subtitle">Claim tCER0 (test tokens) on ETH sepolia to start testing</p>
 			</div>
 			<Button size="l" onClick={handleGetTokens} isLoading={isLoading} data-testid="get-tokens-button">
