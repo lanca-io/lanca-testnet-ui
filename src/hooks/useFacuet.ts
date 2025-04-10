@@ -2,14 +2,12 @@ import { useState, useCallback } from 'react'
 import { Address } from 'viem'
 import { useAccount } from 'wagmi'
 import { useLoadBalances } from './Loadables/useLoadBalances'
-import { domain_url } from '@/configuration/constants'
 
 type FaucetResponse = {
     success: boolean
     message?: string
     txHash?: string
 }
-
 const requestTokens = async (address: Address, chainId: number): Promise<FaucetResponse> => {
     try {
         const res = await fetch(`https://api.concero.io/api/faucet`, {

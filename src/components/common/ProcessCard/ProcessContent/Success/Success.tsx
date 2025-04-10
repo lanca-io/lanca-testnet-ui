@@ -16,7 +16,7 @@ export const Success: FC = memo((): JSX.Element => {
 		return formatTokenAmount(fromAmount)
 	}, [fromAmount])
 
-	const imageSrc = '/Swap/Success.svg'
+	const imageSrc = '/Swap/Success.webp'
 	const altText = 'Success Process'
 	const headingText = 'You received'
 

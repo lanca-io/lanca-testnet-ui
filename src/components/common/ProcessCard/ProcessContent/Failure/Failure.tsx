@@ -3,7 +3,7 @@ import { memo } from 'react'
 import './Failure.pcss'
 
 export const Failure: FC = memo((): JSX.Element => {
-	const imageSrc = '/Swap/Failure.svg'
+	const imageSrc = '/Swap/Failure.webp'
 	const altText = 'Failure Process'
 
 	return (

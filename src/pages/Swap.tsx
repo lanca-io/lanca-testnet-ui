@@ -9,7 +9,7 @@ export const SwapPage: FC = (): JSX.Element => {
 
 	return (
 		<>
-			<MetaTags title={title} description={description} />
+			<MetaTags title={title} description={description} prefetchUrl='https://api.concero.io' />
 			<main>
 				<Swap />
 			</main>
