@@ -5,11 +5,14 @@ import { useFormStore } from '@/stores/form/useFormStore'
 import { formatTokenAmount } from '@/utils/tokens'
 import { ClockIcon } from '@/assets/icons/clock'
 import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
+import { useLoadTxExecutionTime } from '@/hooks/Loadables/useLoadTxExecutionTime'
+import { SkeletonLoader } from '@/components/common/SkeletonLoader/SkeletonLoader'
 import './Success.pcss'
 
 export const Success: FC = memo((): JSX.Element => {
 	const { executionTime } = useTxExecutionStore()
 	const { destinationChain, fromAmount } = useFormStore()
+	const { isLoading } = useLoadTxExecutionTime()
 
 	const formattedAmount = useMemo(() => {
 		if (!fromAmount || fromAmount === '0') return '0'
@@ -46,7 +49,11 @@ export const Success: FC = memo((): JSX.Element => {
 					</p>
 					<div className="success_info_timer">
 						<ClockIcon />
-						<p className="success_info_timer_text">{`In ${executionTime} seconds`}</p>
+						{isLoading ? (
+                            <SkeletonLoader width={87} height={18} className="success_info_timer_skeleton" />
+                        ) : (
+                            <p className="success_info_timer_text">{`In ${executionTime} seconds`}</p>
+                        )}
 					</div>
 				</div>
 			</div>
