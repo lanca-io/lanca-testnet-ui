@@ -47,7 +47,7 @@ export const useFaucet = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [txHash, setTxHash] = useState<string | null>(null)
     const [error, setError] = useState<string | null>(null)
-    const { refetch: refetchBalances } = useLoadBalances()
+    const { refetch } = useLoadBalances()
 
     const getTestTokens = useCallback(
         async (chainId: number) => {
@@ -55,6 +55,7 @@ export const useFaucet = () => {
 
             setIsLoading(true)
             setError(null)
+            let success = false;
 
             try {
                 const response = await requestTokens(address, chainId)
@@ -68,19 +69,20 @@ export const useFaucet = () => {
                     setTxHash(response.txHash)
                 }
 
-                setTimeout(() => {
-                    refetchBalances()
-                }, 2000)
-
+                success = true;
+                await refetch()
                 return true
             } catch (err) {
                 setError('Error, please try again')
                 return false
             } finally {
+                if (success) {
+                    await refetch()
+                }
                 setIsLoading(false)
             }
         },
-        [address, refetchBalances],
+        [address, refetch],
     )
 
     return {
