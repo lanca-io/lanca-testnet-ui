@@ -16,7 +16,7 @@ import { TokenAddresses } from '@/configuration/addresses'
 import './AssetModal.pcss'
 
 export const AssetModal: FC<AssetModalProps> = memo(
-    ({ title, isOpen, isSrcModal, onClose }): JSX.Element => {
+    ({ title, isOpen, isSrcModal, direction, onClose }): JSX.Element => {
         const { isFaucetModalOpen, openFaucetModal } = useModalStore()
         const { 
             setSourceChain, 
@@ -66,7 +66,7 @@ export const AssetModal: FC<AssetModalProps> = memo(
                 />
 
                 {!isSrcModal && <ChainController activeTab={activeTab} setActiveTab={handleTabChange} />}
-                <ChainMenu activeTab={activeTab} searchInput={searchInput} onSelectChain={handleChainSelect} />
+                <ChainMenu activeTab={activeTab} searchInput={searchInput} onSelectChain={handleChainSelect} direction={direction}/>
                 <div className={isSrcModal ? 'gradient_blur_button' : 'gradient_blur'} />
 
                 {isSrcModal && (
