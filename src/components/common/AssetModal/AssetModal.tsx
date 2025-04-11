@@ -15,11 +15,17 @@ import { useFormStore } from '@/stores/form/useFormStore'
 import { TokenAddresses } from '@/configuration/addresses'
 import './AssetModal.pcss'
 
-export const AssetModal: FC<AssetModalProps> = memo(({ title, isOpen, isSrcModal, onClose }): JSX.Element => {
-	const { isFaucetModalOpen, openFaucetModal } = useModalStore()
-	const { setSourceChain, setDestinationChain, setFromTokenAddress, setToTokenAddress } = useFormStore()
-	const [activeTab, setActiveTab] = useState<ActiveTab>(ActiveTab.All)
-	const [searchInput, setSearchInput] = useState<string>('')
+export const AssetModal: FC<AssetModalProps> = memo(
+    ({ title, isOpen, isSrcModal, direction, onClose }): JSX.Element => {
+        const { isFaucetModalOpen, openFaucetModal } = useModalStore()
+        const { 
+            setSourceChain, 
+            setDestinationChain, 
+            setFromTokenAddress, 
+            setToTokenAddress 
+        } = useFormStore()
+        const [activeTab, setActiveTab] = useState<ActiveTab>(ActiveTab.All)
+        const [searchInput, setSearchInput] = useState<string>('')
 
 	const handleSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
 		setSearchInput(event.target.value)
@@ -62,9 +68,9 @@ export const AssetModal: FC<AssetModalProps> = memo(({ title, isOpen, isSrcModal
 				data-testid="chain-search-input"
 			/>
 
-			{!isSrcModal && <ChainController activeTab={activeTab} setActiveTab={handleTabChange} />}
-			<ChainMenu activeTab={activeTab} searchInput={searchInput} onSelectChain={handleChainSelect} />
-			<div className={isSrcModal ? 'gradient_blur_button' : 'gradient_blur'} />
+                {!isSrcModal && <ChainController activeTab={activeTab} setActiveTab={handleTabChange} />}
+                <ChainMenu activeTab={activeTab} searchInput={searchInput} onSelectChain={handleChainSelect} direction={direction}/>
+                <div className={isSrcModal ? 'gradient_blur_button' : 'gradient_blur'} />
 
 			{isSrcModal && (
 				<Button
