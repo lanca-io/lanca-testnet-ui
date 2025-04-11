@@ -6,7 +6,7 @@ import { useTrackEvent } from '@/hooks/useTrackEvent'
 import './NotWhitelisted.pcss'
 
 export const NotWhitelisted: FC = memo(() => {
-	const trackEvent = useTrackEvent()
+	const { trackEvent } = useTrackEvent()
     const link =
         'https://docs.google.com/forms/d/e/1FAIpQLSdxDzz9-7cdxHsNFubyTAIl29dbpqzJhm0vHOsYmKmg5DSxeQ/viewform?usp=header'
     

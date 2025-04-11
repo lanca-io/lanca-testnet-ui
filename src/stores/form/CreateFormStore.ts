@@ -1,6 +1,7 @@
 import type { FormState, FormStore, FormActions } from './types'
 import type { Chain } from '../chains/types'
 import type { Address } from 'viem'
+import { chainSelectors } from '../chains/ChainInfo'
 import { createWithEqualityFn } from 'zustand/traditional'
 
 const defaultSourceChain: Chain = {
@@ -11,7 +12,7 @@ const defaultSourceChain: Chain = {
 	isCCIP: true,
 	nativeToken: 'ETH',
 	decimals: 18,
-	selector: BigInt(3478487238524512256),
+	selector: chainSelectors[421614],
 	hastCEROFaucet: true,
 }
 
@@ -23,7 +24,7 @@ const defaultDestinationChain: Chain = {
 	isCCIP: true,
 	nativeToken: 'ETH',
 	decimals: 18,
-	selector: BigInt(10344971235874465080),
+    selector: chainSelectors[84532],
 	hastCEROFaucet: true,
 }
 

@@ -26,5 +26,5 @@ export function useTrackEvent() {
 		[posthog],
 	)
 
-	return trackEvent
+	return { trackEvent }
 }

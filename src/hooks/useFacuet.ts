@@ -51,7 +51,7 @@ export const useFaucet = () => {
 	const [error, setError] = useState<string | null>(null)
 	const { refetch } = useLoadBalances()
 
-	const trackEvent = useTrackEvent()
+	const { trackEvent } = useTrackEvent()
 
 	const getTestTokens = useCallback(
 		async (chainId: number) => {

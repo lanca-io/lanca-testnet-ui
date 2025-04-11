@@ -8,7 +8,7 @@ import { DocsIcon } from '@/assets/icons/docs'
 import { FileIcon } from '@/assets/icons/file'
 import { YouTubeIcon } from '@/assets/icons/socials/youtube'
 import { routes } from '../../configuration/routes'
-import { GuideEvents, SocialEvents } from '@/events/events'
+import { GuideEvents } from '@/events/events'
 import { useTrackEvent } from '@/hooks/useTrackEvent'
 import './Footer.pcss'
 
@@ -29,7 +29,7 @@ type FooterSection = {
 }
 
 const FooterItem: FC<FooterSection> = ({ heading, icons }) => {
-    const trackEvent = useTrackEvent()
+    const { trackEvent } = useTrackEvent()
 
     const handleIconClick = useCallback((icon: FooterIcon) => {
         if (icon.trackingEvent) {
