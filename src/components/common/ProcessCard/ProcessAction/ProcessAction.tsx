@@ -66,7 +66,7 @@ export const ProcessAction: FC = memo((): JSX.Element | null => {
             ? chainsTwitterMap[Number(destinationChain.id)] || destinationChain.name
             : 'ethereum';
 
-        const tweetText = `Just performed a fully decentralised bridge from @${fromChainHandle} to @${toChainHandle} in just ${time} sec on @concero_io testnet using the new Concero Messaging V2.\n\nTry to break my record on http://testnet.concero.io 👇`;
+        const tweetText = `Just performed a fully decentralised bridge from @${fromChainHandle} to @${toChainHandle} in just ${time} sec on @concero_io testnet using the new Concero Messaging V2.\n\nTry to break my record on https://testnet.concero.io 👇`;
 
         const shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
   
