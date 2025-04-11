@@ -10,32 +10,32 @@ import { useModalStore } from '@/stores/modals/useModalsStore'
 import './SourceCard.pcss'
 
 export const SourceCard: FC = memo((): JSX.Element => {
-    const { sourceChain, error } = useFormStore()
-    const { balances, isLoading } = useBalancesStore()
-    const { openSrcAssetModal } = useModalStore()
+	const { sourceChain, error } = useFormStore()
+	const { balances, isLoading } = useBalancesStore()
+	const { openSrcAssetModal } = useModalStore()
 
-    const handleOpenModal = useCallback(() => {
-        openSrcAssetModal()
-    }, [openSrcAssetModal])
+	const handleOpenModal = useCallback(() => {
+		openSrcAssetModal()
+	}, [openSrcAssetModal])
 
-    const token = useMemo(() => {
-        if (!sourceChain || !balances[Number(sourceChain.id)]) {
-            return { balance: '0', decimals: 18, symbol: 'tCERO' }
-        }
-        return balances[Number(sourceChain.id)]
-    }, [sourceChain, balances])
+	const token = useMemo(() => {
+		if (!sourceChain || !balances[Number(sourceChain.id)]) {
+			return { balance: '0', decimals: 18, symbol: 'tCERO' }
+		}
+		return balances[Number(sourceChain.id)]
+	}, [sourceChain, balances])
 
-    return (
-        <div className="source_card_wrapper">
-            <div className="source_card" data-testid="source-card">
-                <ChainSelector chain={sourceChain} openModal={handleOpenModal} />
-                <AmountInput />
-                {error ? (
-                    <ErrorDisplay error={error} />
-                ) : (
-                    <BalanceDisplay balance={token.balance} isLoading={isLoading} showMax />
-                )}
-            </div>
-        </div>
-    )
+	return (
+		<div className="source_card_wrapper">
+			<div className="source_card" data-testid="source-card">
+				<ChainSelector chain={sourceChain} openModal={handleOpenModal} />
+				<AmountInput />
+				{error ? (
+					<ErrorDisplay error={error} />
+				) : (
+					<BalanceDisplay balance={token.balance} isLoading={isLoading} showMax />
+				)}
+			</div>
+		</div>
+	)
 })

@@ -4,14 +4,14 @@ import { AssetModal } from '../AssetModal/AssetModal'
 import { FaucetModal } from '../FaucetModal/FaucetModal'
 
 export const ModalManager: FC = memo((): JSX.Element => {
-    const { 
-        isSrcAssetModalOpen, 
-        isDstAssetModalOpen, 
-        isFaucetModalOpen,
-        closeSrcAssetModal, 
-        closeDstAssetModal, 
-        closeFaucetModal 
-    } = useModalStore()
+	const {
+		isSrcAssetModalOpen,
+		isDstAssetModalOpen,
+		isFaucetModalOpen,
+		closeSrcAssetModal,
+		closeDstAssetModal,
+		closeFaucetModal,
+	} = useModalStore()
 
     return (
         <>
@@ -35,13 +35,9 @@ export const ModalManager: FC = memo((): JSX.Element => {
                 />
             )}
 
-            {isFaucetModalOpen && (
-                <FaucetModal
-                    title="Select Chain to Add Token"
-                    isOpen={isFaucetModalOpen}
-                    onClose={closeFaucetModal}
-                />
-            )}
-        </>
-    )
+			{isFaucetModalOpen && (
+				<FaucetModal title="Select Chain to Add Token" isOpen={isFaucetModalOpen} onClose={closeFaucetModal} />
+			)}
+		</>
+	)
 })
