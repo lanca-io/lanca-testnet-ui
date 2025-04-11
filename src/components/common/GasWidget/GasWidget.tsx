@@ -21,7 +21,7 @@ export const GasWidget: FC = memo(() => {
     const { isConnected } = useAccount()
     const { sourceChain } = useFormStore()
     const { nativeBalances, isLoading } = useBalancesStore()
-    const trackEvent = useTrackEvent()
+    const { trackEvent } = useTrackEvent()
 
     const rawAmount = useMemo(() => {
         if (!sourceChain || !nativeBalances[Number(sourceChain.id)]) {

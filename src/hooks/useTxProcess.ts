@@ -1,46 +1,111 @@
-import { useMemo } from 'react'
+import { useMemo, useEffect, useCallback } from 'react'
 import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 import { Status, StepType } from '@lanca/sdk'
+import { useIsCCIPLane } from './useIsCCIPLane'
+import { useTrackEvent } from './useTrackEvent'
+import { BridgeEvents } from '@/events/events'
+import { useFormStore } from '@/stores/form/useFormStore'
 
 export const useTxProcess = () => {
-	const { txStatus, steps } = useTxExecutionStore()
+	const { sourceChain, destinationChain, fromTokenAddress, toTokenAddress } = useFormStore()
+    const { txStatus, steps, srcHash, dstHash, executionTime } = useTxExecutionStore()
+    const { isCCIPLane } = useIsCCIPLane()
+    const { trackEvent } = useTrackEvent()
 
-	const currentStage = useMemo(() => {
+	const trackBridgeEvent = useCallback(() => {
 		switch (txStatus) {
 			case Status.SUCCESS:
-				return 'success'
+				trackEvent({
+					...BridgeEvents.SUCCESSFUL,
+					data: {
+						srcChainId: sourceChain?.id,
+						dstChainId: destinationChain?.id,
+						fromToken: fromTokenAddress,
+						toToken: toTokenAddress,
+						isCCIPLane,
+						srcHash,
+						dstHash,
+						executionTime,
+					}
+				})
+				break
+				
 			case Status.FAILED:
-				return 'failed'
+				trackEvent({ 
+					...BridgeEvents.FAILED,
+					data: {
+						srcChainId: sourceChain?.id,
+						dstChainId: destinationChain?.id,
+						fromToken: fromTokenAddress,
+						toToken: toTokenAddress,
+						isCCIPLane,
+					}
+				})
+				break
+				
 			case Status.REJECTED:
-				return 'rejected'
+				trackEvent({ 
+					...BridgeEvents.REJECTED,
+					data: {
+						srcChainId: sourceChain?.id,
+						dstChainId: destinationChain?.id,
+						fromToken: fromTokenAddress,
+						toToken: toTokenAddress,
+						isCCIPLane,
+					}
+				})
+				break
+				
 			case Status.PENDING:
-				return 'pending'
+			case Status.NOT_STARTED:
 			default:
-				return 'not_started'
+				break
 		}
-	}, [txStatus])
+	}, [txStatus, trackEvent, srcHash, dstHash, executionTime])
 
-	const currentStep = useMemo(() => {
-		switch (true) {
-			case steps.ALLOWANCE === Status.PENDING ||
-				steps.ALLOWANCE === Status.REJECTED ||
-				steps.ALLOWANCE === Status.FAILED:
-				return StepType.ALLOWANCE
-			case steps.BRIDGE === Status.PENDING || steps.BRIDGE === Status.REJECTED || steps.BRIDGE === Status.FAILED:
-				return StepType.BRIDGE
-			default:
-				return null
-		}
-	}, [steps])
+    useEffect(() => {
+        trackBridgeEvent()
+    }, [trackBridgeEvent])
 
-	const isTerminalStage = useMemo(() => {
-		return ['success', 'failed', 'rejected'].includes(currentStage)
-	}, [currentStage])
+    const currentStage = useMemo(() => {
+        switch (txStatus) {
+            case Status.SUCCESS:
+                return 'success'
+            case Status.FAILED:
+                return 'failed'
+            case Status.REJECTED:
+                return 'rejected'
+            case Status.PENDING:
+                return 'pending'
+            default:
+                return 'not_started'
+        }
+    }, [txStatus])
 
-	return {
-		txStatus,
-		currentStage,
-		currentStep,
-		isTerminalStage,
-	}
+    const currentStep = useMemo(() => {
+        switch (true) {
+            case steps.ALLOWANCE === Status.PENDING ||
+                steps.ALLOWANCE === Status.REJECTED ||
+                steps.ALLOWANCE === Status.FAILED:
+                return StepType.ALLOWANCE
+            case steps.BRIDGE === Status.PENDING || steps.BRIDGE === Status.REJECTED || steps.BRIDGE === Status.FAILED:
+                return StepType.BRIDGE
+            default:
+                return null
+        }
+    }, [steps])
+
+    const isTerminalStage = useMemo(() => {
+        return ['success', 'failed', 'rejected'].includes(currentStage)
+    }, [currentStage])
+
+    return {
+        txStatus,
+        currentStage,
+        currentStep,
+        isTerminalStage,
+        srcHash,
+        dstHash,
+        executionTime
+    }
 }
