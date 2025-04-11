@@ -72,7 +72,7 @@ export const GasWidget: FC = memo(() => {
             {isLoading ? (
                 <SkeletonLoader width={28} height={22} className="loader" />
             ) : (
-                <h5 className="gas_value">{format(Number(gas), 2)}</h5>
+                <h5 className="gas_value">{`${format(Number(gas), 2)} ${sourceChain?.nativeToken}`}</h5>
             )}
 
             <IconButton 

@@ -58,7 +58,7 @@ export const TokenWidget: FC = memo(() => {
 			{isLoading ? (
 				<SkeletonLoader width={28} height={22} className="loader" />
 			) : (
-				<h5 className="native_token_value">{format(Number(nativeToken), 2)}</h5>
+				<h5 className="native_token_value">{`${format(Number(nativeToken), 2)} tCERO `}</h5>
 			)}
 
 			<IconButton size="s" variant={uiProps.buttonVariant} onClick={openFaucetModal}>

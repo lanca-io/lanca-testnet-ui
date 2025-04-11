@@ -5,9 +5,12 @@ import { TimeIcon } from '@/assets/icons/time'
 import { useEstimateGas } from '@/hooks/useEstimateGas'
 import { SkeletonLoader } from '../SkeletonLoader/SkeletonLoader'
 import { format } from '@/utils/format'
+import { useFormStore } from '@/stores/form/useFormStore'
 import './TxInfo.pcss'
 
+
 export const TxInfo: FC = memo((): JSX.Element => {
+	const { sourceChain } = useFormStore() 
 	const { formattedGas, isLoading } = useEstimateGas()
 
 	return (
@@ -22,7 +25,7 @@ export const TxInfo: FC = memo((): JSX.Element => {
 						<SkeletonLoader width={55} height={20} />
 					) : (
 						<p className="tx_info_item_text_value" data-testid="gas-value">
-							{format(Number(formattedGas), 4)}
+							{` ${format(Number(formattedGas), 2)} ${sourceChain?.nativeToken}`}
 						</p>
 					)}
 				</div>
