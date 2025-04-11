@@ -19,6 +19,8 @@ export const ChainItem: FC<ChainProps> = memo(({ chain, balance, onSelectChain, 
 		onSelectChain(chain)
 	}, [chain, onSelectChain])
 
+	const displayBalance = !isLoading && balance && Number(balance) > 0
+
 	return (
 		<div className="chain" onClick={handleClick} data-testid={`chain-item-${chain.id}`}>
 			<div className="chain_content">
@@ -36,7 +38,7 @@ export const ChainItem: FC<ChainProps> = memo(({ chain, balance, onSelectChain, 
 				{isLoading ? (
 					<SkeletonLoader width={30} height={16} />
 				) : (
-					balance && <p className="chain_balance_value">{format(Number(balance), 2)}</p>
+					displayBalance && <p className="chain_balance_value">{format(Number(balance), 2)}</p>
 				)}
 			</div>
 		</div>
