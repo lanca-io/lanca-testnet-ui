@@ -3,6 +3,7 @@ import { memo, useCallback } from 'react'
 import { Button } from '@concero/ui-kit'
 import { useGetChains } from '@/hooks/useGetChains'
 import { ActiveTab } from '../types'
+import { useFormStore } from '@/stores/form/useFormStore'
 import './ChainController.pcss'
 
 type ChainControllerProps = {
@@ -12,6 +13,7 @@ type ChainControllerProps = {
 
 export const ChainController: FC<ChainControllerProps> = memo(({ activeTab, setActiveTab }): JSX.Element => {
 	const { allChains, ccipChains, isLoading } = useGetChains()
+	const { sourceChain } = useFormStore()
 
 	const handleAllTabClick = useCallback(() => {
 		setActiveTab(ActiveTab.All)
@@ -31,7 +33,7 @@ export const ChainController: FC<ChainControllerProps> = memo(({ activeTab, setA
 				onClick={handleAllTabClick}
 				data-testid="all-chains-tab"
 			>
-				All: {allChains.length}
+				All: {allChains.length - 1}
 			</Button>
 			<Button
 				isFull
@@ -41,7 +43,7 @@ export const ChainController: FC<ChainControllerProps> = memo(({ activeTab, setA
 				onClick={handleCcipTabClick}
 				data-testid="ccip-chains-tab"
 			>
-				CCIP: {ccipChains.length}
+				CCIP: {sourceChain?.isCCIP ? ccipChains.length - 1 : ccipChains.length}
 			</Button>
 		</div>
 	)
