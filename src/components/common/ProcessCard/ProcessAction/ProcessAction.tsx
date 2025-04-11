@@ -47,7 +47,7 @@ export const ProcessAction: FC = memo((): JSX.Element | null => {
     const { reset, executionTime } = useTxExecutionStore()
     const { sourceChain, destinationChain } = useFormStore()
     const { txStatus } = useTxProcess()
-    const trackEvent = useTrackEvent()
+    const { trackEvent } = useTrackEvent()
 
     const handleReset = useCallback(() => {
         reset()
