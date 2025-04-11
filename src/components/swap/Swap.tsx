@@ -14,48 +14,48 @@ import { ModalManager } from '../common/ModalManager/ModalManager'
 import './Swap.pcss'
 
 const NotWhitelisted = lazy(() =>
-    import('../common/NotWhitelisted/NotWhitelisted').then(module => ({
-        default: module.NotWhitelisted,
-    })),
+	import('../common/NotWhitelisted/NotWhitelisted').then(module => ({
+		default: module.NotWhitelisted,
+	})),
 )
 
 const GetTokens = lazy(() =>
-    import('../common/GetTokens/GetTokens').then(module => ({
-        default: module.GetTokens,
-    })),
+	import('../common/GetTokens/GetTokens').then(module => ({
+		default: module.GetTokens,
+	})),
 )
 
 export const Swap: FC = () => {
-    const { isConnecting, isConnected } = useAccount()
-    const { isWhitelisted, isLoading: isWhitelistLoading } = useIsWhitelisted()
-    const { hasTokens, isLoading: isCheckLoading } = useHasTestTokens()
-    const { txStatus } = useTxProcess()
+	const { isConnecting, isConnected } = useAccount()
+	const { isWhitelisted, isLoading: isWhitelistLoading } = useIsWhitelisted()
+	const { hasTokens, isLoading: isCheckLoading } = useHasTestTokens()
+	const { txStatus } = useTxProcess()
 
-    const isDesktop = useIsDesktop()
-    const isLoading = isConnecting || isCheckLoading || isWhitelistLoading
-    const isWidgetVisible = !isDesktop && txStatus === Status.NOT_STARTED && isWhitelisted
+	const isDesktop = useIsDesktop()
+	const isLoading = isConnecting || isCheckLoading || isWhitelistLoading
+	const isWidgetVisible = !isDesktop && txStatus === Status.NOT_STARTED && isWhitelisted
 
-    if (isLoading) {
-        return <ScreenLoader />
-    }
+	if (isLoading) {
+		return <ScreenLoader />
+	}
 
-    let content = <SwapWidget />
+	let content = <SwapWidget />
 
-    if (!isWhitelisted && isConnected) {
-        content = <NotWhitelisted />
-    } else if (isWhitelisted && !hasTokens && isConnected) {
-        content = <GetTokens />
-    }
+	if (!isWhitelisted && isConnected) {
+		content = <NotWhitelisted />
+	} else if (isWhitelisted && !hasTokens && isConnected) {
+		content = <GetTokens />
+	}
 
-    return (
-        <div className="swap">
-            <div className="swap_widgets">
-                {isWidgetVisible && <TokenWidget />}
-                {isWidgetVisible && <GasWidget />}
-            </div>
+	return (
+		<div className="swap">
+			<div className="swap_widgets">
+				{isWidgetVisible && <TokenWidget />}
+				{isWidgetVisible && <GasWidget />}
+			</div>
 
-            {content}
-            <ModalManager />
-        </div>
-    )
+			{content}
+			<ModalManager />
+		</div>
+	)
 }
