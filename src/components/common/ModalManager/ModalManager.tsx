@@ -21,6 +21,7 @@ export const ModalManager: FC = memo((): JSX.Element => {
                     title="Select From Chain"
                     onClose={closeSrcAssetModal}
                     isSrcModal={true}
+                    direction='from'
                 />
             )}
 
@@ -30,6 +31,7 @@ export const ModalManager: FC = memo((): JSX.Element => {
                     title="Select To Chain"
                     onClose={closeDstAssetModal}
                     isSrcModal={false}
+                    direction='to'
                 />
             )}
 
