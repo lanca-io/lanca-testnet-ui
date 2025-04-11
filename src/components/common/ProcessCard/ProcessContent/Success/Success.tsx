@@ -50,10 +50,10 @@ export const Success: FC = memo((): JSX.Element => {
 					<div className="success_info_timer">
 						<ClockIcon />
 						{isLoading ? (
-                            <SkeletonLoader width={87} height={18} className="success_info_timer_skeleton" />
-                        ) : (
-                            <p className="success_info_timer_text">{`In ${executionTime} seconds`}</p>
-                        )}
+							<SkeletonLoader width={87} height={18} className="success_info_timer_skeleton" />
+						) : (
+							<p className="success_info_timer_text">{`In ${executionTime} seconds`}</p>
+						)}
 					</div>
 				</div>
 			</div>

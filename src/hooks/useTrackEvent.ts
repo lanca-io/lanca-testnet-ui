@@ -8,7 +8,7 @@ type TrackEventProps<T = Record<string, any>> = {
 	data?: T
 }
 
-function useTrackEvent() {
+export function useTrackEvent() {
 	const posthog = usePostHog()
 
 	const trackEvent = useCallback(
@@ -28,5 +28,3 @@ function useTrackEvent() {
 
 	return trackEvent
 }
-
-export default useTrackEvent

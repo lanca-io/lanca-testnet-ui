@@ -51,9 +51,9 @@ export const Hero: FC = () => {
 			>
 				Connect wallet
 			</Button>
-			<img src={"/Hero/Welcome_Frame_6.webp"} alt="" className="illustration-one" />
-			<img src={"/Hero/Welcome_Frame_7.webp"} alt="" className="illustration-two" />
-			<img src={"/Hero/Welcome_tablet_frame_6.webp"} alt="" className="illustration-tablet" />
+			<img src={'/Hero/Welcome_Frame_6.webp'} alt="" className="illustration-one" />
+			<img src={'/Hero/Welcome_Frame_7.webp'} alt="" className="illustration-two" />
+			<img src={'/Hero/Welcome_tablet_frame_6.webp'} alt="" className="illustration-tablet" />
 		</div>
 	)
 }
