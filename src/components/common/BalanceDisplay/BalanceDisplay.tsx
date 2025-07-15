@@ -19,10 +19,7 @@ export const BalanceDisplay: FC<BalanceDisplayProps> = memo(({ balance, showMax,
 
 	const formattedBalance = useMemo(() => formatTokenAmount(balance), [balance])
 	const handleMax = useCallback(() => {
-		const balanceBigInt = BigInt(balance)
-		const adjustedBalance = balanceBigInt > 0 ? (balanceBigInt - 1n).toString() : balance
-
-		setFromAmount(adjustedBalance)
+		setFromAmount(balance)
 	}, [balance, setFromAmount])
 
 	if (!isConnected) return null

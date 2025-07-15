@@ -7,24 +7,35 @@ import { useFormStore } from '@/stores/form/useFormStore'
 import { Status } from '@lanca/sdk'
 import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 import { useAppKit } from '@reown/appkit/react'
+import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 import { useAccount } from 'wagmi'
 import './SwapCard.pcss'
+
 
 export const SwapCard: FC = memo(() => {
 	const { open } = useAppKit()
 	const { isConnected } = useAccount()
 	const { txStatus } = useTxExecutionStore()
 	const { fromAmount, error } = useFormStore()
+	const { fromBalanceLoading, toBalanceLoading } = useBalancesStore()
 
 	const route = useGetRoute()
 	const executeRoute = useExecuteRoute(route)
 
 	const [isExecuting, setIsExecuting] = useState<boolean>(false)
 
-	const isDisabled = useMemo(
-		() => isConnected && (!!error || !fromAmount || fromAmount === '0' || fromAmount === ''),
-		[error, fromAmount, isConnected],
-	)
+const isDisabled = useMemo(
+	() =>
+		isConnected && (
+			!!error ||
+			!fromAmount ||
+			fromAmount === '0' ||
+			fromAmount === '' ||
+			fromBalanceLoading ||
+			toBalanceLoading
+		),
+	[error, fromAmount, isConnected, fromBalanceLoading, toBalanceLoading],
+)
 
 	const handleClick = useCallback(async () => {
 		if (!isConnected) {

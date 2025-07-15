@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import { memo, useMemo, useRef } from 'react'
+import { memo, useMemo, useRef, useEffect } from 'react'
 import { Approval } from './Approval/Approval'
 import { Bridge } from './Bridge/Bridge'
 import { Failure } from './Failure/Failure'
@@ -34,54 +34,54 @@ export const ProcessContent: FC = memo((): JSX.Element | null => {
 		tracker(eventData)
 	}
 
-	const content = useMemo(() => {
-		switch (txStatus) {
-			case Status.FAILED:
-				return <Failure />
+const content = useMemo(() => {
+	switch (txStatus) {
+		case Status.FAILED:
+			return <Failure />
 
-			case Status.REJECTED:
-				trackEvent('REJECTED', {
-					...BridgeEvents.REJECTED,
-					data: {
-						srcChainId: sourceChain?.id,
-						srcChainName: sourceChain?.name,
-						dstChainId: destinationChain?.id,
-						dstChainName: destinationChain?.name,
-						fromToken: fromTokenAddress,
-						toToken: toTokenAddress,
-						isCCIPLane,
-						srcHash,
-					},
-				})
-				return <Failure />
+		case Status.REJECTED:
+			trackEvent('REJECTED', {
+				...BridgeEvents.REJECTED,
+				data: {
+					srcChainId: sourceChain?.id,
+					srcChainName: sourceChain?.name,
+					dstChainId: destinationChain?.id,
+					dstChainName: destinationChain?.name,
+					fromToken: fromTokenAddress,
+					toToken: toTokenAddress,
+					isCCIPLane,
+					srcHash,
+				},
+			})
+			return <Failure />
 
-			case Status.SUCCESS:
-				trackEvent('SUCCESS', {
-					...BridgeEvents.SUCCESSFUL,
-					data: {
-						srcChainId: sourceChain?.id,
-						srcChainName: sourceChain?.name,
-						dstChainId: destinationChain?.id,
-						dstChainName: destinationChain?.name,
-						fromToken: fromTokenAddress,
-						toToken: toTokenAddress,
-						isCCIPLane,
-						srcHash,
-						dstHash,
-						executionTime,
-					},
-				})
-				return <Success />
+		case Status.SUCCESS:
+			trackEvent('SUCCESS', {
+				...BridgeEvents.SUCCESSFUL,
+				data: {
+					srcChainId: sourceChain?.id,
+					srcChainName: sourceChain?.name,
+					dstChainId: destinationChain?.id,
+					dstChainName: destinationChain?.name,
+					fromToken: fromTokenAddress,
+					toToken: toTokenAddress,
+					isCCIPLane,
+					srcHash,
+					dstHash,
+					executionTime,
+				},
+			})
+			return <Success />
 
-			case Status.PENDING:
-				if (currentStep === StepType.ALLOWANCE) return <Approval />
-				if (currentStep === StepType.BRIDGE) return <Bridge />
-				return null
+		case Status.PENDING:
+			if (currentStep === StepType.ALLOWANCE) return <Approval />
+			if (currentStep === StepType.BRIDGE) return <Bridge />
+			return null
 
-			default:
-				return null
-		}
-	}, [txStatus, currentStep, error])
+		default:
+			return null
+	}
+}, [txStatus, currentStep, error])
 
 	return (
 		<div className="process_content" data-testid="process-content">

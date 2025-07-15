@@ -45,13 +45,14 @@ const chainsTwitterMap: Record<number, string> = {
 
 export const ProcessAction: FC = memo((): JSX.Element | null => {
 	const { reset, executionTime } = useTxExecutionStore()
-	const { sourceChain, destinationChain } = useFormStore()
+	const { sourceChain, destinationChain, setFromAmount } = useFormStore()
 	const { txStatus } = useTxProcess()
 	const { trackEvent } = useTrackEvent()
 
 	const handleReset = useCallback(() => {
 		reset()
-	}, [reset])
+		setFromAmount('0')
+	}, [reset, setFromAmount])
 
 	const handleShareOnX = useCallback(() => {
 		const time = executionTime ? executionTime : '10.00'
@@ -117,4 +118,3 @@ export const ProcessAction: FC = memo((): JSX.Element | null => {
 	return null
 })
 
-ProcessAction.displayName = 'ProcessAction'

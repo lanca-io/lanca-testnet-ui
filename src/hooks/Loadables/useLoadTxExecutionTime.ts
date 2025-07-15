@@ -69,8 +69,8 @@ export const useLoadTxExecutionTime = () => {
 		setIsLoading(true)
 
 		try {
-			const srcClient = getPublicClient(Number(sourceChain.id))
-			const dstClient = getPublicClient(Number(destinationChain.id))
+			const srcClient = getPublicClient(Number(sourceChain.id)) as PublicClient
+			const dstClient = getPublicClient(Number(destinationChain.id)) as PublicClient
 
 			const txData = await fetchTransactions(srcClient, dstClient)
 			if (!txData) {
