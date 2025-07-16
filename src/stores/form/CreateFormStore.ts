@@ -5,16 +5,16 @@ import { chainSelectors } from '../chains/ChainInfo'
 import { createWithEqualityFn } from 'zustand/traditional'
 
 const defaultSourceChain: Chain = {
-	id: '6342',
-	name: 'MegaETH',
-	logoURL: '/Chains/6342.svg',
-	explorerURL: 'https://www.megaexplorer.xyz/',
-	isCCIP: false,
-	nativeToken: 'MegaETH',
+	id: '43113',
+	name: 'Fuji',
+	logoURL: '/Chains/43113.svg',
+	explorerURL: 'https://testnet.snowtrace.io',
+	isCCIP: true,
+	nativeToken: 'AVAX',
 	decimals: 18,
-	selector: chainSelectors[6342],
+	selector: chainSelectors[43113],
 	hastCEROFaucet: true,
-	disabledLogoURL: '/Chains/Disabled/6342.svg',
+	disabledLogoURL: '/Chains/Disabled/43113.svg',
 }
 
 const defaultDestinationChain: Chain = {
@@ -34,7 +34,7 @@ const initialState: FormState = {
 	sourceChain: defaultSourceChain,
 	destinationChain: defaultDestinationChain,
 	fromAmount: '',
-	fromTokenAddress: '0xa0AC414648590044d782ED0A5C6CBc5De1290aE5',
+	fromTokenAddress: '0x12433A15b94b95B38adcbB3d7C315328f4C280b6',
 	toTokenAddress: '0x2cEAF3Dc8F19FE2addb5461258a2F6bf3Ab35A28',
 	isLoading: false,
 	error: null,
