@@ -3,21 +3,22 @@ import { IExecutionConfig, IRouteType } from '@lanca/sdk'
 import { useSDK } from './useSDK'
 import { useExecutionListener } from './useExecutionListener'
 import { useTrackEvent } from './useTrackEvent'
-import { useWalletClient } from 'wagmi'
+import { useAccount, useWalletClient } from 'wagmi'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 import { BridgeEvents } from '@/events/events'
 import { useIsCCIPLane } from './useIsCCIPLane'
 
 export const useExecuteRoute = (route: IRouteType | null) => {
+	const { connector } = useAccount()
 	const { setError } = useTxExecutionStore()
 	const { data: client } = useWalletClient()
 	const { sourceChain, destinationChain, fromTokenAddress, toTokenAddress } = useFormStore()
 	const { srcHash } = useTxExecutionStore()
+	const { isCCIPLane } = useIsCCIPLane()
 	const { trackEvent } = useTrackEvent()
 	const sdk = useSDK()
 	const updateHandler = useExecutionListener()
-	const { isCCIPLane } = useIsCCIPLane()
 
 	const configRef = useRef<IExecutionConfig>({
 		updateRouteStatusHook: updateHandler,
@@ -48,6 +49,7 @@ export const useExecuteRoute = (route: IRouteType | null) => {
 						isCCIPLane,
 						srcHash,
 						error: {
+							wallet: connector?.name || 'Unknown',
 							category:
 								typeof error === 'object' && error !== null && 'category' in error
 									? (error as any).category
