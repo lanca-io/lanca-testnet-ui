@@ -14,7 +14,7 @@ const fetchGasEstimate = async (sourceChainId: number | undefined): Promise<bigi
 	try {
 		const client: PublicClient = getPublicClient(sourceChainId)
 		const price = await client.getGasPrice()
-		return price * ESTIMATED_GAS_COST
+		return price * ESTIMATED_GAS_COST * BigInt(12) / BigInt(10) 
 	} catch {
 		return BigInt(0)
 	}

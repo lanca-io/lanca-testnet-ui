@@ -46,26 +46,10 @@ import {
 	seismicDevnet,
 } from '@reown/appkit/networks'
 
-const ERROR_FORBIDDEN = 403
-const ERROR_TIMEOUT = 408
-const ERROR_TOO_MANY_REQUESTS = 429
-const ERROR_SERVER_MIN = 500
-const ERROR_SERVER_MAX = 599
-const ERROR_BAD_REQUEST = 400
-
 const httpOptions = {
 	onFetchResponse(response: Response) {
 		if (!response.ok) {
-			const { status } = response
-			if (
-				(status >= ERROR_SERVER_MIN && status <= ERROR_SERVER_MAX) ||
-				status === ERROR_TOO_MANY_REQUESTS ||
-				status === ERROR_BAD_REQUEST ||
-				status === ERROR_FORBIDDEN ||
-				status === ERROR_TIMEOUT
-			) {
-				throw new Error('RPC Server error, switching to another node...')
-			}
+			console.log(`HTTP Error: ${response.status} - ${response.statusText}`)
 		}
 	},
 	batch: true,
