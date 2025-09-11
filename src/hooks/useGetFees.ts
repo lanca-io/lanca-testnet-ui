@@ -1,11 +1,10 @@
 import type { Address } from 'viem'
 import { useAccount } from 'wagmi'
-import { zeroAddress } from 'viem'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { getPublicClient } from '@/utils/client'
 import { useQuery } from '@tanstack/react-query'
-import { ConceroABI } from '@/assets/abi/ConceroABI'
 import { ContractAddresses } from '@/configuration/addresses'
+import { LBFABI } from '@/assets/abi/LBFABI'
 
 export const useGetFees = () => {
 	const { address } = useAccount()
@@ -29,9 +28,9 @@ export const useGetFees = () => {
 
 			const fee = await client.readContract({
 				address: contractAddress as Address,
-				abi: ConceroABI,
-				functionName: 'getFee',
-				args: [dstChainSelector, BigInt(fromAmount), zeroAddress, 1000000],
+				abi: LBFABI,
+				functionName: 'getBridgeNativeFee',
+				args: [dstChainSelector, 0n],
 			})
 
 			return fee as bigint

@@ -3,7 +3,6 @@ import type { Chain } from '@/stores/chains/types'
 import { memo, useCallback } from 'react'
 import { SkeletonLoader } from '../../SkeletonLoader/SkeletonLoader'
 import { Badge } from '../../Badge/Badge'
-import { Tag } from '@concero/ui-kit'
 import { format } from '@/utils/format'
 import './ChainItem.pcss'
 
@@ -21,17 +20,14 @@ export const ChainItem: FC<ChainProps> = memo(({ chain, balance, onSelectChain, 
 
 	const displayBalance = !isLoading && balance && Number(balance) > 0
 
+	console.log('Rendering ChainItem for:', chain.name, 'with balance:', balance)
+
 	return (
 		<div className="chain" onClick={handleClick} data-testid={`chain-item-${chain.id}`}>
 			<div className="chain_content">
 				<Badge logoURL={chain.logoURL} size="l" />
 				<div className="chain_details">
 					<p className="chain_name">{chain.name}</p>
-					{chain.isCCIP && (
-						<Tag variant="neutral" size="s">
-							CCIP
-						</Tag>
-					)}
 				</div>
 			</div>
 			<div className="chain_balance">

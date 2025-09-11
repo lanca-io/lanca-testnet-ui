@@ -7,11 +7,10 @@ export type Chain = {
 	logoURL: string
 	disabledLogoURL: string
 	explorerURL: string
-	isCCIP: boolean
 	nativeToken: string
 	decimals: number
 	selector: bigint
-	hastCEROFaucet: boolean
+	hasUSDCFaucet: boolean
 }
 
 export type ChainsState = {

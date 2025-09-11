@@ -20,9 +20,9 @@ export const SourceCard: FC = memo((): JSX.Element => {
 
 	const token = useMemo(() => {
 		if (!sourceChain || !fromBalance) {
-			return { balance: '0', decimals: 18, symbol: 'tCERO' }
+			return { balance: '0', decimals: 6, symbol: 'USDC' }
 		}
-		return { balance: fromBalance, decimals: 18, symbol: 'tCERO' }
+		return { balance: fromBalance, decimals: 6, symbol: 'USDC' }
 	}, [sourceChain, fromBalance])
 
 	return (
