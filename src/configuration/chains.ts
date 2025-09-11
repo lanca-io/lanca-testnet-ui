@@ -241,10 +241,10 @@ export const transports = {
 
     //// ARBITRUM SEPOLIA ////
     [arbitrumSepolia.id]: createTransport([
+        'https://arbitrum-sepolia.drpc.org',
+        'https://sepolia-rollup.arbitrum.io/rpc',
         'https://endpoints.omniatech.io/v1/arbitrum/sepolia/public',
         'https://arbitrum-sepolia.gateway.tenderly.co',
-        'https://sepolia-rollup.arbitrum.io/rpc',
-        'https://arbitrum-sepolia.drpc.org',
     ]),
 
     //// AVALANCHE FUJI ////
