@@ -62,8 +62,6 @@ export const AssetModal: FC<AssetModalProps> = memo(
 					onChange={handleSearchChange}
 					data-testid="chain-search-input"
 				/>
-
-				{!isSrcModal && <ChainController activeTab={activeTab} setActiveTab={handleTabChange} />}
 				<ChainMenu
 					activeTab={activeTab}
 					searchInput={searchInput}

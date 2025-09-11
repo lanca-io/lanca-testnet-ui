@@ -55,7 +55,7 @@ export const useInputError = () => {
 				const tokenBal = BigInt(balanceData.tokenBal)
 
 				if (inAmount > tokenBal) {
-					setError('Insufficient tCERO balance')
+					setError('Insufficient USDC balance')
 					return false
 				}
 

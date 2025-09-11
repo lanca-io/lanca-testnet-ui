@@ -7,7 +7,6 @@ import { useAccount, useWalletClient } from 'wagmi'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 import { BridgeEvents } from '@/events/events'
-import { useIsCCIPLane } from './useIsCCIPLane'
 
 export const useExecuteRoute = (route: IRouteType | null) => {
 	const { connector } = useAccount()
@@ -15,7 +14,6 @@ export const useExecuteRoute = (route: IRouteType | null) => {
 	const { data: client } = useWalletClient()
 	const { sourceChain, destinationChain, fromTokenAddress, toTokenAddress } = useFormStore()
 	const { srcHash } = useTxExecutionStore()
-	const { isCCIPLane } = useIsCCIPLane()
 	const { trackEvent } = useTrackEvent()
 	const sdk = useSDK()
 	const updateHandler = useExecutionListener()
@@ -46,7 +44,7 @@ export const useExecuteRoute = (route: IRouteType | null) => {
 						dstChainName: destinationChain?.name,
 						fromToken: fromTokenAddress,
 						toToken: toTokenAddress,
-						isCCIPLane,
+						isCCIPLane: false,
 						srcHash,
 						error: {
 							wallet: connector?.name || 'Unknown',

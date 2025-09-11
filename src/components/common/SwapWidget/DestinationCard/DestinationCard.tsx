@@ -20,9 +20,9 @@ export const DestinationCard: FC = memo((): JSX.Element => {
 
 	const token = useMemo(() => {
 		if (!destinationChain || !toBalance) {
-			return { balance: '0', decimals: 18, symbol: 'tCERO' }
+			return { balance: '0', decimals: 6, symbol: 'USDC' }
 		}
-		return { balance: toBalance, decimals: 18, symbol: 'tCERO' }
+		return { balance: toBalance, decimals: 6, symbol: 'USDC' }
 	}, [destinationChain, toBalance])
 
 	return (

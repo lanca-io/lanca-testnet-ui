@@ -11,7 +11,7 @@ import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { BalanceType } from '@/stores/balances/types'
 
-const SYMBOL = 'tCERO' as const
+const SYMBOL = 'USDC' as const
 const DECIMALS = 18 as const
 
 const DEFAULT_BALANCE: Balance = {

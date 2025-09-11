@@ -9,11 +9,10 @@ const defaultSourceChain: Chain = {
 	name: 'Fuji',
 	logoURL: '/Chains/43113.svg',
 	explorerURL: 'https://testnet.snowtrace.io',
-	isCCIP: true,
 	nativeToken: 'AVAX',
 	decimals: 18,
 	selector: chainSelectors[43113],
-	hastCEROFaucet: true,
+	hasUSDCFaucet: true,
 	disabledLogoURL: '/Chains/Disabled/43113.svg',
 }
 
@@ -22,11 +21,10 @@ const defaultDestinationChain: Chain = {
 	name: 'Arbitrum',
 	logoURL: '/Chains/421614.svg',
 	explorerURL: 'https://sepolia.arbiscan.io',
-	isCCIP: true,
 	nativeToken: 'ETH',
 	decimals: 18,
 	selector: chainSelectors[421614],
-	hastCEROFaucet: true,
+	hasUSDCFaucet: true,
 	disabledLogoURL: '/Chains/Disabled/421614.svg',
 }
 

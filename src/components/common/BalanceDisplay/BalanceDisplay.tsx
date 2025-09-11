@@ -32,7 +32,7 @@ export const BalanceDisplay: FC<BalanceDisplayProps> = memo(({ balance, showMax,
 				<>
 					<span className="balance_display_title">Balance</span>
 					<span className="balance_display_value">{format(Number(formattedBalance), 4)}</span>
-					<span className="balance_display_symbol">tCERO</span>
+					<span className="balance_display_symbol">USDC</span>
 					{showMax && Number(balance) > 0 && (
 						<button
 							onClick={handleMax}

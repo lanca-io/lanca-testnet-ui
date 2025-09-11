@@ -35,8 +35,8 @@ export const Success: FC = memo((): JSX.Element => {
 				<div className="success_info_stats">
 					<div className="success_info_details">
 						<div className="success_info_token">
-							<Badge logoURL="/Token/tCERO.svg" size="m" />
-							<p className="success_info_name">tCERO</p>
+							<Badge logoURL="/Token/USDC.png" size="m" />
+							<p className="success_info_name">USDC</p>
 						</div>
 						<p className="success_info_pointer">on</p>
 						<div className="success_info_chain">
