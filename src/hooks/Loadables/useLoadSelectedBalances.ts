@@ -12,7 +12,7 @@ import { useFormStore } from '@/stores/form/useFormStore'
 import { BalanceType } from '@/stores/balances/types'
 
 const SYMBOL = 'USDC' as const
-const DECIMALS = 18 as const
+const DECIMALS = 6 as const
 
 const DEFAULT_BALANCE: Balance = {
 	balance: '0',

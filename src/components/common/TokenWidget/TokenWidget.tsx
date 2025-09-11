@@ -30,7 +30,7 @@ export const TokenWidget: FC = memo(() => {
 	}, [sourceChain, fromBalance])
 
 	const nativeToken = useMemo(
-		() => formatTokenAmount(rawAmount, sourceChain?.decimals || 18),
+		() => formatTokenAmount(rawAmount, 6),
 		[rawAmount, sourceChain?.decimals],
 	)
 

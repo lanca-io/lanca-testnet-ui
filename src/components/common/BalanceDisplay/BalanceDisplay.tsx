@@ -17,7 +17,7 @@ export const BalanceDisplay: FC<BalanceDisplayProps> = memo(({ balance, showMax,
 	const { isConnected } = useAccount()
 	const { setFromAmount } = useFormStore()
 
-	const formattedBalance = useMemo(() => formatTokenAmount(balance), [balance])
+	const formattedBalance = useMemo(() => formatTokenAmount(balance, 6), [balance])
 	const handleMax = useCallback(() => {
 		setFromAmount(balance)
 	}, [balance, setFromAmount])

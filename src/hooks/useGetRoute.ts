@@ -24,11 +24,11 @@ export const useGetRoute = (): IRouteType | null => {
 		logoURL: string,
 		name: string,
 		symbol: string,
-		priceUsd: number = 0,
+		priceUsd: number = 1,
 	) => ({
 		address,
 		chainId,
-		decimals: 18,
+		decimals: 6,
 		logoURL,
 		name,
 		symbol,

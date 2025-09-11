@@ -16,7 +16,7 @@ export const Success: FC = memo((): JSX.Element => {
 
 	const formattedAmount = useMemo(() => {
 		if (!fromAmount || fromAmount === '0') return '0'
-		return formatTokenAmount(fromAmount)
+		return formatTokenAmount(fromAmount, 6)
 	}, [fromAmount])
 
 	const imageSrc = '/Swap/Success.webp'
