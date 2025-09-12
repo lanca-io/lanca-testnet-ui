@@ -103,24 +103,24 @@ const kaiaKairos = defineChain({
 	testnet: true,
 })
 
-const oasisSapphire = defineChain({
-    id: 23295,
-    name: 'Oasis Sapphire Testnet',
-    nativeCurrency: {
-        decimals: 18,
-        name: 'ROSE',
-        symbol: 'ROSE',
-    },
-    rpcUrls: {
-        default: {
-            http: ['https://testnet.sapphire.oasis.io'],
-        },
-    },
-    blockExplorers: {
-        default: { name: 'Oasis Explorer', url: 'https://explorer.sapphire.oasis.io' },
-    },
-    testnet: true,
-})
+// const oasisSapphire = defineChain({
+//     id: 23295,
+//     name: 'Oasis Sapphire Testnet',
+//     nativeCurrency: {
+//         decimals: 18,
+//         name: 'ROSE',
+//         symbol: 'ROSE',
+//     },
+//     rpcUrls: {
+//         default: {
+//             http: ['https://testnet.sapphire.oasis.io'],
+//         },
+//     },
+//     blockExplorers: {
+//         default: { name: 'Oasis Explorer', url: 'https://explorer.sapphire.oasis.io' },
+//     },
+//     testnet: true,
+// })
 
 const expchainTestnet = defineChain({
 	id: 18880,
@@ -335,7 +335,7 @@ export const chains: [AppKitNetwork, ...AppKitNetwork[]] = [
     zenchainTestnet, // INCLUDED,
 
     //// OASIS SAPPHIRE TESTNET ////
-    oasisSapphire, // INCLUDED
+    // oasisSapphire, // INCLUDED
 
     //// EXPCHAIN TESTNET ////
     expchainTestnet, // INCLUDED
@@ -576,7 +576,7 @@ export const transports = {
     ]),
 
     //// OASIS SAPPHIRE TESTNET ////
-    [oasisSapphire.id]: createTransport(['https://testnet.sapphire.oasis.io', 'https://1rpc.io/oasis/sapphire']),
+    // [oasisSapphire.id]: createTransport(['https://testnet.sapphire.oasis.io', 'https://1rpc.io/oasis/sapphire']),
 
     //// EXPCHAIN TESTNET ////
 	[expchainTestnet.id]: createTransport(['https://rpc1-testnet.expchain.ai', 'https://rpc1-testnet.expchain.ai']),
