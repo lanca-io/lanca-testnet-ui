@@ -91,6 +91,24 @@ export const chainLogos: Record<number, string> = {
 
     //// SONIC BLAZE TESTNET ////
     57054: '/Chains/57054.svg',
+
+    //// ZENCHAIN TESTNET ////
+    8408: '/Chains/8408.svg',
+
+    //// OASIS SAPPHIRE TESTNET ////
+    23295: '/Chains/23295.svg',
+
+    //// EXPCHAIN TESTNET ////
+    18880: '/Chains/18880.svg',
+
+    //// RISE TESTNET ////
+    11155931: '/Chains/11155931.svg',
+
+    //// PHAROS TESTNET ////
+    688688: '/Chains/688688.svg',
+
+    //// KAIA KAIROS ////
+    1001: '/Chains/1001.svg'
 }
 
 export const chainLogosDisabled: Record<number, string> = {
@@ -186,6 +204,24 @@ export const chainLogosDisabled: Record<number, string> = {
 
     //// SONIC BLAZE TESTNET ////
     57054: '',
+
+    //// ZENCHAIN TESTNET ////
+    8408: '',
+
+    //// OASIS SAPPHIRE TESTNET ////
+    23295: '',
+
+    //// EXPCHAIN TESTNET ////
+    18880: '',
+
+    //// RISE TESTNET ////
+    11155931: '',
+
+    //// PHAROS TESTNET ////
+    688688: '',
+
+    //// KAIA KAIROS ////
+    1001: ''
 }
 
 export const chainSelectors: Record<number, bigint> = {
@@ -281,6 +317,24 @@ export const chainSelectors: Record<number, bigint> = {
 
     //// SONIC BLAZE TESTNET ////
     57054: 57054n,
+
+    //// ZENCHAIN TESTNET ////
+    8408: 8408n,
+
+    //// OASIS SAPPHIRE TESTNET ////
+    23295: 23295n,
+
+    //// EXPCHAIN TESTNET ////
+    18880: 18880n,
+
+    //// RISE TESTNET ////
+    11155931: 11155931n,
+
+    //// PHAROS TESTNET ////
+    688688: 688688n,
+
+    //// KAIA KAIROS ////
+    1001: 1001n
 }
 
 export const hasUSDCFaucet: Record<number, { hasUSDCFaucet: boolean }> = {
@@ -376,6 +430,24 @@ export const hasUSDCFaucet: Record<number, { hasUSDCFaucet: boolean }> = {
 
     //// SONIC BLAZE TESTNET ////
     57054: { hasUSDCFaucet: false },
+
+        //// ZENCHAIN TESTNET ////
+    8408: { hasUSDCFaucet: false },
+
+    //// OASIS SAPPHIRE TESTNET ////
+    23295: { hasUSDCFaucet: false },
+
+    //// EXPCHAIN TESTNET ////
+    18880: { hasUSDCFaucet: false },
+
+    //// RISE TESTNET ////
+    11155931: { hasUSDCFaucet: false },
+
+    //// PHAROS TESTNET ////
+    688688: { hasUSDCFaucet: false },
+
+    //// KAIA KAIROS ////
+    1001: { hasUSDCFaucet: false }
 }
 
 
@@ -472,4 +544,22 @@ export const chainNames: Record<number, string> = {
 
     //// SONIC BLAZE TESTNET ////
     57054: 'Sonic Blaze',
+
+    //// ZENCHAIN TESTNET ////
+    8408: 'ZenChain',
+
+    //// OASIS SAPPHIRE TESTNET ////
+    23295: 'Oasis',
+
+    //// EXPCHAIN TESTNET ////
+    18880: 'EXPchain',
+
+    //// RISE TESTNET ////
+    11155931: 'Rise',
+
+    //// PHAROS TESTNET ////
+    688688: 'Pharos',
+
+    //// KAIA KAIROS ////
+    1001: 'Kaia Kairos'
 }

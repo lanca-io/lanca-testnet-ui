@@ -29,6 +29,7 @@ import {
 	metisSepolia,
 	kavaTestnet,
 	sonicBlazeTestnet,
+    zenchainTestnet,
 } from '@reown/appkit/networks'
 
 const httpOptions = {
@@ -39,6 +40,106 @@ const httpOptions = {
 	},
 	batch: true,
 }
+
+const riseTestnet = defineChain({
+    id: 11155931,
+    name: 'Rise Testnet',
+    nativeCurrency: {
+        decimals: 18,
+        name: 'ETH',
+        symbol: 'ETH',
+    },
+    rpcUrls: {
+        default: {
+            http: ['https://testnet.riselabs.xyz'],
+        },
+    },
+    blockExplorers: {
+        default: { name: 'Rise Tes Explorer', url: 'https://explorer.testnet.riselabs.xyz/' },
+    },
+    testnet: true,
+})
+
+const pharosTestnet = defineChain({
+	id: 688688,
+	name: 'Pharos Testnet',
+	nativeCurrency: {
+		decimals: 18,
+		name: 'PHRS',
+		symbol: 'PHRS',
+	},
+	rpcUrls: {
+		default: {
+			http: ['https://testnet.dplabs-internal.com'],
+		},
+	},
+	blockExplorers: {
+		default: { name: 'Pharos Scan', url: 'https://testnet.pharosscan.xyz' },
+	},
+	testnet: true,
+})
+
+
+const kaiaKairos = defineChain({
+	id: 1001,
+	name: 'Kaia Kairos Testnet',
+	nativeCurrency: {
+		decimals: 18,
+		name: 'KAIA',
+		symbol: 'KAIA',
+	},
+	rpcUrls: {
+		default: {
+			http: [
+				'https://public-en-kairos.node.kaia.io',
+				'https://kaia-kairos.blockpi.network/v1/rpc/public',
+				'https://responsive-green-emerald.kaia-kairos.quiknode.pro/',
+			],
+		},
+	},
+	blockExplorers: {
+		default: { name: 'Kairos Scope', url: 'https://kairos.kaiascope.com' },
+	},
+	testnet: true,
+})
+
+const oasisSapphire = defineChain({
+    id: 23295,
+    name: 'Oasis Sapphire Testnet',
+    nativeCurrency: {
+        decimals: 18,
+        name: 'ROSE',
+        symbol: 'ROSE',
+    },
+    rpcUrls: {
+        default: {
+            http: ['https://testnet.sapphire.oasis.io'],
+        },
+    },
+    blockExplorers: {
+        default: { name: 'Oasis Explorer', url: 'https://explorer.sapphire.oasis.io' },
+    },
+    testnet: true,
+})
+
+const expchainTestnet = defineChain({
+	id: 18880,
+	name: 'EXPchain Testnet',
+	nativeCurrency: {
+		decimals: 18,
+		name: 'tZKJ',
+		symbol: 'tZKJ',
+	},
+	rpcUrls: {
+		default: {
+			http: ['https://expchain.polyhedra.network/rpc0-testnet'],
+		},
+	},
+	blockExplorers: {
+		default: { name: 'EXPchain Explorer', url: 'https://expchain.polyhedra.network/blockscout-testnet' },
+	},
+	testnet: true,
+})
 
 const coreTestnet = defineChain({
 	id: 1114,
@@ -229,6 +330,24 @@ export const chains: [AppKitNetwork, ...AppKitNetwork[]] = [
 
 	//// SONIC BLAZE TESTNET ////
 	sonicBlazeTestnet, // INCLUDED
+
+    //// ZENCHAIN TESTNET ////
+    zenchainTestnet, // INCLUDED,
+
+    //// OASIS SAPPHIRE TESTNET ////
+    oasisSapphire, // INCLUDED
+
+    //// EXPCHAIN TESTNET ////
+    expchainTestnet, // INCLUDED
+
+    //// RISE TESTNET ////
+    riseTestnet, // INCLUDED
+
+    //// PHAROS TESTNET ////
+    pharosTestnet, // INCLUDED
+
+    //// KAIA KAIROS ////
+    kaiaKairos, // INCLUDED
 ]
 
 export const transports = {
@@ -450,5 +569,53 @@ export const transports = {
         'https://sonic-blaze-rpc.publicnode.com',
         'https://rpc.blaze.soniclabs.com',
     ]),
+
+    //// ZENCHAIN TESTNET ////
+    [zenchainTestnet.id]: createTransport([
+        'https://zenchain-testnet.api.onfinality.io/public'
+    ]),
+
+    //// OASIS SAPPHIRE TESTNET ////
+    [oasisSapphire.id]: createTransport(['https://testnet.sapphire.oasis.io', 'https://1rpc.io/oasis/sapphire']),
+
+    //// EXPCHAIN TESTNET ////
+	[expchainTestnet.id]: createTransport(['https://rpc1-testnet.expchain.ai', 'https://rpc1-testnet.expchain.ai']),
+
+    //// RISE TESTNET ////
+    [riseTestnet.id]: createTransport(['https://testnet.riselabs.xyz', 'https://testnet.riselabs.xyz']),
+
+    //// PHAROS TESTNET ////
+    [pharosTestnet.id]: createTransport(['https://testnet.dplabs-internal.com', 'https://testnet.dplabs-internal.com']),
+
+    //// KAIA KAIROS ////
+    [kaiaKairos.id]: createTransport([
+		'https://public-en-kairos.node.kaia.io',
+		'https://kaia-kairos.blockpi.network/v1/rpc/public',
+		'https://responsive-green-emerald.kaia-kairos.quiknode.pro/',
+	]),
 }
 
+
+// #CHILD_POOL_ZENCHAIN_TESTNET=0x3E2Ee768D9fADdd3673a69ED4d0D1d9147FA1054
+// #CHILD_POOL_PROXY_ADMIN_ZENCHAIN_TESTNET=0xB2571eEb8F9275DdC6eFD7BCef698876370A49e8
+// #CHILD_POOL_PROXY_ZENCHAIN_TESTNET=0xBa9B28540836d1037762cF74494cA48331F3b9AD
+
+// CHILD_POOL_OASISSAPPHIRE_TESTNET=0x3E2Ee768D9fADdd3673a69ED4d0D1d9147FA1054
+// CHILD_POOL_PROXY_ADMIN_OASISSAPPHIRE_TESTNET=0xB2571eEb8F9275DdC6eFD7BCef698876370A49e8
+// CHILD_POOL_PROXY_OASISSAPPHIRE_TESTNET=0xBa9B28540836d1037762cF74494cA48331F3b9AD
+
+// #CHILD_POOL_EXPCHAIN_TESTNET=0x3E2Ee768D9fADdd3673a69ED4d0D1d9147FA1054
+// #CHILD_POOL_PROXY_ADMIN_EXPCHAIN_TESTNET=0xB2571eEb8F9275DdC6eFD7BCef698876370A49e8
+// #CHILD_POOL_PROXY_EXPCHAIN_TESTNET=0xBa9B28540836d1037762cF74494cA48331F3b9AD
+
+// CHILD_POOL_RISE_TESTNET=0x3E2Ee768D9fADdd3673a69ED4d0D1d9147FA1054
+// CHILD_POOL_PROXY_ADMIN_RISE_TESTNET=0xB2571eEb8F9275DdC6eFD7BCef698876370A49e8
+// CHILD_POOL_PROXY_RISE_TESTNET=0xBa9B28540836d1037762cF74494cA48331F3b9AD
+
+// CHILD_POOL_PHAROS_TESTNET=0x3E2Ee768D9fADdd3673a69ED4d0D1d9147FA1054
+// CHILD_POOL_PROXY_ADMIN_PHAROS_TESTNET=0xB2571eEb8F9275DdC6eFD7BCef698876370A49e8
+// CHILD_POOL_PROXY_PHAROS_TESTNET=0xBa9B28540836d1037762cF74494cA48331F3b9AD
+
+// CHILD_POOL_KAIA_KAIROS=0x3E2Ee768D9fADdd3673a69ED4d0D1d9147FA1054
+// CHILD_POOL_PROXY_ADMIN_KAIA_KAIROS=0xB2571eEb8F9275DdC6eFD7BCef698876370A49e8
+// CHILD_POOL_PROXY_KAIA_KAIROS=0xBa9B28540836d1037762cF74494cA48331F3b9AD
