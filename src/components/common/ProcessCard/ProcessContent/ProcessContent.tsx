@@ -8,7 +8,6 @@ import { useTxProcess } from '@/hooks/useTxProcess'
 import { Status, StepType } from '@lanca/sdk'
 import { useTrackEvent } from '@/hooks/useTrackEvent'
 import { BridgeEvents } from '@/events/events'
-import { useIsCCIPLane } from '@/hooks/useIsCCIPLane'
 import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 import { useFormStore } from '@/stores/form/useFormStore'
 import './ProcessContent.pcss'
@@ -23,7 +22,6 @@ export const ProcessContent: FC = memo((): JSX.Element | null => {
 	const { txStatus, currentStep, executionTime } = useTxProcess()
 	const { sourceChain, destinationChain, fromTokenAddress, toTokenAddress } = useFormStore()
 	const { srcHash, dstHash, error } = useTxExecutionStore()
-	const { isCCIPLane } = useIsCCIPLane()
 	const { trackEvent: tracker } = useTrackEvent()
 
 	const trackEvent = (eventType: string, eventData: any) => {
@@ -49,7 +47,7 @@ const content = useMemo(() => {
 					dstChainName: destinationChain?.name,
 					fromToken: fromTokenAddress,
 					toToken: toTokenAddress,
-					isCCIPLane,
+					isCCIPLane: false,
 					srcHash,
 				},
 			})
@@ -65,7 +63,7 @@ const content = useMemo(() => {
 					dstChainName: destinationChain?.name,
 					fromToken: fromTokenAddress,
 					toToken: toTokenAddress,
-					isCCIPLane,
+					isCCIPLane: false,
 					srcHash,
 					dstHash,
 					executionTime,

@@ -1,5 +1,5 @@
 import type { PublicClient } from 'viem'
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { getPublicClient } from '@/utils/client'
@@ -14,7 +14,7 @@ const fetchGasEstimate = async (sourceChainId: number | undefined): Promise<bigi
 	try {
 		const client: PublicClient = getPublicClient(sourceChainId)
 		const price = await client.getGasPrice()
-		return price * ESTIMATED_GAS_COST
+		return price * ESTIMATED_GAS_COST * BigInt(12) / BigInt(10) 
 	} catch {
 		return BigInt(0)
 	}

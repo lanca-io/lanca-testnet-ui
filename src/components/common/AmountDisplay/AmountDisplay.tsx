@@ -12,7 +12,7 @@ export const AmountDisplay: FC = memo(() => {
 		if (error || !fromAmount || fromAmount === '0') {
 			return '0'
 		}
-		return formatTokenAmount(fromAmount)
+		return Number(formatTokenAmount(fromAmount, 6)) * (1 - 0.0007)
 	}, [fromAmount, error])
 
 	const inputClass = useMemo(() => {

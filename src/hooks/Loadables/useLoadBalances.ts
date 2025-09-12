@@ -8,8 +8,8 @@ import { Address, erc20Abi } from 'viem'
 import { getPublicClient } from '@/utils/client'
 import { TokenAddresses } from '@/configuration/addresses'
 
-const SYMBOL = 'tCERO'
-const DECIMALS = 18
+const SYMBOL = 'USDC'
+const DECIMALS = 6
 
 const DEFAULT_BALANCE: Balance = {
   balance: '0',

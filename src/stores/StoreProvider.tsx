@@ -4,7 +4,6 @@ import { ChainsStoreProvider } from './chains/ChainsStore'
 import { FormStoreProvider } from './form/FormStore'
 import { BalancesStoreProvider } from './balances/BalancesStore'
 import { ModalsStoreProvider } from './modals/ModalsStore'
-import { LanesStoreProvider } from './lanes/LanesStore'
 
 export const StoreProvider: FC<PropsWithChildren<{}>> = ({ children }): JSX.Element => {
 	return (
@@ -13,7 +12,7 @@ export const StoreProvider: FC<PropsWithChildren<{}>> = ({ children }): JSX.Elem
 				<FormStoreProvider>
 					<ModalsStoreProvider>
 						<TxExecutionStoreProvider>
-							<LanesStoreProvider>{children}</LanesStoreProvider>
+							{children}
 						</TxExecutionStoreProvider>
 					</ModalsStoreProvider>
 				</FormStoreProvider>

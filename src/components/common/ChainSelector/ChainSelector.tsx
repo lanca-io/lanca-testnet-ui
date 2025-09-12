@@ -17,8 +17,8 @@ type ChainSelectorProps = {
 const TokenDisplay: FC = memo((): JSX.Element => {
 	return (
 		<div className="chain_selector_token">
-			<Badge logoURL="/Token/tCERO.svg" size="m" />
-			<p className="chain_selector_token_name">tCERO</p>
+			<Badge logoURL="/Token/USDC.png" size="m" />
+			<p className="chain_selector_token_name">USDC</p>
 		</div>
 	)
 })
