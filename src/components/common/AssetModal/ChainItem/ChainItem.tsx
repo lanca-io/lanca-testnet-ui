@@ -20,8 +20,6 @@ export const ChainItem: FC<ChainProps> = memo(({ chain, balance, onSelectChain, 
 
 	const displayBalance = !isLoading && balance && Number(balance) > 0
 
-	console.log('Rendering ChainItem for:', chain.name, 'with balance:', balance)
-
 	return (
 		<div className="chain" onClick={handleClick} data-testid={`chain-item-${chain.id}`}>
 			<div className="chain_content">
