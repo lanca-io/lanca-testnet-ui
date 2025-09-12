@@ -7,7 +7,7 @@ import { useInputError } from './useInputError'
 
 const NUM_REGEX = /^(\d*\.?\d*)?$/
 
-export const useHandleInput = (decimals: number = 18) => {
+export const useHandleInput = (decimals: number = 6) => {
 	const [value, setValue] = useState<string>('')
 	const [active, setActive] = useState<boolean>(false)
 

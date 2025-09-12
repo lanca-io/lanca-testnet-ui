@@ -30,7 +30,7 @@ export const TokenWidget: FC = memo(() => {
 	}, [sourceChain, fromBalance])
 
 	const nativeToken = useMemo(
-		() => formatTokenAmount(rawAmount, sourceChain?.decimals || 18),
+		() => formatTokenAmount(rawAmount, 6),
 		[rawAmount, sourceChain?.decimals],
 	)
 
@@ -61,7 +61,7 @@ export const TokenWidget: FC = memo(() => {
 				) : (
 					<h5 className="native_token_value">
 						{format(Number(nativeToken), 2)}
-						<span className="native_token_symbol">tCERO</span>
+						<span className="native_token_symbol">USDC</span>
 					</h5>
 				)}
 			</div>

@@ -1,5 +1,5 @@
 import type { PublicClient } from 'viem'
-import { useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { getPublicClient } from '@/utils/client'
