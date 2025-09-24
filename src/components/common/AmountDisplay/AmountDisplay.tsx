@@ -3,6 +3,7 @@ import { useMemo, memo } from 'react'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { SkeletonLoader } from '../SkeletonLoader/SkeletonLoader'
 import { formatTokenAmount } from '@/utils/tokens'
+import { format } from '@/utils/format'
 import './AmountDisplay.pcss'
 
 export const AmountDisplay: FC = memo(() => {
@@ -12,7 +13,7 @@ export const AmountDisplay: FC = memo(() => {
 		if (error || !fromAmount || fromAmount === '0') {
 			return '0'
 		}
-		return Number(formatTokenAmount(fromAmount, 6)) * (1 - 0.0007)
+		return format(Number(formatTokenAmount(fromAmount, 6)) * (1 - 0.0007), 4)
 	}, [fromAmount, error])
 
 	const inputClass = useMemo(() => {
