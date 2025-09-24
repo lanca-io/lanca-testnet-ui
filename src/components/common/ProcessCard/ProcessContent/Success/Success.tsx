@@ -7,6 +7,7 @@ import { ClockIcon } from '@/assets/icons/clock'
 import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 import { useLoadTxExecutionTime } from '@/hooks/Loadables/useLoadTxExecutionTime'
 import { SkeletonLoader } from '@/components/common/SkeletonLoader/SkeletonLoader'
+import { format } from '@/utils/format'
 import './Success.pcss'
 
 export const Success: FC = memo((): JSX.Element => {
@@ -16,7 +17,7 @@ export const Success: FC = memo((): JSX.Element => {
 
 	const formattedAmount = useMemo(() => {
 		if (!fromAmount || fromAmount === '0') return '0'
-		return Number(formatTokenAmount(fromAmount, 6)) * (1 - 0.0007)
+		return format(Number(formatTokenAmount(fromAmount, 6)) * (1 - 0.0007), 4)
 	}, [fromAmount])
 
 	const imageSrc = '/Swap/Success.webp'
