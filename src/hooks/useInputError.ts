@@ -59,6 +59,13 @@ export const useInputError = () => {
 					return false
 				}
 
+				if (inAmount < 2000n) {
+					setError('Amount is too low')
+					return false
+				}
+
+				console.log(inAmount)
+
 				return true
 			} catch {
 				return true

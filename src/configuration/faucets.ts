@@ -707,4 +707,14 @@ export const faucets: FaucetInfo[] = [
 		faucetUrl: 'https://bridge.testnet.zircuit.com/',
 		searchKeywords: [],
 	},
+
+	// PHAROS TESTNET
+	{
+		chainName: 'Pharos',
+		logoUrl: '/Chains/688688.svg',
+		isCCIP: false,
+		faucetName: 'Pharos 1',
+		faucetUrl: 'https://testnet.pharosnetwork.xyz',
+		searchKeywords: ['pharos'],
+	},
 ]

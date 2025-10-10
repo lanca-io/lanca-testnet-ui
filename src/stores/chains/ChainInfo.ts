@@ -345,7 +345,7 @@ export const hasUSDCFaucet: Record<number, { hasUSDCFaucet: boolean }> = {
     421614: { hasUSDCFaucet: true },
 
     //// AVALANCHE FUJI ////
-    43113: { hasUSDCFaucet: true },
+    43113: { hasUSDCFaucet: false },
 
     //// BASE SEPOLIA ////
     84532: { hasUSDCFaucet: true },
@@ -381,7 +381,7 @@ export const hasUSDCFaucet: Record<number, { hasUSDCFaucet: boolean }> = {
     11155420: { hasUSDCFaucet: false },
 
     //// POLYGON AMOY ////
-    80002: { hasUSDCFaucet: true },
+    80002: { hasUSDCFaucet: false },
 
     //// SCROLL SEPOLIA ////
     534351: { hasUSDCFaucet: false },
