@@ -1,36 +1,21 @@
-import type { ChainsState, ChainsStore } from './types'
+import type { ChainsState, ChainsActions, ConceroChain, ChainId } from './types'
 import { createWithEqualityFn } from 'zustand/traditional'
-import { chainLogos, chainSelectors, hasUSDCFaucet, chainNames, chainLogosDisabled } from './ChainInfo'
-import { chains } from '@/configuration/chains'
 
-const initialState: ChainsState = {
-	chains: {},
-}
-
-chains.forEach(chain => {
-	const chainId = chain.id
-	const explorerURL = chain.blockExplorers?.default?.url || ''
-	const nativeToken = chain.nativeCurrency?.symbol || ''
-	const decimals = chain.nativeCurrency?.decimals || 18
-
-	initialState.chains[chainId] = {
-		id: chainId.toString(),
-		name: chainNames[chain.id as number] || chain.name,
-		logoURL: chainLogos[chain.id as number] || '',
-		disabledLogoURL: chainLogosDisabled[chain.id as number] || '',
-		explorerURL: explorerURL,
-		nativeToken: nativeToken,
-		decimals: decimals,
-		selector: chainSelectors[chain.id as number] || BigInt(0),
-		hasUSDCFaucet: hasUSDCFaucet[chain.id as number].hasUSDCFaucet || false,
-	}
-})
-
-export const CreateChainsStore = (): ChainsStore => {
-	return createWithEqualityFn<ChainsState>(
-		() => ({
-			...initialState,
-		}),
-		Object.is,
-	)
-}
+export const CreateChainsStore = () =>
+    createWithEqualityFn<ChainsState & ChainsActions>(
+        set => ({
+            chains: {},
+            loading: false,
+            
+            setChains: (chains: ConceroChain[]) =>
+                set(() => ({
+                    chains: chains.reduce((acc, chain) => {
+                        acc[chain.id] = chain;
+                        return acc;
+                    }, {} as Record<ChainId, ConceroChain>),
+                })),
+            
+            setLoading: (loading: boolean) => set({ loading })
+        }),
+        Object.is,
+    )

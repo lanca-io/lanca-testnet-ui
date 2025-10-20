@@ -20,9 +20,10 @@ export const useLoadNativeBalance = () => {
     const chainId = sourceChain?.id ? Number(sourceChain.id) : undefined
     if (!address || !chainId) return '0'
 
-    const client = getPublicClient(chainId)
-    const chain = Object.values(chains).find(c => (c.id ? Number(c.id) : undefined) === chainId)
+    const chain = Object.values(chains).find(c => Number(c.id) === chainId)
     if (!chain) return '0'
+
+    const client = getPublicClient(chainId)
 
     try {
       const timeoutPromise = new Promise<never>((_, reject) =>

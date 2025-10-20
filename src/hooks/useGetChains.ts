@@ -10,7 +10,8 @@ export const useGetChains = () => {
 
   const { allChains, faucetChains } = useMemo(() => {
     const all = Object.values(chains)
-    const faucet = all.filter(chain => chain.hasUSDCFaucet)
+    const faucetIds = [84532, 11155111, 421614]
+    const faucet = all.filter(chain => faucetIds.includes(Number(chain.id)))
 
     return {
       allChains: all,

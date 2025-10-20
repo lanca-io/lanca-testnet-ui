@@ -1,6 +1,6 @@
 import type { FC, ChangeEvent } from 'react'
 import type { AssetModalProps } from './types'
-import type { Chain } from '@/stores/chains/types'
+import type { ConceroChain } from '@/stores/chains/types'
 import type { Address } from 'viem'
 import { useState, useCallback, memo } from 'react'
 import { Modal } from '../Modal/Modal'
@@ -26,7 +26,7 @@ export const AssetModal: FC<AssetModalProps> = memo(
 		}, [])
 
 		const handleChainSelect = useCallback(
-			(chain: Chain) => {
+			(chain: ConceroChain) => {
 				if (isSrcModal) {
 					setSourceChain(chain)
 					const tokenAddress = TokenAddresses[chain.id]

@@ -1,15 +1,14 @@
 import type { FC } from 'react'
-import type { Chain } from '@/stores/chains/types'
+import type { ConceroChain } from '@/stores/chains/types'
 import { memo, useCallback } from 'react'
 import { SkeletonLoader } from '../../SkeletonLoader/SkeletonLoader'
 import { Badge } from '../../Badge/Badge'
-import { format } from '@/utils/format'
 import './ChainItem.pcss'
 
 type ChainProps = {
-	chain: Chain
+	chain: ConceroChain
 	balance?: string
-	onSelectChain: (chain: Chain) => void
+	onSelectChain: (chain: ConceroChain) => void
 	isLoading: boolean
 }
 
@@ -25,7 +24,7 @@ export const ChainItem: FC<ChainProps> = memo(({ chain, balance, onSelectChain, 
 	return (
 		<div className="chain" onClick={handleClick} data-testid={`chain-item-${chain.id}`}>
 			<div className="chain_content">
-				<Badge logoURL={chain.logoURL} size="l" />
+				<Badge logoURL={chain.logo} size="l" />
 				<div className="chain_details">
 					<p className="chain_name">{chain.name}</p>
 				</div>

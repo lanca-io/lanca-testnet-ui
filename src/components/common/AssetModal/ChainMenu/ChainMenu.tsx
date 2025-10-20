@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 import type { Direction } from '../types'
-import type { Chain as IChain } from '@/stores/chains/types'
+import type { ConceroChain } from '@/stores/chains/types'
 import { memo, useMemo } from 'react'
 import { ChainItem } from '../ChainItem/ChainItem'
 import { useGetChains } from '@/hooks/useGetChains'
@@ -14,7 +14,7 @@ import './ChainMenu.pcss'
 type ChainMenuProps = {
     activeTab: ActiveTab
     searchInput: string
-    onSelectChain: (chain: IChain) => void
+    onSelectChain: (chain: ConceroChain) => void
     direction: Direction
 }
 

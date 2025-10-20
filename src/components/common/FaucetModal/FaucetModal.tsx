@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import type { Chain } from '@/stores/chains/types'
+import type { Chain } from '@/stores/chains-old/types'
 import { useState, useCallback, useEffect, memo } from 'react'
 import { Modal } from '../Modal/Modal'
 import { ChainFaucet } from './ChainFaucet/ChainFaucet'

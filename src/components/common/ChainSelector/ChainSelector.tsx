@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import type { Chain } from '@/stores/chains/types'
+import type { Chain } from '@/stores/chains-old/types'
 import { Badge } from '../Badge/Badge'
 import { RightIcon } from '@/assets/icons/right'
 import { useMemo, memo } from 'react'
