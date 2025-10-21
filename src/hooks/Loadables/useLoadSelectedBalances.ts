@@ -69,7 +69,7 @@ export const useLoadSelectedBalances = () => {
 	const {
 		data: fromBalanceData,
 		isLoading: fromBalanceLoading,
-		refetch: refetchFromBalance
+		refetch: refetchFromBalance,
 	}: UseQueryResult<string> = useQuery({
 		queryKey: ['fromBalance', address, sourceChain?.id],
 		queryFn: () => fetchBalance(sourceChain?.id ? Number(sourceChain.id) : undefined),
@@ -82,7 +82,7 @@ export const useLoadSelectedBalances = () => {
 	const {
 		data: toBalanceData,
 		isLoading: toBalanceLoading,
-		refetch: refetchToBalance
+		refetch: refetchToBalance,
 	}: UseQueryResult<string> = useQuery({
 		queryKey: ['toBalance', address, destinationChain?.id],
 		queryFn: () => fetchBalance(destinationChain?.id ? Number(destinationChain.id) : undefined),

@@ -1,41 +1,40 @@
-import type { Address } from 'viem';
+import type { Address } from 'viem'
 import type { UseBoundStoreWithEqualityFn } from 'zustand/traditional'
 import type { StoreApi } from 'zustand/vanilla'
 
 export type ConceroChain = {
-    id: number;
-    name: string;
-    selector: bigint;
-    logo: string;
-    nativeCurrency: {
-        name: string;
-        symbol: string;
-        decimals: number;
-    };
-    rpcUrls: {
-        default: {
-            http: string[];
-        };
-    };
-    explorer: string | null;
-    testnet: boolean;
-    contracts: {
-        usdc_e: Address;
-        bridge_lbf: Address;
-    };
-};
+	id: number
+	name: string
+	selector: bigint
+	logo: string
+	nativeCurrency: {
+		name: string
+		symbol: string
+		decimals: number
+	}
+	rpcUrls: {
+		default: {
+			http: string[]
+		}
+	}
+	explorer: string | null
+	testnet: boolean
+	contracts: {
+		usdc_e: Address
+		bridge_lbf: Address
+	}
+}
 
-export type ChainId = number;
+export type ChainId = number
 
 export type ChainsState = {
-    chains: Record<ChainId, ConceroChain>;
-    loading: boolean;
-};
+	chains: Record<ChainId, ConceroChain>
+	loading: boolean
+}
 
 export type ChainsActions = {
-    setChains: (chains: ConceroChain[]) => void;
-    setLoading: (loading: boolean) => void;
-};
+	setChains: (chains: ConceroChain[]) => void
+	setLoading: (loading: boolean) => void
+}
 
 export type ChainsStore = UseBoundStoreWithEqualityFn<StoreApi<ChainsState & ChainsActions>>
-

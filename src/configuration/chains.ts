@@ -29,7 +29,7 @@ import {
 	metisSepolia,
 	kavaTestnet,
 	sonicBlazeTestnet,
-    zenchainTestnet,
+	zenchainTestnet,
 } from '@reown/appkit/networks'
 
 const httpOptions = {
@@ -42,22 +42,22 @@ const httpOptions = {
 }
 
 const riseTestnet = defineChain({
-    id: 11155931,
-    name: 'Rise Testnet',
-    nativeCurrency: {
-        decimals: 18,
-        name: 'ETH',
-        symbol: 'ETH',
-    },
-    rpcUrls: {
-        default: {
-            http: ['https://testnet.riselabs.xyz'],
-        },
-    },
-    blockExplorers: {
-        default: { name: 'Rise Tes Explorer', url: 'https://explorer.testnet.riselabs.xyz/' },
-    },
-    testnet: true,
+	id: 11155931,
+	name: 'Rise Testnet',
+	nativeCurrency: {
+		decimals: 18,
+		name: 'ETH',
+		symbol: 'ETH',
+	},
+	rpcUrls: {
+		default: {
+			http: ['https://testnet.riselabs.xyz'],
+		},
+	},
+	blockExplorers: {
+		default: { name: 'Rise Tes Explorer', url: 'https://explorer.testnet.riselabs.xyz/' },
+	},
+	testnet: true,
 })
 
 const pharosTestnet = defineChain({
@@ -78,7 +78,6 @@ const pharosTestnet = defineChain({
 	},
 	testnet: true,
 })
-
 
 const kaiaKairos = defineChain({
 	id: 1001,
@@ -228,14 +227,13 @@ const fallbackOptions = {
 }
 
 const createTransport = (urls: string[]) => {
-  return fallback(
-    urls.map(url => http(url, httpOptions)),
-    {
-      ...fallbackOptions,
-    }
-  )
+	return fallback(
+		urls.map(url => http(url, httpOptions)),
+		{
+			...fallbackOptions,
+		},
+	)
 }
-
 
 export const chains: [AppKitNetwork, ...AppKitNetwork[]] = [
 	//// APECHAIN CURTIS ////
@@ -244,7 +242,7 @@ export const chains: [AppKitNetwork, ...AppKitNetwork[]] = [
 	//// ARBITRUM SEPOLIA ////
 	arbitrumSepolia, // INCLUDED
 
-	//// AVALANCHE FUJI //// 
+	//// AVALANCHE FUJI ////
 	avalancheFuji, // INCLUDED
 
 	//// BASE SEPOLIA ////
@@ -331,270 +329,255 @@ export const chains: [AppKitNetwork, ...AppKitNetwork[]] = [
 	//// SONIC BLAZE TESTNET ////
 	sonicBlazeTestnet, // INCLUDED
 
-    //// ZENCHAIN TESTNET ////
-    zenchainTestnet, // INCLUDED,
+	//// ZENCHAIN TESTNET ////
+	zenchainTestnet, // INCLUDED,
 
-    //// OASIS SAPPHIRE TESTNET ////
-    // oasisSapphire, // INCLUDED
+	//// OASIS SAPPHIRE TESTNET ////
+	// oasisSapphire, // INCLUDED
 
-    //// EXPCHAIN TESTNET ////
-    expchainTestnet, // INCLUDED
+	//// EXPCHAIN TESTNET ////
+	expchainTestnet, // INCLUDED
 
-    //// RISE TESTNET ////
-    riseTestnet, // INCLUDED
+	//// RISE TESTNET ////
+	riseTestnet, // INCLUDED
 
-    //// PHAROS TESTNET ////
-    pharosTestnet, // INCLUDED
+	//// PHAROS TESTNET ////
+	pharosTestnet, // INCLUDED
 
-    //// KAIA KAIROS ////
-    kaiaKairos, // INCLUDED
+	//// KAIA KAIROS ////
+	kaiaKairos, // INCLUDED
 ]
 
 export const transports = {
-    //// APECHAIN CURTIS ////
-    [curtis.id]: createTransport([
-        'https://rpc.curtis.apechain.com',
-        'https://apechain-curtis.drpc.org',
-        'https://rpc.curtis.apechain.com',
-    ]),
+	//// APECHAIN CURTIS ////
+	[curtis.id]: createTransport([
+		'https://rpc.curtis.apechain.com',
+		'https://apechain-curtis.drpc.org',
+		'https://rpc.curtis.apechain.com',
+	]),
 
-    //// ARBITRUM SEPOLIA ////
-    [arbitrumSepolia.id]: createTransport([
-        'https://arbitrum-sepolia.drpc.org',
-        'https://sepolia-rollup.arbitrum.io/rpc',
-        'https://endpoints.omniatech.io/v1/arbitrum/sepolia/public',
-        'https://arbitrum-sepolia.gateway.tenderly.co',
-    ]),
+	//// ARBITRUM SEPOLIA ////
+	[arbitrumSepolia.id]: createTransport([
+		'https://arbitrum-sepolia.drpc.org',
+		'https://sepolia-rollup.arbitrum.io/rpc',
+		'https://endpoints.omniatech.io/v1/arbitrum/sepolia/public',
+		'https://arbitrum-sepolia.gateway.tenderly.co',
+	]),
 
-    //// AVALANCHE FUJI ////
-    [avalancheFuji.id]: createTransport([
-        'https://ava-testnet.public.blastapi.io/ext/bc/C/rpc',
-        'https://avalanche-fuji-c-chain-rpc.publicnode.com',
-        'https://api.avax-test.network/ext/bc/C/rpc',
-        'https://avalanche-fuji.drpc.org',
-    ]),
+	//// AVALANCHE FUJI ////
+	[avalancheFuji.id]: createTransport([
+		'https://ava-testnet.public.blastapi.io/ext/bc/C/rpc',
+		'https://avalanche-fuji-c-chain-rpc.publicnode.com',
+		'https://api.avax-test.network/ext/bc/C/rpc',
+		'https://avalanche-fuji.drpc.org',
+	]),
 
-    //// BASE SEPOLIA ////
-    [baseSepolia.id]: createTransport([
-        'https://base-sepolia.gateway.tenderly.co',
-        'https://base-sepolia-rpc.publicnode.com',
-        'https://sepolia.base.org',
-        'https://base-sepolia.drpc.org',
-    ]),
+	//// BASE SEPOLIA ////
+	[baseSepolia.id]: createTransport([
+		'https://base-sepolia.gateway.tenderly.co',
+		'https://base-sepolia-rpc.publicnode.com',
+		'https://sepolia.base.org',
+		'https://base-sepolia.drpc.org',
+	]),
 
-    //// BITLAYER TESTNET ////
-    [bitlayerTestnet.id]: createTransport([
-        'https://testnet-rpc.bitlayer.org',
-        'https://rpc.ankr.com/bitlayer_testnet',
-        'https://testnet-rpc.bitlayer.org',
-    ]),
+	//// BITLAYER TESTNET ////
+	[bitlayerTestnet.id]: createTransport([
+		'https://testnet-rpc.bitlayer.org',
+		'https://rpc.ankr.com/bitlayer_testnet',
+		'https://testnet-rpc.bitlayer.org',
+	]),
 
-    //// BLAST SEPOLIA ////
-    [blastSepolia.id]: createTransport([
-        'https://sepolia.blast.io',
-        'https://endpoints.omniatech.io/v1/blast/sepolia/public',
-        'https://sepolia.blast.io',
-    ]),
+	//// BLAST SEPOLIA ////
+	[blastSepolia.id]: createTransport([
+		'https://sepolia.blast.io',
+		'https://endpoints.omniatech.io/v1/blast/sepolia/public',
+		'https://sepolia.blast.io',
+	]),
 
-    //// BNB TESTNET ////
-    [bscTestnet.id]: createTransport([
-        'https://bsc-testnet.public.blastapi.io',
-        'https://bsc-testnet-rpc.publicnode.com',
-        'https://bnb-testnet.api.onfinality.io/public',
-        'https://bsc-testnet.drpc.org',
-    ]),
+	//// BNB TESTNET ////
+	[bscTestnet.id]: createTransport([
+		'https://bsc-testnet.public.blastapi.io',
+		'https://bsc-testnet-rpc.publicnode.com',
+		'https://bnb-testnet.api.onfinality.io/public',
+		'https://bsc-testnet.drpc.org',
+	]),
 
-    //// CELO ALFAJORES ////
-    [celoAlfajores.id]: createTransport([
-        'https://alfajores-forno.celo-testnet.org',
-        'https://alfajores-forno.celo-testnet.org',
-        'https://celo-alfajores.drpc.org',
-    ]),
+	//// CELO ALFAJORES ////
+	[celoAlfajores.id]: createTransport([
+		'https://alfajores-forno.celo-testnet.org',
+		'https://alfajores-forno.celo-testnet.org',
+		'https://celo-alfajores.drpc.org',
+	]),
 
-    //// CORE TESTNET ////
-    [coreTestnet.id]: createTransport([
-        'https://rpc.test2.btcs.network',
-        'https://rpc.test2.btcs.network',
-    ]),
+	//// CORE TESTNET ////
+	[coreTestnet.id]: createTransport(['https://rpc.test2.btcs.network', 'https://rpc.test2.btcs.network']),
 
-    //// CRONOS TESTNET ////
-    [cronosTestnet.id]: createTransport([
-        'https://evm-t3.cronos.org',
-        'https://endpoints.omniatech.io/v1/cronos/testnet/public',
-        'https://evm-t3.cronos.org',
-    ]),
+	//// CRONOS TESTNET ////
+	[cronosTestnet.id]: createTransport([
+		'https://evm-t3.cronos.org',
+		'https://endpoints.omniatech.io/v1/cronos/testnet/public',
+		'https://evm-t3.cronos.org',
+	]),
 
-    //// GNOSIS CHIADO ////
-    [gnosisChiado.id]: createTransport([
-        'https://gnosis-chiado-rpc.publicnode.com',
-        'https://endpoints.omniatech.io/v1/gnosis/chiado/public',
-        'https://rpc.chiadochain.net',
-    ]),
+	//// GNOSIS CHIADO ////
+	[gnosisChiado.id]: createTransport([
+		'https://gnosis-chiado-rpc.publicnode.com',
+		'https://endpoints.omniatech.io/v1/gnosis/chiado/public',
+		'https://rpc.chiadochain.net',
+	]),
 
-    //// LINEA SEPOLIA ////
-    [lineaSepolia.id]: createTransport([
-        'https://linea-sepolia-rpc.publicnode.com',
-        'https://rpc.sepolia.linea.build',
-        'https://linea-sepolia.drpc.org',
-    ]),
+	//// LINEA SEPOLIA ////
+	[lineaSepolia.id]: createTransport([
+		'https://linea-sepolia-rpc.publicnode.com',
+		'https://rpc.sepolia.linea.build',
+		'https://linea-sepolia.drpc.org',
+	]),
 
-    //// MONAD TESTNET ////
-    [monadTestnet.id]: createTransport([
-        'https://testnet-rpc.monad.xyz',
-        'https://monad-testnet.drpc.org',
-    ]),
+	//// MONAD TESTNET ////
+	[monadTestnet.id]: createTransport(['https://testnet-rpc.monad.xyz', 'https://monad-testnet.drpc.org']),
 
-    //// OPTIMISM SEPOLIA ////
-    [optimismSepolia.id]: createTransport([
-        'https://endpoints.omniatech.io/v1/op/sepolia/public',
-        'https://optimism-sepolia.gateway.tenderly.co',
-        'https://sepolia.optimism.io',
-        'https://optimism-sepolia.drpc.org',
-    ]),
+	//// OPTIMISM SEPOLIA ////
+	[optimismSepolia.id]: createTransport([
+		'https://endpoints.omniatech.io/v1/op/sepolia/public',
+		'https://optimism-sepolia.gateway.tenderly.co',
+		'https://sepolia.optimism.io',
+		'https://optimism-sepolia.drpc.org',
+	]),
 
-    //// POLYGON AMOY ////
-    [polygonAmoy.id]: createTransport([
-        'https://polygon-amoy-bor-rpc.publicnode.com',
-        'https://polygon-amoy.gateway.tenderly.co',
-        'https://rpc-amoy.polygon.technology',
-    ]),
+	//// POLYGON AMOY ////
+	[polygonAmoy.id]: createTransport([
+		'https://polygon-amoy-bor-rpc.publicnode.com',
+		'https://polygon-amoy.gateway.tenderly.co',
+		'https://rpc-amoy.polygon.technology',
+	]),
 
-    //// SCROLL SEPOLIA ////
-    [scrollSepolia.id]: createTransport([
-        'https://sepolia-rpc.scroll.io',
-        'https://scroll-sepolia.chainstacklabs.com',
-        'https://scroll-public.scroll-testnet.quiknode.pro',
-        'https://sepolia-rpc.scroll.io',
-    ]),
+	//// SCROLL SEPOLIA ////
+	[scrollSepolia.id]: createTransport([
+		'https://sepolia-rpc.scroll.io',
+		'https://scroll-sepolia.chainstacklabs.com',
+		'https://scroll-public.scroll-testnet.quiknode.pro',
+		'https://sepolia-rpc.scroll.io',
+	]),
 
-    //// SEI TESTNET ////
-    [seiTestnet.id]: createTransport([
-        'https://evm-rpc-testnet.sei-apis.com',
-        'https://sei-testnet.drpc.org',
-        'https://evm-rpc-testnet.sei-apis.com',
-    ]),
+	//// SEI TESTNET ////
+	[seiTestnet.id]: createTransport([
+		'https://evm-rpc-testnet.sei-apis.com',
+		'https://sei-testnet.drpc.org',
+		'https://evm-rpc-testnet.sei-apis.com',
+	]),
 
-    //// SEPOLIA ////
-    [sepolia.id]: createTransport([
-        'https://ethereum-sepolia-rpc.publicnode.com',
-        'https://endpoints.omniatech.io/v1/eth/sepolia/public',
-        'https://1rpc.io/sepolia',
-        'https://sepolia.drpc.org',
-    ]),
+	//// SEPOLIA ////
+	[sepolia.id]: createTransport([
+		'https://ethereum-sepolia-rpc.publicnode.com',
+		'https://endpoints.omniatech.io/v1/eth/sepolia/public',
+		'https://1rpc.io/sepolia',
+		'https://sepolia.drpc.org',
+	]),
 
-    //// SONEIUM MINATO ////
-    [soneiumMinato.id]: createTransport([
-        'https://rpc.minato.soneium.org',
-        'https://soneium-minato.drpc.org',
-        'https://rpc.minato.soneium.org',
-    ]),
+	//// SONEIUM MINATO ////
+	[soneiumMinato.id]: createTransport([
+		'https://rpc.minato.soneium.org',
+		'https://soneium-minato.drpc.org',
+		'https://rpc.minato.soneium.org',
+	]),
 
-    //// UNICHAIN SEPOLIA ////
-    [unichainSepolia.id]: createTransport([
-        'https://unichain-sepolia-rpc.publicnode.com',
-        'https://sepolia.unichain.org',
-        'https://unichain-sepolia.drpc.org',
-    ]),
+	//// UNICHAIN SEPOLIA ////
+	[unichainSepolia.id]: createTransport([
+		'https://unichain-sepolia-rpc.publicnode.com',
+		'https://sepolia.unichain.org',
+		'https://unichain-sepolia.drpc.org',
+	]),
 
-    //// BERACHAIN BEPOLIA ////
-    [berachainBepolia.id]: createTransport([
-        'https://bepolia.rpc.berachain.com',
-        'https://berachain-bepolia.drpc.org',
-        'https://bepolia.rpc.berachain.com',
-    ]),
+	//// BERACHAIN BEPOLIA ////
+	[berachainBepolia.id]: createTransport([
+		'https://bepolia.rpc.berachain.com',
+		'https://berachain-bepolia.drpc.org',
+		'https://bepolia.rpc.berachain.com',
+	]),
 
-    //// OP BNB TESTNET ////
-    [opBNBTestnet.id]: createTransport([
-        'https://opbnb-testnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3',
-        'https://opbnb-testnet.nodereal.io/v1/e9a36765eb8a40b9bd12e680a1fd2bc5',
-        'https://opbnb-testnet-rpc.bnbchain.org',
-    ]),
+	//// OP BNB TESTNET ////
+	[opBNBTestnet.id]: createTransport([
+		'https://opbnb-testnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3',
+		'https://opbnb-testnet.nodereal.io/v1/e9a36765eb8a40b9bd12e680a1fd2bc5',
+		'https://opbnb-testnet-rpc.bnbchain.org',
+	]),
 
-    //// AURORA TESTNET ////
-    [auroraTestnet.id]: createTransport([
-        'https://testnet.aurora.dev',
-        'https://aurora-testnet.drpc.org',
-        'https://testnet.aurora.dev',
-    ]),
+	//// AURORA TESTNET ////
+	[auroraTestnet.id]: createTransport([
+		'https://testnet.aurora.dev',
+		'https://aurora-testnet.drpc.org',
+		'https://testnet.aurora.dev',
+	]),
 
-    //// BOB SEPOLIA ////
-    [bobSepolia.id]: createTransport([
-        'https://bob-sepolia.rpc.gobob.xyz',
-        'https://bob-testnet.drpc.org',
-        'https://bob-sepolia.rpc.gobob.xyz',
-    ]),
+	//// BOB SEPOLIA ////
+	[bobSepolia.id]: createTransport([
+		'https://bob-sepolia.rpc.gobob.xyz',
+		'https://bob-testnet.drpc.org',
+		'https://bob-sepolia.rpc.gobob.xyz',
+	]),
 
-    //// FLOW TESTNET ////
-    [flowTestnet.id]: createTransport([
-        'https://testnet.evm.nodes.onflow.org',
-        'https://testnet.evm.nodes.onflow.org',
-    ]),
+	//// FLOW TESTNET ////
+	[flowTestnet.id]: createTransport(['https://testnet.evm.nodes.onflow.org', 'https://testnet.evm.nodes.onflow.org']),
 
-    //// METIS SEPOLIA ////
-    [metisSepolia.id]: createTransport([
-        'https://metis-sepolia.gateway.tenderly.co',
-        'https://metis-sepolia-rpc.publicnode.com',
-        'https://sepolia.metisdevops.link',
-    ]),
+	//// METIS SEPOLIA ////
+	[metisSepolia.id]: createTransport([
+		'https://metis-sepolia.gateway.tenderly.co',
+		'https://metis-sepolia-rpc.publicnode.com',
+		'https://sepolia.metisdevops.link',
+	]),
 
-    //// KAVA TESTNET ////
-    [kavaTestnet.id]: createTransport([
-        'https://evm.testnet.kava.io',
-        'https://kava-testnet.drpc.org',
-        'https://evm.testnet.kava.io',
-    ]),
+	//// KAVA TESTNET ////
+	[kavaTestnet.id]: createTransport([
+		'https://evm.testnet.kava.io',
+		'https://kava-testnet.drpc.org',
+		'https://evm.testnet.kava.io',
+	]),
 
-    //// WEMIX TESTNET ////
-    [wemixTestnet.id]: createTransport([
-        'https://api.test.wemix.com',
-        'https://wemix-testnet.drpc.org',
-    ]),
+	//// WEMIX TESTNET ////
+	[wemixTestnet.id]: createTransport(['https://api.test.wemix.com', 'https://wemix-testnet.drpc.org']),
 
-    //// IRYS TESTNET ////
-    [irysTestnet.id]: createTransport([
-        'https://testnet-rpc.irys.xyz/v1/execution-rpc',
-        'https://testnet-rpc.irys.xyz/v1/execution-rpc',
-    ]),
+	//// IRYS TESTNET ////
+	[irysTestnet.id]: createTransport([
+		'https://testnet-rpc.irys.xyz/v1/execution-rpc',
+		'https://testnet-rpc.irys.xyz/v1/execution-rpc',
+	]),
 
-    //// MANTA PACIFIC SEPOLIA ////
-    [mantaPacificSepoliaTestnet.id]: createTransport([
-        'https://pacific-rpc.sepolia-testnet.manta.network/http',
-        'https://endpoints.omniatech.io/v1/manta-pacific/sepolia/public',
-        'https://pacific-rpc.sepolia-testnet.manta.network/http',
-    ]),
+	//// MANTA PACIFIC SEPOLIA ////
+	[mantaPacificSepoliaTestnet.id]: createTransport([
+		'https://pacific-rpc.sepolia-testnet.manta.network/http',
+		'https://endpoints.omniatech.io/v1/manta-pacific/sepolia/public',
+		'https://pacific-rpc.sepolia-testnet.manta.network/http',
+	]),
 
-    //// SONIC BLAZE TESTNET ////
-    [sonicBlazeTestnet.id]: createTransport([
-        'https://rpc.blaze.soniclabs.com',
-        'https://sonic-blaze-rpc.publicnode.com',
-        'https://rpc.blaze.soniclabs.com',
-    ]),
+	//// SONIC BLAZE TESTNET ////
+	[sonicBlazeTestnet.id]: createTransport([
+		'https://rpc.blaze.soniclabs.com',
+		'https://sonic-blaze-rpc.publicnode.com',
+		'https://rpc.blaze.soniclabs.com',
+	]),
 
-    //// ZENCHAIN TESTNET ////
-    [zenchainTestnet.id]: createTransport([
-        'https://zenchain-testnet.api.onfinality.io/public'
-    ]),
+	//// ZENCHAIN TESTNET ////
+	[zenchainTestnet.id]: createTransport(['https://zenchain-testnet.api.onfinality.io/public']),
 
-    //// OASIS SAPPHIRE TESTNET ////
-    // [oasisSapphire.id]: createTransport(['https://testnet.sapphire.oasis.io', 'https://1rpc.io/oasis/sapphire']),
+	//// OASIS SAPPHIRE TESTNET ////
+	// [oasisSapphire.id]: createTransport(['https://testnet.sapphire.oasis.io', 'https://1rpc.io/oasis/sapphire']),
 
-    //// EXPCHAIN TESTNET ////
+	//// EXPCHAIN TESTNET ////
 	[expchainTestnet.id]: createTransport(['https://rpc1-testnet.expchain.ai', 'https://rpc1-testnet.expchain.ai']),
 
-    //// RISE TESTNET ////
-    [riseTestnet.id]: createTransport(['https://testnet.riselabs.xyz', 'https://testnet.riselabs.xyz']),
+	//// RISE TESTNET ////
+	[riseTestnet.id]: createTransport(['https://testnet.riselabs.xyz', 'https://testnet.riselabs.xyz']),
 
-    //// PHAROS TESTNET ////
-    [pharosTestnet.id]: createTransport(['https://testnet.dplabs-internal.com', 'https://testnet.dplabs-internal.com']),
+	//// PHAROS TESTNET ////
+	[pharosTestnet.id]: createTransport(['https://testnet.dplabs-internal.com', 'https://testnet.dplabs-internal.com']),
 
-    //// KAIA KAIROS ////
-    [kaiaKairos.id]: createTransport([
+	//// KAIA KAIROS ////
+	[kaiaKairos.id]: createTransport([
 		'https://public-en-kairos.node.kaia.io',
 		'https://kaia-kairos.blockpi.network/v1/rpc/public',
 		'https://responsive-green-emerald.kaia-kairos.quiknode.pro/',
 	]),
 }
-
 
 // #CHILD_POOL_ZENCHAIN_TESTNET=0x3E2Ee768D9fADdd3673a69ED4d0D1d9147FA1054
 // #CHILD_POOL_PROXY_ADMIN_ZENCHAIN_TESTNET=0xB2571eEb8F9275DdC6eFD7BCef698876370A49e8
