@@ -1,11 +1,15 @@
 import type { Balance } from '@/stores/balances/types'
-import { useEffect, useCallback, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
+import { Status } from '@lanca/sdk'
 import { useQuery } from '@tanstack/react-query'
 import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 import { useAccount } from 'wagmi'
 import { useChainsStore } from '@/stores/chains/useChainsStore'
 import { Address, erc20Abi } from 'viem'
 import { getPublicClient } from '@/utils/client'
+import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
+import { useFormStore } from '@/stores/form/useFormStore'
+import { BalanceType } from '@/stores/balances/types'
 
 const SYMBOL = 'USDC'
 const DECIMALS = 6
@@ -18,83 +22,67 @@ const DEFAULT_BALANCE: Balance = {
 
 export const useLoadBalances = () => {
   const { address } = useAccount()
-  const { chains } = useChainsStore()
-  const { setBalances, setLoading, setBalance } = useBalancesStore()
+  const { chains, loading: chainsLoading } = useChainsStore()
+  const { setBalances, setLoading, setValue } = useBalancesStore()
+  const { sourceChain, destinationChain } = useFormStore()
+  const { txStatus } = useTxExecutionStore()
 
-  const fetchChainBalance = useCallback(
-    async (chainId: number): Promise<Balance> => {
-      const client = getPublicClient(chainId)
-      const chain = chains[chainId]
-      const tokenAddress = chain?.contracts?.usdc_e
+  const hasChainsLoaded = useMemo(() => {
+    return !chainsLoading && Object.keys(chains).length > 0
+  }, [chains, chainsLoading])
 
-      if (!tokenAddress || !address) {
-        return DEFAULT_BALANCE
-      }
+  const chainIds = useMemo(() => {
+    return Object.keys(chains).map(Number)
+  }, [chains])
 
-      try {
-        const timeout = new Promise<never>((_, reject) =>
-          setTimeout(() => reject(new Error(`Balance fetch timeout for chain ${chainId}`)), 20000),
-        )
-
-        const balancePromise = client.readContract({
-          address: tokenAddress as Address,
-          abi: erc20Abi,
-          functionName: 'balanceOf',
-          args: [address],
-        })
-
-        const balance = await Promise.race([balancePromise, timeout])
-        return { balance: balance.toString(), symbol: SYMBOL, decimals: DECIMALS }
-      } catch (error) {
-        console.error(`Chain ${chainId} balance fetch failed:`, error)
-        return DEFAULT_BALANCE
-      }
-    },
-    [address, chains],
+  const sourceChainId = useMemo(
+    () => (sourceChain?.id ? Number(sourceChain.id) : undefined),
+    [sourceChain?.id]
+  )
+  const destinationChainId = useMemo(
+    () => (destinationChain?.id ? Number(destinationChain.id) : undefined),
+    [destinationChain?.id]
   )
 
-  const fetchAllBalances = useCallback(async (): Promise<[number, Balance][]> => {
-    if (!address) return []
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['balances', address, chainIds],
+    queryFn: async (): Promise<[number, Balance][]> => {
+      if (!address || !hasChainsLoaded) return []
 
-    const promises = Object.values(chains).map(async c => {
-      const balance = await fetchChainBalance(Number(c.id))
-      return [Number(c.id), balance] as [number, Balance]
-    })
+      const promises = Object.values(chains).map(async (c) => {
+        const chainId = Number(c.id)
+        const client = getPublicClient(chainId)
+        const tokenAddress = c?.contracts?.usdc_e
 
-    const results = await Promise.allSettled(promises)
-    const fulfilled = results.filter(r => r.status === 'fulfilled')
-    return fulfilled.map(r => (r as PromiseFulfilledResult<[number, Balance]>).value)
-  }, [address, chains, fetchChainBalance])
+        if (!tokenAddress) {
+          return [chainId, DEFAULT_BALANCE] as [number, Balance]
+        }
 
-  const refetchChains = useCallback(
-    async (chainIds: number[]) => {
-      if (!address) return
+        try {
+          const timeout = new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error(`Balance fetch timeout for chain ${chainId}`)), 20000)
+          )
 
-      const results = await Promise.all(
-        chainIds.map(async id => {
-          try {
-            const balance = await fetchChainBalance(id)
-            return [id, balance] as [number, Balance]
-          } catch (error) {
-            console.error(`Failed refetch for chain ${id}:`, error)
-            return null
-          }
-        }),
-      )
+          const balancePromise = client.readContract({
+            address: tokenAddress as Address,
+            abi: erc20Abi,
+            functionName: 'balanceOf',
+            args: [address],
+          })
 
-      results.forEach(result => {
-        if (result) {
-          setBalance(result[0], result[1])
+          const balance = await Promise.race([balancePromise, timeout])
+          return [chainId, { balance: balance.toString(), symbol: SYMBOL, decimals: DECIMALS }] as [number, Balance]
+        } catch (error) {
+          console.error(`Chain ${chainId} balance fetch failed:`, error)
+          return [chainId, DEFAULT_BALANCE] as [number, Balance]
         }
       })
-    },
-    [address, fetchChainBalance, setBalance],
-  )
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['balances', address],
-    queryFn: fetchAllBalances,
-    enabled: !!address,
+      const results = await Promise.allSettled(promises)
+      const fulfilled = results.filter((r) => r.status === 'fulfilled')
+      return fulfilled.map((r) => (r as PromiseFulfilledResult<[number, Balance]>).value)
+    },
+    enabled: !!address && hasChainsLoaded,
     staleTime: 30_000,
     retry: 2,
     refetchOnWindowFocus: false,
@@ -107,7 +95,7 @@ export const useLoadBalances = () => {
           acc[chainId] = balance
           return acc
         },
-        {} as Record<number, Balance>,
+        {} as Record<number, Balance>
       )
       setBalances(bulkUpdate)
     }
@@ -117,11 +105,40 @@ export const useLoadBalances = () => {
     setLoading('global', isLoading)
   }, [isLoading, setLoading])
 
+  useEffect(() => {
+    if (data && sourceChainId) {
+      const sourceBalance = data.find(([chainId]) => chainId === sourceChainId)
+      setValue(BalanceType.From, sourceBalance?.[1].balance ?? '0')
+    } else {
+      setValue(BalanceType.From, '0')
+    }
+    setLoading(BalanceType.From, isLoading)
+  }, [data, sourceChainId, isLoading, setValue, setLoading])
+
+  useEffect(() => {
+    if (data && destinationChainId) {
+      const destinationBalance = data.find(([chainId]) => chainId === destinationChainId)
+      setValue(BalanceType.To, destinationBalance?.[1].balance ?? '0')
+    } else {
+      setValue(BalanceType.To, '0')
+    }
+    setLoading(BalanceType.To, isLoading)
+  }, [data, destinationChainId, isLoading, setValue, setLoading])
+
+  useEffect(() => {
+    if (txStatus === Status.SUCCESS) {
+      const timeout = setTimeout(() => {
+        refetch()
+      }, 300)
+      return () => clearTimeout(timeout)
+    }
+  }, [txStatus, refetch])
+
   return useMemo(
     () => ({
-      refetchChains,
       isLoading,
+      refetch,
     }),
-    [refetchChains, isLoading],
+    [isLoading, refetch]
   )
 }
