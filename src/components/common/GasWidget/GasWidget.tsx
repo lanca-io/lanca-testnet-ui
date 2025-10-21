@@ -32,8 +32,8 @@ export const GasWidget: FC = memo(() => {
 	}, [sourceChain, fromNativeBalance])
 
 	const gas = useMemo(
-		() => formatTokenAmount(rawAmount, sourceChain?.decimals || 18),
-		[rawAmount, sourceChain?.decimals],
+		() => formatTokenAmount(rawAmount, sourceChain?.nativeCurrency.decimals || 18),
+		[rawAmount, sourceChain?.nativeCurrency.decimals],
 	)
 
 	const uiProps = useMemo<{
@@ -76,7 +76,7 @@ export const GasWidget: FC = memo(() => {
 				) : (
 					<h5 className="gas_value">
 						{format(Number(gas), 2)}
-						<span className="gas_value_symbol">{sourceChain?.nativeToken}</span>
+						<span className="gas_value_symbol">{sourceChain?.nativeCurrency.symbol}</span>
 					</h5>
 				)}
 			</div>

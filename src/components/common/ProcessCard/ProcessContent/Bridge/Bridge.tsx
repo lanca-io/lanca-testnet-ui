@@ -7,8 +7,8 @@ import './Bridge.pcss'
 export const Bridge: FC = memo((): JSX.Element => {
 	const { sourceChain, destinationChain } = useFormStore()
 
-	const sourceLogo = useMemo(() => sourceChain?.logoURL || '', [sourceChain])
-	const destinationLogo = useMemo(() => destinationChain?.logoURL || '', [destinationChain])
+	const sourceLogo = useMemo(() => sourceChain?.logo || '', [sourceChain])
+	const destinationLogo = useMemo(() => destinationChain?.logo || '', [destinationChain])
 
 	return (
 		<div className="bridge_content">

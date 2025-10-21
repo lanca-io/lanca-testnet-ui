@@ -42,14 +42,14 @@ export const useGetRoute = (): IRouteType | null => {
 		name,
 	})
 
-	const fromToken = createTokenData(fromTokenAddress, fromChainId, '/Token/USDC.png', 'USDC', 'USDC')
-	const toToken = createTokenData(toTokenAddress, toChainId, '/Token/USDC.png', 'USDC', 'USDC')
+	const fromToken = createTokenData(fromTokenAddress, String(fromChainId), '/Token/USDC.png', 'USDC', 'USDC')
+	const toToken = createTokenData(toTokenAddress, String(toChainId), '/Token/USDC.png', 'USDC', 'USDC')
 
-	const fromChain = createChainData(fromChainId, sourceChain.explorerURL, sourceChain.logoURL, sourceChain.name)
+	const fromChain = createChainData(String(fromChainId), sourceChain.explorer || '', sourceChain.logo, sourceChain.name)
 	const toChain = createChainData(
-		toChainId,
-		destinationChain.explorerURL,
-		destinationChain.logoURL,
+		String(toChainId),
+		destinationChain.explorer || '',
+		destinationChain.logo,
 		destinationChain.name,
 	)
 

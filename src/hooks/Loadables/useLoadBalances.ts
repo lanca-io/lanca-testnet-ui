@@ -6,7 +6,6 @@ import { useAccount } from 'wagmi'
 import { useChainsStore } from '@/stores/chains/useChainsStore'
 import { Address, erc20Abi } from 'viem'
 import { getPublicClient } from '@/utils/client'
-import { TokenAddresses } from '@/configuration/addresses'
 
 const SYMBOL = 'USDC'
 const DECIMALS = 6
@@ -25,7 +24,8 @@ export const useLoadBalances = () => {
   const fetchChainBalance = useCallback(
     async (chainId: number): Promise<Balance> => {
       const client = getPublicClient(chainId)
-      const tokenAddress = TokenAddresses[chainId]
+	  const chain = chains[chainId]
+      const tokenAddress = chain?.contracts.usdc_e
 
       if (!tokenAddress || !address) return DEFAULT_BALANCE
 

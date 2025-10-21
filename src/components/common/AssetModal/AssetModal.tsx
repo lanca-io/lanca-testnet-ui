@@ -10,12 +10,13 @@ import { ChainMenu } from './ChainMenu/ChainMenu'
 import { Button } from '@concero/ui-kit'
 import { ActiveTab } from './types'
 import { useModalStore } from '@/stores/modals/useModalsStore'
+import { useChainsStore } from '@/stores/chains/useChainsStore'
 import { useFormStore } from '@/stores/form/useFormStore'
-import { TokenAddresses } from '@/configuration/addresses'
 import './AssetModal.pcss'
 
 export const AssetModal: FC<AssetModalProps> = memo(
 	({ title, isOpen, isSrcModal, direction, onClose }): JSX.Element => {
+		const { chains } = useChainsStore()
 		const { isFaucetModalOpen, openFaucetModal } = useModalStore()
 		const { setSourceChain, setDestinationChain, setFromTokenAddress, setToTokenAddress } = useFormStore()
 		const [activeTab, setActiveTab] = useState<ActiveTab>(ActiveTab.All)
@@ -29,11 +30,11 @@ export const AssetModal: FC<AssetModalProps> = memo(
 			(chain: ConceroChain) => {
 				if (isSrcModal) {
 					setSourceChain(chain)
-					const tokenAddress = TokenAddresses[chain.id]
+					const tokenAddress = chains[chain.id]?.contracts.usdc_e
 					setFromTokenAddress(tokenAddress as Address)
 				} else {
 					setDestinationChain(chain)
-					const tokenAddress = TokenAddresses[chain.id]
+					const tokenAddress = chains[chain.id]?.contracts.usdc_e
 					setToTokenAddress(tokenAddress as Address)
 				}
 				onClose()

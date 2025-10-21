@@ -1,15 +1,15 @@
 import type { Balance } from '@/stores/balances/types'
-import { useEffect, useCallback, useMemo } from 'react'
+import { useEffect, useCallback } from 'react'
 import { Status } from '@lanca/sdk'
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 import { useAccount } from 'wagmi'
 import { Address, erc20Abi } from 'viem'
 import { getPublicClient } from '@/utils/client'
-import { TokenAddresses } from '@/configuration/addresses'
 import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { BalanceType } from '@/stores/balances/types'
+import { useChainsStore } from '@/stores/chains/useChainsStore'
 
 const SYMBOL = 'USDC' as const
 const DECIMALS = 6 as const
@@ -22,6 +22,7 @@ const DEFAULT_BALANCE: Balance = {
 
 export const useLoadSelectedBalances = () => {
 	const { address } = useAccount()
+	const { chains } = useChainsStore()
 	const { setValue, setLoading } = useBalancesStore()
 	const { sourceChain, destinationChain } = useFormStore()
 	const { txStatus } = useTxExecutionStore()
@@ -29,7 +30,8 @@ export const useLoadSelectedBalances = () => {
 	const fetchChainBalance = useCallback(
 		async (chainId: number): Promise<Balance> => {
 			const client = getPublicClient(chainId)
-			const tokenAddress = TokenAddresses[chainId]
+			const chain = chains[chainId]
+			const tokenAddress = chain?.contracts.usdc_e
 
 			if (!tokenAddress || !address) return DEFAULT_BALANCE
 
