@@ -1,4 +1,3 @@
-import type { Address } from 'viem'
 import type { UseBoundStoreWithEqualityFn } from 'zustand/traditional'
 import type { StoreApi } from 'zustand/vanilla'
 
@@ -20,8 +19,8 @@ export type ConceroChain = {
 	explorer: string | null
 	testnet: boolean
 	contracts: {
-		usdc_e: Address
-		bridge_lbf: Address
+		usdc_e: string
+		bridge_lbf: string
 	}
 }
 

@@ -63,7 +63,7 @@ export const useInputError = () => {
 					setError('Amount is too low')
 					return false
 				}
-				
+
 				return true
 			} catch {
 				return true
