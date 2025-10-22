@@ -6,7 +6,7 @@ import { WagmiAdapter } from '@reown/appkit-adapter-wagmi'
 import { createAppKit } from '@reown/appkit/react'
 import { project_id, domain_url } from '@/configuration/constants'
 import { useLoadChains } from '@/hooks/Loadables/useLoadChains'
-import { convertToViemChains } from '@/utils/chains'
+import { convertToViemChains, createTransports } from '@/utils/chains'
 
 let adapter: WagmiAdapter | null = null
 let appKit: AppKit | null = null
@@ -25,9 +25,11 @@ export const Web3Provider: FC<PropsWithChildren> = ({ children }) => {
   
   if (!adapter || !appKit) {
     const viemChains = convertToViemChains(chains)
+    const transports = createTransports(chains)
 
     adapter = new WagmiAdapter({
       networks: viemChains,
+      transports: transports,
       projectId: project_id,
     })
 

@@ -1,5 +1,7 @@
-import { isAddress } from 'viem'
+import { create } from 'domain'
+import { fallback, FallbackTransportConfig, http, HttpTransport, isAddress } from 'viem'
 import { defineChain } from 'viem'
+import { Transport } from 'wagmi'
 
 const API_BASE_URL = 'http://localhost:3000'
 const CHAIN_LOGO_BASE_URL = 'https://api.v2.concero.io/static/chains'
@@ -256,4 +258,29 @@ export const convertToViemChains = (chains: ConceroChain[]): ReturnType<typeof d
 			testnet: chain.testnet,
 		}),
 	)
+}
+
+const createHTTP = (url: string): HttpTransport => {
+	return http(url, {
+		batch: true
+	})
+}
+
+const createFallback = (urls: string[], options?: Partial<FallbackTransportConfig>): Transport => {
+	return fallback(
+		urls.map(url => createHTTP(url)),
+		{
+			retryCount: 10,
+        	retryDelay: 1000,
+			...options,
+		},
+	)
+}
+
+export const createTransports = (chains: ConceroChain[]) => {
+	const transports: Record<number, Transport> = {}
+	chains.forEach(chain => {
+		transports[chain.id] = createFallback(chain.rpcUrls.default.http)	
+	})
+	return transports
 }
