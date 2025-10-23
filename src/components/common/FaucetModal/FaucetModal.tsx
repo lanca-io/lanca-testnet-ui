@@ -1,5 +1,5 @@
 import type { FC } from 'react'
-import type { ConceroChain } from '@/stores/chains/types'
+import type { ConceroChain } from '@/utils/chains'
 import { useState, useCallback, useEffect, memo } from 'react'
 import { Modal } from '../Modal/Modal'
 import { ChainFaucet } from './ChainFaucet/ChainFaucet'
@@ -35,12 +35,12 @@ const ErrorView = memo(() => (
 ))
 
 const ChainList = memo(
-    ({ chains, onSelect, unclaimed }: { chains: Array<Chain>; onSelect: (id: number) => void; unclaimed: number[] }) => (
+    ({ chains, onSelect, unclaimed }: { chains: Array<ConceroChain>; onSelect: (id: number) => void; unclaimed: number[] }) => (
         <div className="faucet_modal_grid">
             {chains.map(chain => {
                 const id = Number(chain.id)
                 const isUnclaimed = unclaimed.includes(id)
-                const logoSrc = isUnclaimed ? (chain.logoURL) : (chain.disabledLogoURL ?? chain.logoURL)
+                const logoSrc = isUnclaimed ? chain.logo : `/Chains/Disabled/${chain.id}.svg`
 
                 return (
                     <ChainFaucet

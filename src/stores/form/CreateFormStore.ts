@@ -66,8 +66,8 @@ const initialState: FormState = {
 	sourceChain: defaultSourceChain,
 	destinationChain: defaultDestinationChain,
 	fromAmount: '',
-	fromTokenAddress: defaultSourceChain.contracts.usdc_e,
-	toTokenAddress: defaultDestinationChain.contracts.usdc_e,
+	fromTokenAddress: defaultSourceChain.contracts.usdc_e as Address,
+	toTokenAddress: defaultDestinationChain.contracts.usdc_e as Address,
 	isLoading: false,
 	error: null,
 }

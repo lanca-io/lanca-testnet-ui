@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 import { useAccount } from 'wagmi'
 import { useChainsStore } from '@/stores/chains/useChainsStore'
-import { getPublicClient } from '@/utils/client'
+import { usePublicClient } from '../usePublicClient'
 import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { BalanceType } from '@/stores/balances/types'
@@ -15,6 +15,7 @@ export const useLoadNativeBalance = () => {
 	const { setValue, setLoading } = useBalancesStore()
 	const { txStatus } = useTxExecutionStore()
 	const { sourceChain } = useFormStore()
+	const { create } = usePublicClient()
 
 	const fetchSourceNativeBalance = useCallback(async (): Promise<string> => {
 		const chainId = sourceChain?.id ? Number(sourceChain.id) : undefined
@@ -23,7 +24,7 @@ export const useLoadNativeBalance = () => {
 		const chain = Object.values(chains).find(c => Number(c.id) === chainId)
 		if (!chain) return '0'
 
-		const client = getPublicClient(chainId)
+		const client = create(chainId)
 
 		try {
 			const timeoutPromise = new Promise<never>((_, reject) =>

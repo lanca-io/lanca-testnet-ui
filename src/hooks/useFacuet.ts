@@ -1,7 +1,6 @@
 import { useState, useCallback } from 'react'
 import { Address } from 'viem'
 import { useAccount } from 'wagmi'
-import { useLoadBalances } from './Loadables/useLoadBalances'
 import { TokenEvents } from '@/events/events'
 import { useTrackEvent } from './useTrackEvent'
 
@@ -49,7 +48,6 @@ export const useFaucet = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [txHash, setTxHash] = useState<string | null>(null)
 	const [error, setError] = useState<string | null>(null)
-	const { refetchChains } = useLoadBalances()
 
 	const { trackEvent } = useTrackEvent()
 
@@ -88,7 +86,6 @@ export const useFaucet = () => {
 						txHash: response.txHash,
 					},
 				})
-				await refetchChains([chainId])
 				return true
 			} catch (err) {
 				setError('Error, please try again')
@@ -97,7 +94,7 @@ export const useFaucet = () => {
 				setIsLoading(false)
 			}
 		},
-		[address, refetchChains],
+		[address],
 	)
 
 	return {
