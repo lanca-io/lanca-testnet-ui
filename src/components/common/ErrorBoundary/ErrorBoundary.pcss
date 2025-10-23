@@ -1,0 +1,48 @@
+.error_boundary_wrapper {
+	display: flex;
+	flex-direction: column;
+	padding: var(--space-6) var(--space-6) 0 var(--space-6);
+	align-items: center;
+	flex: 1 0 0;
+	align-self: stretch;
+	background: linear-gradient(180deg, var(--color-gray-25) 0%, var(--color-gray-50) 70.12%);
+}
+
+.error_boundary_card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: auto;
+	gap: var(--space-2);
+	max-width: 498px;
+	width: 100%;
+	padding: var(--space-4);
+	border-radius: var(--space-5);
+}
+
+.error_boundary_card_title {
+	font-size: 1.5rem;
+	line-height: 28px;
+	font-weight: 500;
+	text-align: center;
+	color: var(--color-gray-700);
+}
+
+.error_boundary_card_description {
+	font-size: 1rem;
+	color: var(--color-gray-600);
+	text-align: center;
+}
+
+@media only screen and (min-width: 641px) and (max-width: 1024px) {
+	.error_boundary_wrapper {
+		padding: var(--space-6) var(--space-4) 0 var(--space-4);
+	}
+}
+
+@media only screen and (max-width: 640px) {
+	.error_boundary_wrapper {
+		padding: var(--space-6) var(--space-4) 0 var(--space-4);
+	}
+}

@@ -11,123 +11,131 @@ import { useUnclaimedFaucets } from '@/hooks/useClaimedFaucets'
 import './FaucetModal.pcss'
 
 type FaucetModalProps = {
-    title: string
-    isOpen: boolean
-    onClose: () => void
+	title: string
+	isOpen: boolean
+	onClose: () => void
 }
 
 const LoadingView = memo(({ message }: { message: string }) => (
-    <div className="loading_state">
-        <div className="loading_state_content">
-            <Spinner type="gray" />
-            <p className="loading_state_text">{message}</p>
-        </div>
-    </div>
+	<div className="loading_state">
+		<div className="loading_state_content">
+			<Spinner type="gray" />
+			<p className="loading_state_text">{message}</p>
+		</div>
+	</div>
 ))
 
 const ErrorView = memo(() => (
-    <div className="error_state">
-        <div className="error_state_content">
-            <ErrorIcon />
-            <p className="error_state_text">Error, please try again</p>
-        </div>
-    </div>
+	<div className="error_state">
+		<div className="error_state_content">
+			<ErrorIcon />
+			<p className="error_state_text">Error, please try again</p>
+		</div>
+	</div>
 ))
 
 const ChainList = memo(
-    ({ chains, onSelect, unclaimed }: { chains: Array<ConceroChain>; onSelect: (id: number) => void; unclaimed: number[] }) => (
-        <div className="faucet_modal_grid">
-            {chains.map(chain => {
-                const id = Number(chain.id)
-                const isUnclaimed = unclaimed.includes(id)
-                const logoSrc = isUnclaimed ? chain.logo : `/Chains/Disabled/${chain.id}.svg`
+	({
+		chains,
+		onSelect,
+		unclaimed,
+	}: {
+		chains: Array<ConceroChain>
+		onSelect: (id: number) => void
+		unclaimed: number[]
+	}) => (
+		<div className="faucet_modal_grid">
+			{chains.map(chain => {
+				const id = Number(chain.id)
+				const isUnclaimed = unclaimed.includes(id)
+				const logoSrc = isUnclaimed ? chain.logo : `/Chains/Disabled/${chain.id}.svg`
 
-                return (
-                    <ChainFaucet
-                        key={id}
-                        name={chain?.name}
-                        logoURI={logoSrc}
-                        onClick={() => isUnclaimed && onSelect(id)}
-                        isDisabled={!isUnclaimed}
-                    />
-                )
-            })}
-        </div>
-    ),
+				return (
+					<ChainFaucet
+						key={id}
+						name={chain?.name}
+						logoURI={logoSrc}
+						onClick={() => isUnclaimed && onSelect(id)}
+						isDisabled={!isUnclaimed}
+					/>
+				)
+			})}
+		</div>
+	),
 )
 
 export const FaucetModal: FC<FaucetModalProps> = ({ title, isOpen, onClose }) => {
-    const { faucetChains, isLoading: loadingChains } = useGetChains()
-    const { getTestTokens, isLoading: loadingFaucet, error: faucetError } = useFaucet()
-    const { unclaimedChains, isLoading: loadingClaims, refetch } = useUnclaimedFaucets()
+	const { faucetChains, isLoading: loadingChains } = useGetChains()
+	const { getTestTokens, isLoading: loadingFaucet, error: faucetError } = useFaucet()
+	const { unclaimedChains, isLoading: loadingClaims, refetch } = useUnclaimedFaucets()
 
-    const [selectedChain, setSelectedChain] = useState<number | null>(null)
-    const [showSelection, setShowSelection] = useState<boolean>(true)
+	const [selectedChain, setSelectedChain] = useState<number | null>(null)
+	const [showSelection, setShowSelection] = useState<boolean>(true)
 
-    useEffect(() => {
-        if (isOpen) {
-            refetch()
-            setShowSelection(true)
-            setSelectedChain(null)
-        }
-    }, [isOpen, refetch])
+	useEffect(() => {
+		if (isOpen) {
+			refetch()
+			setShowSelection(true)
+			setSelectedChain(null)
+		}
+	}, [isOpen, refetch])
 
-    const handleChainSelect = useCallback(
-        async (id: number) => {
-            if (!unclaimedChains.includes(id)) return
+	const handleChainSelect = useCallback(
+		async (id: number) => {
+			if (!unclaimedChains.includes(id)) return
 
-            setSelectedChain(id)
-            setShowSelection(false)
+			setSelectedChain(id)
+			setShowSelection(false)
 
-            const success = await getTestTokens(id)
+			const success = await getTestTokens(id)
 
-            if (success) {
-                await refetch()
-                onClose()
-            } else {
-                setShowSelection(true)
-            }
-        },
-        [getTestTokens, onClose, refetch, unclaimedChains],
-    )
+			if (success) {
+				await refetch()
+				onClose()
+			} else {
+				setShowSelection(true)
+			}
+		},
+		[getTestTokens, onClose, refetch, unclaimedChains],
+	)
 
-    const handleRetry = useCallback(() => {
-        if (selectedChain) {
-            getTestTokens(selectedChain)
-        }
-    }, [selectedChain, getTestTokens])
+	const handleRetry = useCallback(() => {
+		if (selectedChain) {
+			getTestTokens(selectedChain)
+		}
+	}, [selectedChain, getTestTokens])
 
-    const handleClose = useCallback(() => {
-        if (faucetError && !showSelection) {
-            setShowSelection(true)
-        } else {
-            onClose()
-        }
-    }, [faucetError, showSelection, onClose])
+	const handleClose = useCallback(() => {
+		if (faucetError && !showSelection) {
+			setShowSelection(true)
+		} else {
+			onClose()
+		}
+	}, [faucetError, showSelection, onClose])
 
-    const isLoading = loadingChains || loadingClaims || (loadingFaucet && !showSelection)
-    const showError = faucetError && !showSelection
+	const isLoading = loadingChains || loadingClaims || (loadingFaucet && !showSelection)
+	const showError = faucetError && !showSelection
 
-    return (
-        <Modal title={title} isOpen={isOpen} onClose={handleClose} onBackdropClick={onClose} className="faucet_modal">
-            {showError ? (
-                <>
-                    <ErrorView />
-                    <Button
-                        variant="secondary_color"
-                        size="l"
-                        isFull
-                        onClick={handleRetry}
-                        className="faucet_modal_button"
-                    >
-                        Try again
-                    </Button>
-                </>
-            ) : isLoading ? (
-                <LoadingView message={loadingFaucet ? 'Adding token...' : 'Loading...'} />
-            ) : (
-                <ChainList chains={faucetChains} onSelect={handleChainSelect} unclaimed={unclaimedChains} />
-            )}
-        </Modal>
-    )
+	return (
+		<Modal title={title} isOpen={isOpen} onClose={handleClose} onBackdropClick={onClose} className="faucet_modal">
+			{showError ? (
+				<>
+					<ErrorView />
+					<Button
+						variant="secondary_color"
+						size="l"
+						isFull
+						onClick={handleRetry}
+						className="faucet_modal_button"
+					>
+						Try again
+					</Button>
+				</>
+			) : isLoading ? (
+				<LoadingView message={loadingFaucet ? 'Adding token...' : 'Loading...'} />
+			) : (
+				<ChainList chains={faucetChains} onSelect={handleChainSelect} unclaimed={unclaimedChains} />
+			)}
+		</Modal>
+	)
 }

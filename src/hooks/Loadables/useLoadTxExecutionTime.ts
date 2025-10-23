@@ -9,7 +9,7 @@ const DEFAULT_ESTIMATE = '~15'
 export const useLoadTxExecutionTime = () => {
 	const { sourceChain, destinationChain } = useFormStore()
 	const { srcHash, dstHash, setExecutionTime } = useTxExecutionStore()
-	const { create } = usePublicClient() 
+	const { create } = usePublicClient()
 	const [isLoading, setIsLoading] = useState(false)
 
 	const fetchTransactions = async (srcClient: PublicClient, dstClient: PublicClient) => {

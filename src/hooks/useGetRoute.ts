@@ -60,7 +60,7 @@ export const useGetRoute = (): IRouteType | null => {
 
 	const rawAmount = BigInt(Number(fromAmount))
 
-	const route: IRouteType = {
+	const route: any = {
 		from: {
 			token: fromToken,
 			chain: fromChain,
