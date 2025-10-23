@@ -2,17 +2,11 @@ import { useQuery } from '@tanstack/react-query'
 import { useAccount } from 'wagmi'
 import { Address } from 'viem'
 
-type ClaimedFaucetsResponse = {
-	success: boolean
-	message: string
-	claimedChains?: number[]
-}
-
 const fetchClaimedChainsData = async (address: Address): Promise<number[]> => {
 	if (!address) return []
 
 	try {
-		const response = await fetch(`https://api.concero.io/api/faucet/${address}`, {
+		const response = await fetch(`https://api.v2.concero.io/api/v1/faucet/available-requests?address=${address}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -23,19 +17,19 @@ const fetchClaimedChainsData = async (address: Address): Promise<number[]> => {
 			throw new Error(`Error: ${response.status}`)
 		}
 
-		const data: ClaimedFaucetsResponse = await response.json()
-		return data.success && data.claimedChains ? data.claimedChains : []
+		const data = await response.json()
+		return Array.isArray(data?.payload?.available) ? data.payload.available : []
 	} catch (error) {
 		console.error('Failed to fetch claimed chains:', error)
 		return []
 	}
 }
 
-export const useClaimedFaucets = () => {
+export const useUnclaimedFaucets = () => {
 	const { address } = useAccount()
 
 	const {
-		data: claimedChains = [],
+		data: unclaimedChains = [],
 		isLoading,
 		refetch,
 	} = useQuery({
@@ -45,7 +39,7 @@ export const useClaimedFaucets = () => {
 	})
 
 	return {
-		claimedChains,
+		unclaimedChains,
 		isLoading,
 		refetch,
 	}
