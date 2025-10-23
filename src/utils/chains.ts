@@ -1,4 +1,3 @@
-import { create } from 'domain'
 import { fallback, FallbackTransportConfig, http, HttpTransport, isAddress } from 'viem'
 import { defineChain } from 'viem'
 import { Transport } from 'wagmi'
@@ -11,13 +10,13 @@ const CHAIN_LOGO_BASE_URL = 'https://api.v2.concero.io/static/chains'
  * Each type represents a different contract deployment
  */
 export enum DeploymentType {
-	usdc_e = 'usdc_e',
-	usdc = 'usdc',
-	bridge_lbf = 'bridge_lbf',
-	bridge_v2 = 'bridge_v2',
-	message_v2 = 'message_v2',
-	orchestrator = 'orchestrator',
-	message_v1 = 'message_v1',
+    usdc_e = 'usdc_e',
+    usdc = 'usdc',
+    bridge_lbf = 'bridge_lbf',
+    bridge_v2 = 'bridge_v2',
+    message_v2 = 'message_v2',
+    orchestrator = 'orchestrator',
+    message_v1 = 'message_v1',
 }
 
 /**
@@ -25,26 +24,26 @@ export enum DeploymentType {
  * Represents blockchain network information
  */
 export type ApiChain = {
-	id: number
-	is_testnet: boolean
-	allow_usage: boolean
-	name: string
-	ccip_selector: string | null
-	concero_selector: string | null
-	native_currency_decimals: number
-	native_currency_name: string
-	native_currency_symbol: string
-	explorer: string | null
-	rpcs: string[]
+    id: number
+    is_testnet: boolean
+    allow_usage: boolean
+    name: string
+    ccip_selector: string | null
+    concero_selector: string | null
+    native_currency_decimals: number
+    native_currency_name: string
+    native_currency_symbol: string
+    explorer: string | null
+    rpcs: string[]
 }
 
 /**
  * Contract deployment information for a specific chain
  */
 export type ApiChainDeployment = {
-	chain_id: number
-	type: DeploymentType
-	address: string
+    chain_id: number
+    type: DeploymentType
+    address: string
 }
 
 /**
@@ -52,8 +51,8 @@ export type ApiChainDeployment = {
  * Combines chain metadata with its deployments
  */
 export type ChainConfig = {
-	chain: ApiChain
-	deployments: ApiChainDeployment[]
+    chain: ApiChain
+    deployments: ApiChainDeployment[]
 }
 
 /**
@@ -61,22 +60,40 @@ export type ChainConfig = {
  * Simplified structure optimized for frontend consumption
  */
 export type ConceroChain = {
-	id: number
-	name: string
-	selector: bigint
-	logo: string
-	nativeCurrency: {
-		name: string
-		symbol: string
-		decimals: number
-	}
-	rpcUrls: { default: { http: string[] } }
-	explorer: string | null
-	testnet: boolean
-	contracts: {
-		usdc_e: string
-		bridge_lbf: string
-	}
+    id: number
+    name: string
+    selector: bigint
+    logo: string
+    nativeCurrency: {
+        name: string
+        symbol: string
+        decimals: number
+    }
+    rpcUrls: { default: { http: string[] } }
+    explorer: string | null
+    testnet: boolean
+    contracts: {
+        usdc_e: string
+        bridge_lbf: string
+    }
+}
+
+/**
+ * Converts camelCase chain names to readable format
+ *
+ * @param chainName - Chain name in camelCase format
+ * @returns Formatted chain name with proper spacing and capitalization
+ *
+ * @example
+ * parseChainName('monadTestnet')     // "Monad Testnet"
+ * parseChainName('arbitrumSepolia')  // "Arbitrum Sepolia"
+ */
+export const parseChainName = (chainName: string): string => {
+    return chainName
+        .replace(/([a-z])([A-Z])/g, '$1 $2')
+        .replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2')
+        .replace(/^./, match => match.toUpperCase())
+        .trim()
 }
 
 /**
@@ -87,19 +104,19 @@ export type ConceroChain = {
  * @throws Error if the API request fails
  *
  * @example
- * const chains = await fetchChainConfiguration(true)
+ * const chains = await getChains(true)
  */
 export const getChains = async (isTestnet = true) => {
-	const url = new URL('/api/v1/chains/configuration', API_BASE_URL)
-	url.searchParams.set('is_testnet', String(isTestnet))
+    const url = new URL('/api/v1/chains/configuration', API_BASE_URL)
+    url.searchParams.set('is_testnet', String(isTestnet))
 
-	const response = await fetch(url.toString())
+    const response = await fetch(url.toString())
 
-	if (!response.ok) {
-		throw new Error(`[Concero] Failed to fetch chain configuration: ${response.status} ${response.statusText}`)
-	}
+    if (!response.ok) {
+        throw new Error(`[Concero] Failed to fetch chain configuration: ${response.status} ${response.statusText}`)
+    }
 
-	return response.json()
+    return response.json()
 }
 
 /**
@@ -110,7 +127,7 @@ export const getChains = async (isTestnet = true) => {
  * @returns The deployment address if found, undefined otherwise
  */
 const findDeploymentAddress = (deployments: ApiChainDeployment[], type: DeploymentType): string | undefined => {
-	return deployments.find(d => d.type === type)?.address
+    return deployments.find(d => d.type === type)?.address
 }
 
 /**
@@ -121,7 +138,7 @@ const findDeploymentAddress = (deployments: ApiChainDeployment[], type: Deployme
  * @returns Filtered array of valid RPC URLs
  */
 const sanitizeRpcUrls = (rpcs: string[]): string[] => {
-	return Array.isArray(rpcs) ? rpcs.filter(Boolean) : []
+    return Array.isArray(rpcs) ? rpcs.filter(Boolean) : []
 }
 
 /**
@@ -136,39 +153,41 @@ const sanitizeRpcUrls = (rpcs: string[]): string[] => {
  * @returns Normalized ConceroChain object or null if validation fails
  *
  * @example
- * const chain = transformToApplicationChain(rawConfig)
+ * const chain = toConceroChain(rawConfig)
  * if (chain) {
  *   // Use the normalized chain
  * }
  */
 export const toConceroChain = (config: ChainConfig): ConceroChain | null => {
-	const usdcAddress = findDeploymentAddress(config.deployments, DeploymentType.usdc_e)
-	const bridgeAddress = findDeploymentAddress(config.deployments, DeploymentType.bridge_lbf)
-	const validRpcs = sanitizeRpcUrls(config.chain.rpcs)
+    const usdcAddress = findDeploymentAddress(config.deployments, DeploymentType.usdc_e)
+    const bridgeAddress = findDeploymentAddress(config.deployments, DeploymentType.bridge_lbf)
+    const validRpcs = sanitizeRpcUrls(config.chain.rpcs)
 
-	if (!usdcAddress || !bridgeAddress || validRpcs.length === 0) return null
-	if (!isAddress(usdcAddress) || !isAddress(bridgeAddress)) return null
+    if (!usdcAddress || !bridgeAddress || validRpcs.length === 0) return null
+    if (!isAddress(usdcAddress) || !isAddress(bridgeAddress)) return null
 
-	return {
-		id: Number(config.chain.id),
-		name: config.chain.name,
-		selector: config.chain.concero_selector ? BigInt(config.chain.concero_selector) : 0n,
-		logo: `${CHAIN_LOGO_BASE_URL}/${config.chain.id}.svg`,
-		nativeCurrency: {
-			name: config.chain.native_currency_name,
-			symbol: config.chain.native_currency_symbol,
-			decimals: config.chain.native_currency_decimals,
-		},
-		rpcUrls: {
-			default: { http: validRpcs },
-		},
-		explorer: config.chain.explorer,
-		testnet: config.chain.is_testnet,
-		contracts: {
-			usdc_e: usdcAddress,
-			bridge_lbf: bridgeAddress,
-		},
-	}
+    const displayName = parseChainName(config.chain.name)
+
+    return {
+        id: Number(config.chain.id),
+        name: displayName,
+        selector: config.chain.concero_selector ? BigInt(config.chain.concero_selector) : 0n,
+        logo: `${CHAIN_LOGO_BASE_URL}/${config.chain.id}.svg`,
+        nativeCurrency: {
+            name: config.chain.native_currency_name,
+            symbol: config.chain.native_currency_symbol,
+            decimals: config.chain.native_currency_decimals,
+        },
+        rpcUrls: {
+            default: { http: validRpcs },
+        },
+        explorer: config.chain.explorer,
+        testnet: config.chain.is_testnet,
+        contracts: {
+            usdc_e: usdcAddress,
+            bridge_lbf: bridgeAddress,
+        },
+    }
 }
 
 /**
@@ -179,16 +198,16 @@ export const toConceroChain = (config: ChainConfig): ConceroChain | null => {
  * @returns Array of valid ConceroChain objects
  *
  * @example
- * const normalizedChains = transformToApplicationChains(apiResponse.payload.items)
+ * const normalizedChains = toConceroChains(apiResponse.payload.items)
  */
 export const toConceroChains = (configs: ChainConfig[]): ConceroChain[] => {
-	return configs.reduce<ConceroChain[]>((validChains, config) => {
-		const chain = toConceroChain(config)
-		if (chain) {
-			validChains.push(chain)
-		}
-		return validChains
-	}, [])
+    return configs.reduce<ConceroChain[]>((validChains, config) => {
+        const chain = toConceroChain(config)
+        if (chain) {
+            validChains.push(chain)
+        }
+        return validChains
+    }, [])
 }
 
 /**
@@ -203,29 +222,21 @@ export const toConceroChains = (configs: ChainConfig[]): ConceroChain[] => {
  * const client = createPublicClient({ chain: viemChain })
  */
 export const convertToViemChain = (chain: ConceroChain) => {
-	return {
-		id: chain.id,
-		name: chain.name,
-		nativeCurrency: {
-			name: chain.nativeCurrency.name,
-			symbol: chain.nativeCurrency.symbol,
-			decimals: chain.nativeCurrency.decimals,
-		},
-		rpcUrls: {
-			default: {
-				http: chain.rpcUrls.default.http.filter(Boolean),
-			},
-		},
-		blockExplorers: chain.explorer
-			? {
-					default: {
-						name: `${chain.name} Explorer`,
-						url: chain.explorer,
-					},
-				}
-			: undefined,
-		testnet: chain.testnet,
-	}
+    return {
+        id: chain.id,
+        name: chain.name,
+        nativeCurrency: {
+            name: chain.nativeCurrency.name,
+            symbol: chain.nativeCurrency.symbol,
+            decimals: chain.nativeCurrency.decimals,
+        },
+        rpcUrls: {
+            default: {
+                http: chain.rpcUrls.default.http.filter(Boolean),
+            },
+        },
+        testnet: chain.testnet,
+    }
 }
 
 /**
@@ -239,48 +250,69 @@ export const convertToViemChain = (chain: ConceroChain) => {
  * const viemChains = convertToViemChains(conceroChains)
  * const wagmiConfig = createConfig({ chains: viemChains })
  */
-
 export const convertToViemChains = (chains: ConceroChain[]): ReturnType<typeof defineChain>[] => {
-	return chains.map(chain =>
-		defineChain({
-			id: chain.id,
-			name: chain.name,
-			nativeCurrency: {
-				name: chain.nativeCurrency.name,
-				symbol: chain.nativeCurrency.symbol,
-				decimals: chain.nativeCurrency.decimals,
-			},
-			rpcUrls: {
-				default: {
-					http: chain.rpcUrls.default.http.filter(Boolean),
-				},
-			},
-			testnet: chain.testnet,
-		}),
-	)
+    return chains.map(chain =>
+        defineChain({
+            id: chain.id,
+            name: chain.name,
+            nativeCurrency: {
+                name: chain.nativeCurrency.name,
+                symbol: chain.nativeCurrency.symbol,
+                decimals: chain.nativeCurrency.decimals,
+            },
+            rpcUrls: {
+                default: {
+                    http: chain.rpcUrls.default.http.filter(Boolean),
+                },
+            },
+            testnet: chain.testnet,
+        }),
+    )
 }
 
+/**
+ * Creates an HTTP transport for a single RPC URL
+ * Enables batch request optimization for improved performance
+ *
+ * @param url - RPC endpoint URL
+ * @returns Configured HTTP transport with batching enabled
+ */
 const createHTTP = (url: string): HttpTransport => {
-	return http(url, {
-		batch: true
-	})
+    return http(url, {
+        batch: true,
+    })
 }
 
+/**
+ * Creates a fallback transport with multiple RPC endpoints
+ * Provides automatic failover and retry logic for increased reliability
+ *
+ * @param urls - Array of RPC endpoint URLs
+ * @param options - Optional transport configuration overrides
+ * @returns Configured fallback transport
+ */
 const createFallback = (urls: string[], options?: Partial<FallbackTransportConfig>): Transport => {
-	return fallback(
-		urls.map(url => createHTTP(url)),
-		{
-			retryCount: 10,
-        	retryDelay: 1000,
-			...options,
-		},
-	)
+    return fallback(urls.map(url => createHTTP(url)), {
+        retryCount: 10,
+        retryDelay: 1000,
+        ...options,
+    })
 }
 
-export const createTransports = (chains: ConceroChain[]) => {
-	const transports: Record<number, Transport> = {}
-	chains.forEach(chain => {
-		transports[chain.id] = createFallback(chain.rpcUrls.default.http)	
-	})
-	return transports
+/**
+ * Creates transport configurations for all provided chains
+ * Maps chain IDs to their respective fallback transports
+ *
+ * @param chains - Array of ConceroChain objects
+ * @returns Record mapping chain IDs to their transport configurations
+ *
+ * @example
+ * const transports = createTransports(conceroChains)
+ * const config = createConfig({ chains: viemChains, transports })
+ */
+export const createTransports = (chains: ConceroChain[]): Record<number, Transport> => {
+    return chains.reduce<Record<number, Transport>>((transports, chain) => {
+        transports[chain.id] = createFallback(chain.rpcUrls.default.http)
+        return transports
+    }, {})
 }

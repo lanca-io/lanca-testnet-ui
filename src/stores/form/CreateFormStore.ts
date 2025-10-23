@@ -5,7 +5,7 @@ import type { Address } from 'viem'
 
 const defaultSourceChain: ConceroChain = {
 	id: 43113,
-	name: 'avalancheFuji',
+	name: 'Avalanche Fuji',
 	selector: 43113n,
 	logo: 'https://api.v2.concero.io/static/chains/43113.svg',
 	nativeCurrency: {
@@ -34,7 +34,7 @@ const defaultSourceChain: ConceroChain = {
 
 const defaultDestinationChain: ConceroChain = {
 	id: 421614,
-	name: 'arbitrumSepolia',
+	name: 'Arbitrum Sepolia',
 	selector: 421614n,
 	logo: 'https://api.v2.concero.io/static/chains/421614.svg',
 	nativeCurrency: {
