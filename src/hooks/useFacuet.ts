@@ -1,10 +1,8 @@
 import { useState, useCallback } from 'react'
 import { Address } from 'viem'
 import { useAccount } from 'wagmi'
-import { useLoadBalances } from './Loadables/useLoadBalances'
 import { TokenEvents } from '@/events/events'
 import { useTrackEvent } from './useTrackEvent'
-import { chainNames } from '@/stores/chains/ChainInfo'
 
 type FaucetResponse = {
 	success: boolean
@@ -50,7 +48,6 @@ export const useFaucet = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const [txHash, setTxHash] = useState<string | null>(null)
 	const [error, setError] = useState<string | null>(null)
-	const { refetchChains } = useLoadBalances()
 
 	const { trackEvent } = useTrackEvent()
 
@@ -71,7 +68,6 @@ export const useFaucet = () => {
 						...TokenEvents.CLAIM_FAILED,
 						data: {
 							chainId: chainId.toString(),
-							chainName: chainNames[chainId],
 							error: response.message || 'Unknown error',
 						},
 					})
@@ -87,11 +83,9 @@ export const useFaucet = () => {
 					...TokenEvents.CLAIM_SUCCESSFUL,
 					data: {
 						chainId: chainId.toString(),
-						chainName: chainNames[chainId],
 						txHash: response.txHash,
 					},
 				})
-				await refetchChains([chainId])
 				return true
 			} catch (err) {
 				setError('Error, please try again')
@@ -100,7 +94,7 @@ export const useFaucet = () => {
 				setIsLoading(false)
 			}
 		},
-		[address, refetchChains],
+		[address],
 	)
 
 	return {

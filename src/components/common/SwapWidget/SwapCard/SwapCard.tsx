@@ -11,7 +11,6 @@ import { useBalancesStore } from '@/stores/balances/useBalancesStore'
 import { useAccount } from 'wagmi'
 import './SwapCard.pcss'
 
-
 export const SwapCard: FC = memo(() => {
 	const { open } = useAppKit()
 	const { isConnected } = useAccount()
@@ -24,18 +23,17 @@ export const SwapCard: FC = memo(() => {
 
 	const [isExecuting, setIsExecuting] = useState<boolean>(false)
 
-const isDisabled = useMemo(
-	() =>
-		isConnected && (
-			!!error ||
-			!fromAmount ||
-			fromAmount === '0' ||
-			fromAmount === '' ||
-			fromBalanceLoading ||
-			toBalanceLoading
-		),
-	[error, fromAmount, isConnected, fromBalanceLoading, toBalanceLoading],
-)
+	const isDisabled = useMemo(
+		() =>
+			isConnected &&
+			(!!error ||
+				!fromAmount ||
+				fromAmount === '0' ||
+				fromAmount === '' ||
+				fromBalanceLoading ||
+				toBalanceLoading),
+		[error, fromAmount, isConnected, fromBalanceLoading, toBalanceLoading],
+	)
 
 	const handleClick = useCallback(async () => {
 		if (!isConnected) {

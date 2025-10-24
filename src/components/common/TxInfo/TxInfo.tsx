@@ -24,7 +24,7 @@ export const TxInfo: FC = memo((): JSX.Element => {
 						<SkeletonLoader width={55} height={20} />
 					) : (
 						<p className="tx_info_item_text_value" data-testid="gas-value">
-							{` ${format(Number(formattedGas), 2)} ${sourceChain?.nativeToken}`}
+							{` ${format(Number(formattedGas), 2)} ${sourceChain?.nativeCurrency.symbol}`}
 						</p>
 					)}
 				</div>

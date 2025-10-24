@@ -1,14 +1,16 @@
 import type { Address } from 'viem'
 import { useAccount } from 'wagmi'
 import { useFormStore } from '@/stores/form/useFormStore'
-import { getPublicClient } from '@/utils/client'
+import { usePublicClient } from './usePublicClient'
 import { useQuery } from '@tanstack/react-query'
-import { ContractAddresses } from '@/configuration/addresses'
 import { LBFABI } from '@/assets/abi/LBFABI'
+import { useChainsStore } from '@/stores/chains/useChainsStore'
 
 export const useGetFees = () => {
 	const { address } = useAccount()
+	const { chains } = useChainsStore()
 	const { sourceChain, destinationChain, fromAmount } = useFormStore()
+	const { create } = usePublicClient()
 
 	const fetchFee = async (): Promise<bigint> => {
 		if (!sourceChain || !destinationChain || !fromAmount || fromAmount === '0') {
@@ -17,8 +19,8 @@ export const useGetFees = () => {
 
 		try {
 			const sourceChainId = Number(sourceChain.id)
-			const client = getPublicClient(sourceChainId)
-			const contractAddress = ContractAddresses[sourceChain.id]
+			const client = create(sourceChainId)
+			const contractAddress = chains[sourceChainId]?.contracts.bridge_lbf
 
 			if (!contractAddress) {
 				return BigInt(0)

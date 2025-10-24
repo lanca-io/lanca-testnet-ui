@@ -7,7 +7,7 @@ export const PosthogProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
 	const options: Partial<PostHogConfig> = {
 		api_host: posthog_domain,
 		autocapture: false,
-		disable_session_recording: true
+		disable_session_recording: true,
 	}
 
 	return (

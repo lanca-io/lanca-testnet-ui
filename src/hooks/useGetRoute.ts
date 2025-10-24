@@ -1,9 +1,9 @@
-import { IRouteType, StepType } from '@lanca/sdk'
+import { ILancaChain, StepType } from '@lanca/sdk'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { Address } from 'viem'
 import { useGetFees } from './useGetFees'
 
-export const useGetRoute = (): IRouteType | null => {
+export const useGetRoute = () => {
 	const { sourceChain, destinationChain, fromTokenAddress, toTokenAddress, fromAmount } = useFormStore()
 	const { fee, isLoading } = useGetFees()
 
@@ -42,20 +42,25 @@ export const useGetRoute = (): IRouteType | null => {
 		name,
 	})
 
-	const fromToken = createTokenData(fromTokenAddress, fromChainId, '/Token/USDC.png', 'USDC', 'USDC')
-	const toToken = createTokenData(toTokenAddress, toChainId, '/Token/USDC.png', 'USDC', 'USDC')
+	const fromToken = createTokenData(fromTokenAddress, String(fromChainId), '/Token/USDC.png', 'USDC', 'USDC')
+	const toToken = createTokenData(toTokenAddress, String(toChainId), '/Token/USDC.png', 'USDC', 'USDC')
 
-	const fromChain = createChainData(fromChainId, sourceChain.explorerURL, sourceChain.logoURL, sourceChain.name)
-	const toChain = createChainData(
-		toChainId,
-		destinationChain.explorerURL,
-		destinationChain.logoURL,
+	const fromChain: ILancaChain = createChainData(
+		String(fromChainId),
+		sourceChain.explorer || '',
+		sourceChain.logo,
+		sourceChain.name,
+	)
+	const toChain: ILancaChain = createChainData(
+		String(toChainId),
+		destinationChain.explorer || '',
+		destinationChain.logo,
 		destinationChain.name,
 	)
 
 	const rawAmount = BigInt(Number(fromAmount))
 
-	const route: IRouteType = {
+	const route = {
 		from: {
 			token: fromToken,
 			chain: fromChain,

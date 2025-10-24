@@ -8,8 +8,14 @@ export const useChainsStore = () => {
 	}
 
 	const chains = useStore(state => state.chains)
+	const loading = useStore(state => state.loading)
+	const setChains = useStore(state => state.setChains)
+	const setLoading = useStore(state => state.setLoading)
 
 	return {
 		chains,
+		loading,
+		setChains,
+		setLoading,
 	}
 }

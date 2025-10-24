@@ -64,8 +64,6 @@ export const useInputError = () => {
 					return false
 				}
 
-				console.log(inAmount)
-
 				return true
 			} catch {
 				return true

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useFormStore } from '@/stores/form/useFormStore'
 import { useTxExecutionStore } from '@/stores/tx-execution/useTxExecutionStore'
-import { getPublicClient } from '@/utils/client'
+import { usePublicClient } from '../usePublicClient'
 import { Hash, PublicClient } from 'viem'
 
 const DEFAULT_ESTIMATE = '~15'
@@ -9,6 +9,7 @@ const DEFAULT_ESTIMATE = '~15'
 export const useLoadTxExecutionTime = () => {
 	const { sourceChain, destinationChain } = useFormStore()
 	const { srcHash, dstHash, setExecutionTime } = useTxExecutionStore()
+	const { create } = usePublicClient()
 	const [isLoading, setIsLoading] = useState(false)
 
 	const fetchTransactions = async (srcClient: PublicClient, dstClient: PublicClient) => {
@@ -69,8 +70,8 @@ export const useLoadTxExecutionTime = () => {
 		setIsLoading(true)
 
 		try {
-			const srcClient = getPublicClient(Number(sourceChain.id)) as PublicClient
-			const dstClient = getPublicClient(Number(destinationChain.id)) as PublicClient
+			const srcClient = create(Number(sourceChain.id)) as PublicClient
+			const dstClient = create(Number(destinationChain.id)) as PublicClient
 
 			const txData = await fetchTransactions(srcClient, dstClient)
 			if (!txData) {

@@ -1,17 +1,17 @@
 import type { FC } from 'react'
-import type { Chain } from '@/stores/chains/types'
+import type { ConceroChain } from '@/stores/chains/types'
 import { Badge } from '../Badge/Badge'
 import { RightIcon } from '@/assets/icons/right'
 import { useMemo, memo } from 'react'
 import './ChainSelector.pcss'
 
 type ChainDisplayProps = {
-	chain: Chain | null
+	chain: ConceroChain | null
 }
 
 type ChainSelectorProps = {
 	openModal: () => void
-	chain: Chain | null
+	chain: ConceroChain | null
 }
 
 const TokenDisplay: FC = memo((): JSX.Element => {
@@ -26,7 +26,7 @@ const TokenDisplay: FC = memo((): JSX.Element => {
 const ChainDisplay: FC<ChainDisplayProps> = memo(({ chain }): JSX.Element => {
 	return (
 		<div className="chain_selector_chain">
-			<Badge logoURL={chain?.logoURL} size="m" />
+			<Badge logoURL={chain?.logo} size="m" />
 			<p className="chain_selector_chain_name">{chain?.name}</p>
 		</div>
 	)

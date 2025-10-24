@@ -1,6 +1,6 @@
 import type { FC, ChangeEvent } from 'react'
 import type { AssetModalProps } from './types'
-import type { Chain } from '@/stores/chains/types'
+import type { ConceroChain } from '@/stores/chains/types'
 import type { Address } from 'viem'
 import { useState, useCallback, memo } from 'react'
 import { Modal } from '../Modal/Modal'
@@ -10,15 +10,16 @@ import { ChainMenu } from './ChainMenu/ChainMenu'
 import { Button } from '@concero/ui-kit'
 import { ActiveTab } from './types'
 import { useModalStore } from '@/stores/modals/useModalsStore'
+import { useChainsStore } from '@/stores/chains/useChainsStore'
 import { useFormStore } from '@/stores/form/useFormStore'
-import { TokenAddresses } from '@/configuration/addresses'
 import './AssetModal.pcss'
 
 export const AssetModal: FC<AssetModalProps> = memo(
 	({ title, isOpen, isSrcModal, direction, onClose }): JSX.Element => {
+		const { chains } = useChainsStore()
 		const { isFaucetModalOpen, openFaucetModal } = useModalStore()
 		const { setSourceChain, setDestinationChain, setFromTokenAddress, setToTokenAddress } = useFormStore()
-		const [activeTab, setActiveTab] = useState<ActiveTab>(ActiveTab.All)
+		const [activeTab,] = useState<ActiveTab>(ActiveTab.All)
 		const [searchInput, setSearchInput] = useState<string>('')
 
 		const handleSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
@@ -26,14 +27,14 @@ export const AssetModal: FC<AssetModalProps> = memo(
 		}, [])
 
 		const handleChainSelect = useCallback(
-			(chain: Chain) => {
+			(chain: ConceroChain) => {
 				if (isSrcModal) {
 					setSourceChain(chain)
-					const tokenAddress = TokenAddresses[chain.id]
+					const tokenAddress = chains[chain.id]?.contracts.usdc_e
 					setFromTokenAddress(tokenAddress as Address)
 				} else {
 					setDestinationChain(chain)
-					const tokenAddress = TokenAddresses[chain.id]
+					const tokenAddress = chains[chain.id]?.contracts.usdc_e
 					setToTokenAddress(tokenAddress as Address)
 				}
 				onClose()

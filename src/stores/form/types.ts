@@ -1,11 +1,11 @@
 import type { UseBoundStoreWithEqualityFn } from 'zustand/traditional'
 import type { StoreApi } from 'zustand/vanilla'
-import type { Chain } from '../chains/types'
+import type { ConceroChain } from '../chains/types'
 import type { Address } from 'viem'
 
 export type FormState = {
-	sourceChain: Chain | null
-	destinationChain: Chain | null
+	sourceChain: ConceroChain | null
+	destinationChain: ConceroChain | null
 	fromTokenAddress: Address
 	toTokenAddress: Address
 	fromAmount: string
@@ -14,8 +14,8 @@ export type FormState = {
 }
 
 export interface FormActions {
-	setSourceChain: (chain: Chain) => void
-	setDestinationChain: (chain: Chain) => void
+	setSourceChain: (chain: ConceroChain) => void
+	setDestinationChain: (chain: ConceroChain) => void
 	setFromAmount: (amount: string) => void
 	setLoading: (isLoading: boolean) => void
 	setFromTokenAddress: (address: Address) => void

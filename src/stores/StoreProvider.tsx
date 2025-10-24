@@ -11,9 +11,7 @@ export const StoreProvider: FC<PropsWithChildren<{}>> = ({ children }): JSX.Elem
 			<BalancesStoreProvider>
 				<FormStoreProvider>
 					<ModalsStoreProvider>
-						<TxExecutionStoreProvider>
-							{children}
-						</TxExecutionStoreProvider>
+						<TxExecutionStoreProvider>{children}</TxExecutionStoreProvider>
 					</ModalsStoreProvider>
 				</FormStoreProvider>
 			</BalancesStoreProvider>

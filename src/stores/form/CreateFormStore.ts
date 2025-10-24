@@ -1,39 +1,73 @@
-import type { FormState, FormStore, FormActions } from './types'
-import type { Chain } from '../chains/types'
-import type { Address } from 'viem'
-import { chainSelectors } from '../chains/ChainInfo'
 import { createWithEqualityFn } from 'zustand/traditional'
+import type { FormState, FormStore, FormActions } from './types'
+import type { ConceroChain } from '../chains/types'
+import type { Address } from 'viem'
 
-const defaultSourceChain: Chain = {
-	id: '43113',
-	name: 'Fuji',
-	logoURL: '/Chains/43113.svg',
-	explorerURL: 'https://testnet.snowtrace.io',
-	nativeToken: 'AVAX',
-	decimals: 18,
-	selector: chainSelectors[43113],
-	hasUSDCFaucet: true,
-	disabledLogoURL: '/Chains/Disabled/43113.svg',
+const defaultSourceChain: ConceroChain = {
+	id: 43113,
+	name: 'Avalanche Fuji',
+	selector: 43113n,
+	logo: 'https://api.v2.concero.io/static/chains/43113.svg',
+	nativeCurrency: {
+		name: 'Avalanche Fuji',
+		symbol: 'AVAX',
+		decimals: 18,
+	},
+	rpcUrls: {
+		default: {
+			http: [
+				'https://api.avax-test.network/ext/bc/C/rpc',
+				'https://avalanche-fuji-c-chain-rpc.publicnode.com',
+				'https://avalanche-fuji.drpc.org',
+				'https://ava-testnet.public.blastapi.io/ext/bc/C/rpc',
+				'https://avalanche-fuji.therpc.io',
+			],
+		},
+	},
+	explorer: 'https://testnet.snowtrace.io',
+	testnet: true,
+	contracts: {
+		usdc_e: '0x855F39BAAcAF30D7dE448542316A889ee4db4DDb',
+		bridge_lbf: '0xBa9B28540836d1037762cF74494cA48331F3b9AD',
+	},
 }
 
-const defaultDestinationChain: Chain = {
-	id: '421614',
-	name: 'Arbitrum',
-	logoURL: '/Chains/421614.svg',
-	explorerURL: 'https://sepolia.arbiscan.io',
-	nativeToken: 'ETH',
-	decimals: 18,
-	selector: chainSelectors[421614],
-	hasUSDCFaucet: true,
-	disabledLogoURL: '/Chains/Disabled/421614.svg',
+const defaultDestinationChain: ConceroChain = {
+	id: 421614,
+	name: 'Arbitrum Sepolia',
+	selector: 421614n,
+	logo: 'https://api.v2.concero.io/static/chains/421614.svg',
+	nativeCurrency: {
+		name: 'ETH',
+		symbol: 'ETH',
+		decimals: 18,
+	},
+	rpcUrls: {
+		default: {
+			http: [
+				'https://sepolia-rollup.arbitrum.io/rpc',
+				'https://arbitrum-sepolia.gateway.tenderly.co',
+				'https://arbitrum-sepolia.drpc.org',
+				'https://arbitrum-sepolia-rpc.publicnode.com',
+				'https://arbitrum-sepolia.api.onfinality.io/public',
+				'https://arbitrum-sepolia.therpc.io',
+			],
+		},
+	},
+	explorer: 'https://sepolia.arbiscan.io',
+	testnet: true,
+	contracts: {
+		usdc_e: '0xEFc3Ac3bCB37f0f26eFDE1e1b06609Bdff690604',
+		bridge_lbf: '0x4447B927F7a9C386DA37cD4a4aa228e0F550309E',
+	},
 }
 
 const initialState: FormState = {
 	sourceChain: defaultSourceChain,
 	destinationChain: defaultDestinationChain,
 	fromAmount: '',
-	fromTokenAddress: '0x855F39BAAcAF30D7dE448542316A889ee4db4DDb',
-	toTokenAddress: '0xEFc3Ac3bCB37f0f26eFDE1e1b06609Bdff690604',
+	fromTokenAddress: defaultSourceChain.contracts.usdc_e as Address,
+	toTokenAddress: defaultDestinationChain.contracts.usdc_e as Address,
 	isLoading: false,
 	error: null,
 }
@@ -42,8 +76,8 @@ export const CreateFormStore = (): FormStore => {
 	return createWithEqualityFn<FormState & FormActions>(
 		(set, get) => ({
 			...initialState,
-			setSourceChain: (chain: Chain) => set({ sourceChain: chain }),
-			setDestinationChain: (chain: Chain) => set({ destinationChain: chain }),
+			setSourceChain: (chain: ConceroChain) => set({ sourceChain: chain }),
+			setDestinationChain: (chain: ConceroChain) => set({ destinationChain: chain }),
 			setFromAmount: (amount: string) => {
 				set({ fromAmount: amount })
 			},
