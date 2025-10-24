@@ -44,7 +44,7 @@ export const ChainMenu: FC<ChainMenuProps> = memo(
 			<div className="scroll_content">
 				<div className="chain_menu">
 					{filteredChains.length > 0 ? (
-						filteredChains.map((chain: any) => (
+						filteredChains.map((chain) => (
 							<ChainItem
 								key={chain.id}
 								chain={chain}

@@ -19,7 +19,7 @@ export const AssetModal: FC<AssetModalProps> = memo(
 		const { chains } = useChainsStore()
 		const { isFaucetModalOpen, openFaucetModal } = useModalStore()
 		const { setSourceChain, setDestinationChain, setFromTokenAddress, setToTokenAddress } = useFormStore()
-		const [activeTab, setActiveTab] = useState<ActiveTab>(ActiveTab.All)
+		const [activeTab,] = useState<ActiveTab>(ActiveTab.All)
 		const [searchInput, setSearchInput] = useState<string>('')
 
 		const handleSearchChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
