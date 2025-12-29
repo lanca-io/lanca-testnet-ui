@@ -27,7 +27,7 @@ const defaultSourceChain: ConceroChain = {
 	explorer: 'https://testnet.snowtrace.io',
 	testnet: true,
 	contracts: {
-		usdc_e: '0x855F39BAAcAF30D7dE448542316A889ee4db4DDb',
+		usdc_e: '0x796492c07df889bDe1C99aa2Ca1B099a55a50613',
 		bridge_lbf: '0xBa9B28540836d1037762cF74494cA48331F3b9AD',
 	},
 }
@@ -57,8 +57,8 @@ const defaultDestinationChain: ConceroChain = {
 	explorer: 'https://sepolia.arbiscan.io',
 	testnet: true,
 	contracts: {
-		usdc_e: '0xEFc3Ac3bCB37f0f26eFDE1e1b06609Bdff690604',
-		bridge_lbf: '0x4447B927F7a9C386DA37cD4a4aa228e0F550309E',
+		usdc_e: '0x575ddc76EA5e6909ed5FF690ba7088ecf90D1D86',
+		bridge_lbf: '0xC78E5317d401e2E17B78Bc771CA131C99deE36C0',
 	},
 }
 
