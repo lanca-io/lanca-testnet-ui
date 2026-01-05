@@ -28,7 +28,7 @@ const defaultSourceChain: ConceroChain = {
 	testnet: true,
 	contracts: {
 		usdc_e: '0x796492c07df889bDe1C99aa2Ca1B099a55a50613',
-		bridge_lbf: '0xBa9B28540836d1037762cF74494cA48331F3b9AD',
+		bridge_lbf: '0x70aeC5280C2226456A2a0eeD80627699A215a580',
 	},
 }
 
@@ -58,7 +58,7 @@ const defaultDestinationChain: ConceroChain = {
 	testnet: true,
 	contracts: {
 		usdc_e: '0x575ddc76EA5e6909ed5FF690ba7088ecf90D1D86',
-		bridge_lbf: '0xC78E5317d401e2E17B78Bc771CA131C99deE36C0',
+		bridge_lbf: '0x3539E43970cc7A73E0618a2fB335326ffACCD82C',
 	},
 }
 
