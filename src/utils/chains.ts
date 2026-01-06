@@ -2,8 +2,8 @@ import { fallback, FallbackTransportConfig, http, HttpTransport, isAddress } fro
 import { defineChain } from 'viem'
 import { Transport } from 'wagmi'
 
-const API_BASE_URL = 'https://dev.concero.io'
-const CHAIN_LOGO_BASE_URL = 'https://dev.concero.io/static/chains'
+const API_BASE_URL = 'https://api.v2.concero.io'
+const CHAIN_LOGO_BASE_URL = 'https://api.v2.concero.io/static/chains'
 
 /**
  * Deployment types available in the Concero ecosystem

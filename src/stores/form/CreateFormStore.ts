@@ -7,7 +7,7 @@ const defaultSourceChain: ConceroChain = {
 	id: 43113,
 	name: 'Avalanche Fuji',
 	selector: 43113n,
-	logo: 'https://dev.concero.io/static/chains/43113.svg',
+	logo: 'https://api.v2.concero.io/static/chains/43113.svg',
 	nativeCurrency: {
 		name: 'Avalanche Fuji',
 		symbol: 'AVAX',
@@ -36,7 +36,7 @@ const defaultDestinationChain: ConceroChain = {
 	id: 421614,
 	name: 'Arbitrum Sepolia',
 	selector: 421614n,
-	logo: 'https://dev.concero.io/static/chains/421614.svg',
+	logo: 'https://api.v2.concero.io/static/chains/421614.svg',
 	nativeCurrency: {
 		name: 'ETH',
 		symbol: 'ETH',

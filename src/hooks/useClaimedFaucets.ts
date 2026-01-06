@@ -6,7 +6,7 @@ const fetchClaimedChainsData = async (address: Address): Promise<number[]> => {
 	if (!address) return []
 
 	try {
-		const response = await fetch(`https://dev.concero.io/api/v1/faucet/available-requests?address=${address}`, {
+		const response = await fetch(`https://api.v2.concero.io/api/v1/faucet/available-requests?address=${address}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
