@@ -59,7 +59,7 @@ export const useInputError = () => {
 					return false
 				}
 
-				if (inAmount < 100n * 10n ** 6n) {
+				if (inAmount < 2000n) {
 					setError('Amount is too low')
 					return false
 				}
